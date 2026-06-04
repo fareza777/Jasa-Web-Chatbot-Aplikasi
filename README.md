@@ -1,6 +1,6 @@
-# Dashboard Listing Jasa Digital
+# Premium Digital Service Website
 
-Aplikasi React satu halaman untuk mengelola listing produk digital UMKM: chatbot WhatsApp, landing page, aplikasi Android, dan paket combo.
+Aplikasi React satu halaman untuk mempresentasikan jasa digital premium: website, AI chatbot WhatsApp, aplikasi mobile, dan paket growth stack. Halaman utama memakai konfigurator paket interaktif untuk menyesuaikan kebutuhan seperti jumlah halaman website, gaya visual, fitur chatbot, modul aplikasi, dan add-on penawaran.
 
 ## Cara Menjalankan
 
@@ -17,13 +17,13 @@ npm run build
 
 ## Struktur Proyek
 
-- `src/App.jsx` - state utama, integrasi localStorage, dan alur modal.
-- `src/components/` - komponen dashboard, kartu produk, modal form, loading, empty, dan error state.
-- `src/data/initialProducts.js` - data awal 4 paket produk.
-- `src/utils/` - helper localStorage dan formatter listing Tokopedia.
+- `src/App.jsx` - entry utama aplikasi.
+- `src/components/PremiumStudio.jsx` - landing page premium dan konfigurator paket.
+- `src/data/serviceCatalog.js` - data layanan, opsi konfigurasi, timeline, dan harga.
+- `src/utils/formatters.js` - formatter harga Rupiah.
 
 ## Asumsi
 
-- Data awal disimpan ke `localStorage` hanya saat storage masih kosong.
-- Preview Tokopedia dibuat dari data form terbaru dan diformat sebagai teks sederhana.
-- Tidak ada backend atau database karena seluruh state dikelola di browser.
+- Estimasi harga bersifat simulasi awal untuk membantu konsultasi.
+- Konfigurator berjalan di browser tanpa backend.
+- Paket dibuat generik agar tidak menampilkan nama personal di halaman utama.

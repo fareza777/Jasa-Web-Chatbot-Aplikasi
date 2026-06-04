@@ -1,0 +1,1649 @@
+import {
+  ArrowRight,
+  Bot,
+  BriefcaseBusiness,
+  Calculator,
+  Check,
+  CheckCircle2,
+  ChevronDown,
+  ClipboardCheck,
+  Code2,
+  Copy,
+  Globe2,
+  Layers3,
+  MessageCircle,
+  MonitorSmartphone,
+  Play,
+  Quote,
+  ScrollText,
+  ShieldCheck,
+  Smartphone,
+  Sparkles,
+  Target,
+  TrendingUp,
+  X,
+  Zap,
+} from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import {
+  exampleBuilds,
+  credibilitySignals,
+  goals,
+  industries,
+  serviceCatalog,
+  serviceOutcomes,
+  testimonials,
+  visualThemes,
+} from "../data/serviceCatalog";
+import { formatRupiah } from "../utils/formatters";
+
+const serviceIcons = {
+  website: Globe2,
+  chatbot: Bot,
+  "mobile-app": Smartphone,
+  "growth-stack": Layers3,
+};
+
+const sectionLinks = [
+  ["services", "Layanan"],
+  ["configurator", "Konfigurator"],
+  ["work", "Output"],
+  ["proof", "Skenario"],
+  ["process", "Proses"],
+  ["faq", "FAQ"],
+];
+
+function createInitialConfig(service) {
+  return Object.fromEntries(
+    service.options.map((option) => [
+      option.id,
+      option.type === "multi" ? [] : option.choices[0].value,
+    ]),
+  );
+}
+
+function getSelectedChoice(option, value) {
+  return option.choices.find((choice) => choice.value === value) || option.choices[0];
+}
+
+function scrollToSection(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+export default function PremiumStudio() {
+  const [activeServiceId, setActiveServiceId] = useState(serviceCatalog[0].id);
+  const [selectedIndustryId, setSelectedIndustryId] = useState(industries[0].id);
+  const [selectedGoalId, setSelectedGoalId] = useState(goals[0].id);
+  const [selectedThemeId, setSelectedThemeId] = useState(visualThemes[0].id);
+  const [proposalOpen, setProposalOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [configs, setConfigs] = useState(() =>
+    Object.fromEntries(
+      serviceCatalog.map((service) => [service.id, createInitialConfig(service)]),
+    ),
+  );
+
+  const activeService =
+    serviceCatalog.find((service) => service.id === activeServiceId) || serviceCatalog[0];
+  const activeConfig = configs[activeService.id];
+  const selectedIndustry =
+    industries.find((industry) => industry.id === selectedIndustryId) || industries[0];
+  const selectedGoal = goals.find((goal) => goal.id === selectedGoalId) || goals[0];
+  const selectedTheme =
+    visualThemes.find((theme) => theme.id === selectedThemeId) || visualThemes[0];
+
+  useEffect(() => {
+    function updateScrollProgress() {
+      const scrollableHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollableHeight
+        ? (window.scrollY / scrollableHeight) * 100
+        : 0;
+      setScrollProgress(Math.min(100, Math.max(0, progress)));
+    }
+
+    updateScrollProgress();
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+    window.addEventListener("resize", updateScrollProgress);
+
+    return () => {
+      window.removeEventListener("scroll", updateScrollProgress);
+      window.removeEventListener("resize", updateScrollProgress);
+    };
+  }, []);
+
+  const quote = useMemo(() => {
+    const optionTotal = activeService.options.reduce((total, option) => {
+      if (option.type === "multi") {
+        return (
+          total +
+          activeConfig[option.id].reduce((sum, value) => {
+            const choice = getSelectedChoice(option, value);
+            return sum + choice.price;
+          }, 0)
+        );
+      }
+
+      return total + getSelectedChoice(option, activeConfig[option.id]).price;
+    }, 0);
+
+    return activeService.basePrice + optionTotal;
+  }, [activeConfig, activeService]);
+
+  function updateConfig(option, value) {
+    setConfigs((current) => ({
+      ...current,
+      [activeService.id]: {
+        ...current[activeService.id],
+        [option.id]: value,
+      },
+    }));
+  }
+
+  function toggleMulti(option, value) {
+    const currentValues = activeConfig[option.id];
+    const nextValues = currentValues.includes(value)
+      ? currentValues.filter((item) => item !== value)
+      : [...currentValues, value];
+    updateConfig(option, nextValues);
+  }
+
+  const selectedSummary = activeService.options.flatMap((option) => {
+    if (option.type === "multi") {
+      return activeConfig[option.id].map((value) => getSelectedChoice(option, value).label);
+    }
+
+    return getSelectedChoice(option, activeConfig[option.id]).label;
+  });
+
+  const recommendedService = useMemo(() => {
+    const recommendationScore = serviceCatalog.map((service) => {
+      let score = service.id === activeService.id ? 2 : 0;
+      if (service.id === selectedIndustry.recommendedService) score += 3;
+      if (service.id === selectedGoal.recommendedService) score += 4;
+      if (service.id === "growth-stack" && selectedTheme.id === "luxury") score += 1;
+      return { service, score };
+    });
+
+    return recommendationScore.sort((a, b) => b.score - a.score)[0].service;
+  }, [activeService.id, selectedGoal, selectedIndustry, selectedTheme.id]);
+
+  const proposal = {
+    service: activeService,
+    industry: selectedIndustry,
+    goal: selectedGoal,
+    theme: selectedTheme,
+    selectedSummary,
+    quote,
+    recommendedService,
+  };
+
+  return (
+    <div className="min-h-screen bg-[#f7f4ee] text-[#111827]">
+      <div className="fixed inset-x-0 top-0 z-50 h-1 bg-transparent">
+        <div
+          className="h-full bg-[#c7a66b] transition-[width] duration-150"
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div>
+      <header className="sticky top-0 z-40 border-b border-[#ded8cc] bg-[#f7f4ee]/95 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+          <button
+            type="button"
+            onClick={() => scrollToSection("top")}
+            className="group flex items-center gap-3 text-left"
+          >
+            <span className="grid h-10 w-10 place-items-center rounded-md bg-[#111827] text-[#c7a66b] transition duration-300 group-hover:-translate-y-0.5 group-hover:rotate-3">
+              <Code2 className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <span>
+              <span className="block text-sm font-black uppercase tracking-[0.18em]">
+                Digital Craft
+              </span>
+              <span className="block text-xs font-semibold text-[#6b7280]">
+                Websites, AI, Apps
+              </span>
+            </span>
+          </button>
+
+          <nav className="hidden items-center gap-1 lg:flex">
+            {sectionLinks.map(([id, label]) => (
+              <button
+                key={id}
+                type="button"
+                onClick={() => scrollToSection(id)}
+                className="rounded-md px-3 py-2 text-sm font-bold text-[#374151] hover:bg-white"
+              >
+                {label}
+              </button>
+            ))}
+          </nav>
+
+          <button
+            type="button"
+            onClick={() => setProposalOpen(true)}
+            className="hidden h-10 flex-none items-center gap-2 rounded-md bg-[#111827] px-4 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#1f2937] hover:shadow-[0_14px_30px_rgba(17,24,39,0.18)] sm:inline-flex"
+          >
+            Generate Proposal
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </button>
+        </div>
+      </header>
+
+      <main id="top">
+        <Hero
+          quote={quote}
+          activeService={activeService}
+          proposal={proposal}
+          onOpenProposal={() => setProposalOpen(true)}
+        />
+        <TrustBand />
+        <ExecutiveMetrics />
+        <SmartBuilder
+          selectedIndustryId={selectedIndustryId}
+          selectedGoalId={selectedGoalId}
+          selectedThemeId={selectedThemeId}
+          recommendedService={recommendedService}
+          onIndustryChange={setSelectedIndustryId}
+          onGoalChange={setSelectedGoalId}
+          onThemeChange={setSelectedThemeId}
+          onUseRecommendation={() => {
+            setActiveServiceId(recommendedService.id);
+            scrollToSection("configurator");
+          }}
+        />
+        <Services
+          activeServiceId={activeServiceId}
+          onSelect={(id) => {
+            setActiveServiceId(id);
+            scrollToSection("configurator");
+          }}
+        />
+        <Configurator
+          activeService={activeService}
+          activeConfig={activeConfig}
+          quote={quote}
+          selectedSummary={selectedSummary}
+          proposal={proposal}
+          onOpenProposal={() => setProposalOpen(true)}
+          onServiceChange={setActiveServiceId}
+          onSelect={updateConfig}
+          onToggle={toggleMulti}
+        />
+        <OutputShowcase />
+        <ExampleBuilds />
+        <OutcomeCalculator proposal={proposal} />
+        <CredibilitySection />
+        <BeforeAfterSection onOpenProposal={() => setProposalOpen(true)} />
+        <ScenarioSection />
+        <ProcessSection />
+        <FAQSection />
+        <FinalCTA onOpenProposal={() => setProposalOpen(true)} />
+        <PremiumFooter onOpenProposal={() => setProposalOpen(true)} />
+      </main>
+      <StickyQuoteBar
+        proposal={proposal}
+        onOpenProposal={() => setProposalOpen(true)}
+      />
+      {proposalOpen && (
+        <ProposalModal proposal={proposal} onClose={() => setProposalOpen(false)} />
+      )}
+    </div>
+  );
+}
+
+function Hero({ quote, activeService, proposal, onOpenProposal }) {
+  const themeColors = proposal.theme.colors;
+
+  return (
+    <section
+      className="relative overflow-hidden border-b border-[#ded8cc] text-white"
+      style={{ backgroundColor: themeColors.dark }}
+    >
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `radial-gradient(circle at 12% 18%, ${themeColors.accent}38, transparent 28%), radial-gradient(circle at 80% 10%, ${themeColors.secondary}30, transparent 24%), linear-gradient(180deg, rgba(255,255,255,0.04), transparent)`,
+        }}
+      />
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8 lg:py-20">
+        <div className="min-w-0 max-w-[22rem] flex flex-col justify-center sm:max-w-none">
+          <div className="animate-fade-up mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-[#c7a66b]/40 bg-white/10 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-[#f5d89b] backdrop-blur">
+            <Sparkles className="h-4 w-4" aria-hidden="true" />
+            Premium digital service studio
+          </div>
+          <h1 className="animate-fade-up animation-delay-100 w-full max-w-[22rem] text-[2rem] font-black leading-[1.06] tracking-[-0.02em] text-white sm:max-w-4xl sm:text-6xl lg:text-7xl">
+            Buat bisnis terlihat premium lewat website, chatbot, dan aplikasi.
+          </h1>
+          <p className="animate-fade-up animation-delay-200 mt-6 w-full max-w-[22rem] text-base leading-8 text-slate-300 sm:max-w-2xl sm:text-lg">
+            Strategi, desain, copywriting, automasi, dan flow produk digabung
+            menjadi pengalaman digital yang rapi, kredibel, dan siap dipakai
+            untuk menjual jasa dengan percaya diri.
+          </p>
+
+          <div className="animate-fade-up animation-delay-300 mt-8 flex flex-col gap-3 sm:flex-row">
+            <button
+              type="button"
+              onClick={onOpenProposal}
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-md px-5 text-sm font-black text-[#080b12] transition duration-300 hover:-translate-y-0.5 hover:brightness-110"
+              style={{ backgroundColor: themeColors.accent }}
+            >
+              Generate proposal
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollToSection("work")}
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/20 bg-white/10 px-5 text-sm font-black text-white backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-[#c7a66b] hover:bg-white/15"
+            >
+              <Play className="h-4 w-4" aria-hidden="true" />
+              Lihat output
+            </button>
+          </div>
+        </div>
+
+        <div
+          className="premium-panel-motion relative min-h-[560px] min-w-0 max-w-[22rem] overflow-hidden rounded-md border p-4 shadow-[0_30px_90px_rgba(0,0,0,0.35)] sm:max-w-none"
+          style={{
+            backgroundColor: "#111827",
+            borderColor: `${themeColors.accent}55`,
+          }}
+        >
+          <div className="absolute inset-x-0 top-0 h-14 border-b border-white/10 bg-[#0b1220]" />
+          <div className="relative pt-16">
+            <div className="mb-4 grid gap-3 sm:grid-cols-3">
+              {["Lead intent", "Conversion", "Quote"].map((label, index) => (
+                <div key={label} className="shimmer-surface rounded-md border border-white/10 bg-white/[0.06] p-3 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.10]">
+                  <p className="text-xs font-bold text-slate-400">{label}</p>
+                  <p className="mt-2 text-lg font-black text-white">
+                    {index === 0 ? "High" : index === 1 ? "+38%" : formatRupiah(quote)}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="rounded-md bg-[#f7f4ee] p-5 text-[#111827] transition duration-500">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+                    Active build
+                  </p>
+                  <h2 className="mt-2 text-2xl font-black leading-tight">
+                    {activeService.name}
+                  </h2>
+                </div>
+                <span className="rounded-full bg-[#111827] px-3 py-1 text-xs font-black text-white">
+                  {activeService.timeline}
+                </span>
+              </div>
+
+              <div className="mt-6 space-y-3">
+                {activeService.includes.slice(0, 4).map((item) => (
+                  <div key={item} className="flex items-center gap-3 rounded-md bg-white p-3 transition duration-300 hover:translate-x-1">
+                    <CheckCircle2 className="h-5 w-5 flex-none text-[#0f766e]" aria-hidden="true" />
+                    <span className="text-sm font-bold">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-4 grid gap-4 sm:grid-cols-[1fr_0.72fr]">
+              <div className="rounded-md border border-white/10 bg-white/[0.06] p-4">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#c7a66b]">
+                  Build preview
+                </p>
+                <div className="animate-progress-grow mt-4 h-3 w-3/4 rounded bg-white/80" />
+                <div className="animate-progress-grow animation-delay-200 mt-3 h-3 w-1/2 rounded bg-white/40" />
+                <div className="mt-5 grid grid-cols-3 gap-2">
+                  <div
+                    className="h-20 rounded transition duration-500 hover:scale-105"
+                    style={{ backgroundColor: themeColors.accent }}
+                  />
+                  <div
+                    className="h-20 rounded transition duration-500 hover:scale-105"
+                    style={{ backgroundColor: themeColors.secondary }}
+                  />
+                  <div className="h-20 rounded bg-white/30 transition duration-500 hover:scale-105" />
+                </div>
+              </div>
+              <AIConversationCard />
+            </div>
+            <div className="mt-4 rounded-md border border-[#c7a66b]/20 bg-[#0b1220] p-4">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#c7a66b]">
+                Recommended strategy
+              </p>
+              <p className="mt-2 text-sm font-bold leading-6 text-white">
+                {proposal.industry.headline}
+              </p>
+              <p className="mt-3 text-xs leading-5 text-slate-400">
+                Theme: {proposal.theme.label} · Goal: {proposal.goal.label}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AIConversationCard() {
+  return (
+    <div className="relative overflow-hidden rounded-md border border-white/10 bg-white/[0.06] p-4">
+      <div className="absolute right-3 top-3 h-16 w-16 rounded-full border border-[#c7a66b]/20" />
+      <div className="relative">
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <MessageCircle className="h-6 w-6 text-[#c7a66b]" aria-hidden="true" />
+          <span className="rounded-full bg-[#0f766e]/20 px-2 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-[#67e8d3]">
+            Live AI
+          </span>
+        </div>
+
+        <div className="space-y-2">
+          <div className="max-w-[92%] rounded-md rounded-tl-none bg-white/[0.10] px-3 py-2">
+            <p className="text-xs font-bold leading-5 text-white">
+              Saya bantu pilih paket paling tepat untuk bisnis Anda.
+            </p>
+          </div>
+          <div className="ml-auto max-w-[82%] rounded-md rounded-tr-none bg-[#c7a66b] px-3 py-2">
+            <p className="text-xs font-black leading-5 text-[#080b12]">
+              Butuh leads dan tampil premium.
+            </p>
+          </div>
+          <div className="max-w-[94%] rounded-md rounded-tl-none bg-white/[0.10] px-3 py-2">
+            <p className="text-xs font-bold leading-5 text-white">
+              Rekomendasi: website conversion + chatbot follow-up.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TrustBand() {
+  return (
+    <section className="border-b border-[#ded8cc] bg-[#111827] text-white">
+      <div className="mx-auto grid max-w-7xl gap-4 px-4 py-6 sm:px-6 md:grid-cols-4 lg:px-8">
+        {[
+          ["Strategy first", "Setiap halaman punya tujuan bisnis"],
+          ["Custom flow", "Paket bisa dikonfigurasi sesuai kebutuhan"],
+          ["Premium UI", "Visual bersih, matang, dan responsif"],
+          ["Sales-ready", "CTA, chat, dan copy dibuat terarah"],
+        ].map(([title, description], index) => (
+          <div
+            key={title}
+            className={`group animate-fade-up border-l border-white/15 pl-4 ${
+              index === 1
+                ? "animation-delay-100"
+                : index === 2
+                  ? "animation-delay-200"
+                  : index === 3
+                    ? "animation-delay-300"
+                    : ""
+            }`}
+          >
+            <p className="font-black transition duration-300 group-hover:text-[#c7a66b]">{title}</p>
+            <p className="mt-1 text-sm text-slate-300">{description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ExecutiveMetrics() {
+  const metrics = [
+    ["01", "Strategic blueprint", "Scope dibuat dari tujuan bisnis, bukan dari template halaman."],
+    ["02", "Conversion layer", "Copy, CTA, dan flow konsultasi disusun untuk mengurangi friction."],
+    ["03", "Premium interface", "Visual system dibuat konsisten untuk website, chatbot, dan aplikasi."],
+  ];
+
+  return (
+    <section className="border-b border-[#ded8cc] bg-[#f7f4ee]">
+      <div className="mx-auto grid max-w-7xl gap-4 px-4 py-8 sm:px-6 lg:grid-cols-3 lg:px-8">
+        {metrics.map(([number, title, description]) => (
+          <article
+            key={title}
+            className="group rounded-md border border-[#ded8cc] bg-white p-5 transition duration-300 hover:-translate-y-1 hover:border-[#111827] hover:shadow-[0_18px_40px_rgba(17,24,39,0.10)]"
+          >
+            <div className="mb-5 flex items-center justify-between">
+              <span className="text-xs font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+                {number}
+              </span>
+              <TrendingUp className="h-5 w-5 text-[#0f766e] transition duration-300 group-hover:rotate-6" />
+            </div>
+            <h3 className="text-lg font-black text-[#111827]">{title}</h3>
+            <p className="mt-2 text-sm leading-6 text-[#4b5563]">{description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function SmartBuilder({
+  selectedIndustryId,
+  selectedGoalId,
+  selectedThemeId,
+  recommendedService,
+  onIndustryChange,
+  onGoalChange,
+  onThemeChange,
+  onUseRecommendation,
+}) {
+  return (
+    <section className="border-b border-[#ded8cc] bg-[#f7f4ee]">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            Smart package builder
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Pilih konteks bisnis, lalu sistem akan menyarankan paket terbaik.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-[#4b5563]">
+            Ini membuat pengalaman terasa seperti konsultasi premium, bukan katalog
+            harga statis. Calon klien langsung melihat arah solusi yang relevan.
+          </p>
+        </div>
+
+        <div className="grid gap-4">
+          <ChoiceGrid
+            title="Industri"
+            items={industries}
+            selectedId={selectedIndustryId}
+            onSelect={onIndustryChange}
+          />
+          <ChoiceGrid
+            title="Tujuan utama"
+            items={goals}
+            selectedId={selectedGoalId}
+            onSelect={onGoalChange}
+          />
+          <ChoiceGrid
+            title="Arah visual"
+            items={visualThemes}
+            selectedId={selectedThemeId}
+            onSelect={onThemeChange}
+          />
+
+          <div className="rounded-md border border-[#111827] bg-[#111827] p-5 text-white">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+                  Rekomendasi sistem
+                </p>
+                <h3 className="mt-2 text-2xl font-black">
+                  {recommendedService.name}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-slate-300">
+                  {recommendedService.headline}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={onUseRecommendation}
+                className="inline-flex h-11 flex-none items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-4 text-sm font-black text-[#080b12] transition duration-300 hover:-translate-y-0.5 hover:bg-[#f5d89b]"
+              >
+                Gunakan
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ChoiceGrid({ title, items, selectedId, onSelect }) {
+  return (
+    <div>
+      <h3 className="mb-3 text-sm font-black uppercase tracking-[0.14em] text-[#8a6d30]">
+        {title}
+      </h3>
+      <div className="grid gap-2 sm:grid-cols-2">
+        {items.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => onSelect(item.id)}
+            className={`rounded-md border p-4 text-left transition duration-300 hover:-translate-y-0.5 ${
+              selectedId === item.id
+                ? "border-[#111827] bg-white shadow-[0_16px_34px_rgba(17,24,39,0.12)]"
+                : "border-[#ded8cc] bg-[#fbfaf7] hover:border-[#111827] hover:bg-white"
+            }`}
+          >
+            <p className="font-black text-[#111827]">{item.label}</p>
+            <p className="mt-1 text-xs leading-5 text-[#6b7280]">
+              {item.description || item.impact || item.headline}
+            </p>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Services({ activeServiceId, onSelect }) {
+  return (
+    <section id="services" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+      <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            Layanan inti
+          </p>
+          <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Pilih sistem digital yang ingin dibangun.
+          </h2>
+        </div>
+        <p className="max-w-lg text-sm leading-7 text-[#4b5563]">
+          Semua paket bisa diarahkan untuk UMKM, personal brand, bisnis jasa,
+          edukasi, klinik, properti, travel, dan produk digital.
+        </p>
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-4">
+        {serviceCatalog.map((service) => {
+          const Icon = serviceIcons[service.id] || Sparkles;
+          const isActive = service.id === activeServiceId;
+
+          return (
+            <button
+              key={service.id}
+              type="button"
+              onClick={() => onSelect(service.id)}
+              className={`group flex min-h-[280px] flex-col rounded-md border p-5 text-left transition duration-300 hover:-translate-y-2 ${
+                isActive
+                  ? "border-[#111827] bg-white shadow-[0_18px_50px_rgba(17,24,39,0.12)]"
+                  : "border-[#ded8cc] bg-[#fbfaf7] hover:border-[#111827] hover:shadow-[0_18px_44px_rgba(17,24,39,0.10)]"
+              }`}
+            >
+              <span className="grid h-12 w-12 place-items-center rounded-md bg-[#111827] text-[#c7a66b] transition duration-300 group-hover:rotate-3 group-hover:scale-105">
+                <Icon className="h-6 w-6" aria-hidden="true" />
+              </span>
+              <p className="mt-5 text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+                {service.label}
+              </p>
+              <h3 className="mt-2 text-xl font-black leading-tight">{service.name}</h3>
+              <p className="mt-3 flex-1 text-sm leading-6 text-[#4b5563]">
+                {service.description}
+              </p>
+              <span className="mt-5 text-sm font-black">
+                Mulai {formatRupiah(service.basePrice)}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function Configurator({
+  activeService,
+  activeConfig,
+  quote,
+  selectedSummary,
+  proposal,
+  onOpenProposal,
+  onServiceChange,
+  onSelect,
+  onToggle,
+}) {
+  const ActiveIcon = serviceIcons[activeService.id] || Sparkles;
+
+  return (
+    <section id="configurator" className="border-y border-[#ded8cc] bg-white">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            Konfigurator paket
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Buat paket terasa custom, jelas, dan bernilai tinggi.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-[#4b5563]">
+            Pilihan di bawah mengubah estimasi harga dan ringkasan kebutuhan.
+            Ini membuat calon pelanggan merasa website, chatbot, atau aplikasi
+            dibuat untuk masalah mereka, bukan template murahan.
+          </p>
+
+          <div className="mt-6 grid gap-2 sm:grid-cols-2">
+            {serviceCatalog.map((service) => (
+              <button
+                key={service.id}
+                type="button"
+                onClick={() => onServiceChange(service.id)}
+                className={`rounded-md border px-4 py-3 text-left text-sm font-black transition duration-300 hover:-translate-y-0.5 ${
+                  service.id === activeService.id
+                    ? "border-[#111827] bg-[#111827] text-white shadow-[0_14px_28px_rgba(17,24,39,0.16)]"
+                    : "border-[#ded8cc] bg-[#fbfaf7] hover:border-[#111827] hover:bg-white"
+                }`}
+              >
+                {service.label}
+              </button>
+            ))}
+          </div>
+
+          <div key={activeService.id} className="animate-fade-up mt-8 rounded-md bg-[#111827] p-6 text-white">
+            <ActiveIcon className="h-8 w-8 text-[#c7a66b] transition duration-500" aria-hidden="true" />
+            <h3 className="mt-4 text-2xl font-black">{activeService.name}</h3>
+            <p className="mt-3 text-sm leading-6 text-slate-300">{activeService.headline}</p>
+            <div className="mt-6 grid gap-3">
+              {activeService.includes.map((item) => (
+                <div key={item} className="flex gap-3 text-sm font-bold">
+                  <Check className="mt-0.5 h-4 w-4 flex-none text-[#c7a66b]" aria-hidden="true" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div key={`${activeService.id}-panel`} className="animate-fade-up rounded-md border border-[#ded8cc] bg-[#fbfaf7] p-4 sm:p-6">
+          <div className="space-y-6">
+            {activeService.options.map((option) => (
+              <div key={option.id}>
+                <label className="block text-sm font-black text-[#111827]">
+                  {option.label}
+                </label>
+                {option.type === "select" ? (
+                  <div className="relative mt-2">
+                    <select
+                      value={activeConfig[option.id]}
+                      onChange={(event) => onSelect(option, event.target.value)}
+                      className="h-12 w-full appearance-none rounded-md border border-[#cfc5b8] bg-white px-4 pr-10 text-sm font-bold text-[#111827]"
+                    >
+                      {option.choices.map((choice) => (
+                        <option key={choice.value} value={choice.value}>
+                          {choice.label}
+                          {choice.price ? ` (+${formatRupiah(choice.price)})` : ""}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute right-3 top-3.5 h-5 w-5 text-[#6b7280]" />
+                  </div>
+                ) : (
+                  <div className="mt-3 grid gap-2">
+                    {option.choices.map((choice) => {
+                      const checked = activeConfig[option.id].includes(choice.value);
+                      return (
+                        <button
+                          key={choice.value}
+                          type="button"
+                          onClick={() => onToggle(option, choice.value)}
+                          className={`flex items-center justify-between gap-3 rounded-md border p-3 text-left text-sm transition duration-300 hover:-translate-y-0.5 ${
+                            checked
+                              ? "border-[#0f766e] bg-[#ecfdf5] shadow-[0_12px_24px_rgba(15,118,110,0.10)]"
+                              : "border-[#ded8cc] bg-white hover:border-[#111827] hover:shadow-[0_10px_22px_rgba(17,24,39,0.08)]"
+                          }`}
+                        >
+                          <span className="font-bold">{choice.label}</span>
+                          <span className="flex-none text-xs font-black text-[#8a6d30]">
+                            +{formatRupiah(choice.price)}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="animate-glow-pulse mt-8 rounded-md bg-white p-5 shadow-[0_18px_50px_rgba(17,24,39,0.08)]">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+                  Estimasi investasi
+                </p>
+                <p className="mt-2 text-3xl font-black text-[#111827]">
+                  {formatRupiah(quote)}
+                </p>
+                <p className="mt-1 text-sm font-bold text-[#6b7280]">
+                  Timeline: {activeService.timeline}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={onOpenProposal}
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#0f766e] px-4 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#115e59] hover:shadow-[0_16px_30px_rgba(15,118,110,0.25)]"
+              >
+                Generate proposal
+                <MessageCircle className="h-4 w-4" aria-hidden="true" />
+              </button>
+            </div>
+
+            <div className="mt-5 border-t border-[#eee5d8] pt-5">
+              <p className="text-sm font-black text-[#111827]">Ringkasan pilihan</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {selectedSummary.length ? (
+                  selectedSummary.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full bg-[#f7f4ee] px-3 py-1 text-xs font-bold text-[#374151]"
+                    >
+                      {item}
+                    </span>
+                  ))
+                ) : (
+                  <span className="text-sm text-[#6b7280]">Belum ada add-on dipilih.</span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <LiveBlueprint
+            service={activeService}
+            selectedSummary={selectedSummary}
+            quote={quote}
+          />
+        </div>
+
+        <ProposalPreview proposal={proposal} onOpenProposal={onOpenProposal} />
+      </div>
+    </section>
+  );
+}
+
+function LiveBlueprint({ service, selectedSummary, quote }) {
+  const blueprintItems = [
+    "Positioning dan struktur penawaran",
+    "Visual direction sesuai paket",
+    "CTA dan flow konsultasi",
+    "Checklist launch responsif",
+  ];
+
+  return (
+    <div className="mt-4 rounded-md border border-[#111827]/10 bg-[#111827] p-5 text-white">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+            Live blueprint
+          </p>
+          <h3 className="mt-2 text-xl font-black">{service.label} build plan</h3>
+        </div>
+        <Target className="h-6 w-6 text-[#c7a66b]" aria-hidden="true" />
+      </div>
+
+      <div className="mt-5 grid gap-3 sm:grid-cols-2">
+        {blueprintItems.map((item) => (
+          <div key={item} className="rounded-md border border-white/10 bg-white/[0.06] p-3">
+            <p className="text-sm font-bold">{item}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-5 border-t border-white/10 pt-5">
+        <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-400">
+          Selected scope
+        </p>
+        <p className="mt-2 text-sm leading-6 text-slate-200">
+          {selectedSummary.join(", ")} dengan estimasi {formatRupiah(quote)}.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function ProposalPreview({ proposal, onOpenProposal }) {
+  const deliverables = [
+    `${proposal.service.name} dengan arah visual ${proposal.theme.label}`,
+    `Scope untuk ${proposal.industry.label.toLowerCase()}`,
+    `Tujuan utama: ${proposal.goal.label}`,
+    `Pilihan paket: ${proposal.selectedSummary.join(", ")}`,
+  ];
+
+  return (
+    <div className="lg:col-span-2">
+      <div className="rounded-md border border-[#ded8cc] bg-[#f7f4ee] p-5 sm:p-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+              Proposal preview
+            </p>
+            <h3 className="mt-2 text-2xl font-black text-[#111827]">
+              Draft penawaran otomatis
+            </h3>
+          </div>
+          <ScrollText className="h-7 w-7 text-[#8a6d30]" aria-hidden="true" />
+        </div>
+
+        <div className="mt-5 grid gap-4 lg:grid-cols-[1fr_0.9fr]">
+          <div className="rounded-md bg-white p-5">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+              Executive summary
+            </p>
+            <p className="mt-3 text-sm leading-7 text-[#374151]">
+              Untuk {proposal.industry.label}, pendekatan yang disarankan adalah
+              membangun {proposal.service.name} dengan tujuan {proposal.goal.label.toLowerCase()}.
+              Arah visual {proposal.theme.label} dipakai agar brand terlihat lebih
+              kredibel sejak interaksi pertama.
+            </p>
+            <div className="mt-5 grid gap-2">
+              {deliverables.map((item) => (
+                <div key={item} className="flex gap-3 text-sm font-bold text-[#111827]">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[#0f766e]" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-md bg-[#111827] p-5 text-white">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+              Investment & next step
+            </p>
+            <p className="mt-3 text-3xl font-black">{formatRupiah(proposal.quote)}</p>
+            <p className="mt-2 text-sm font-bold text-slate-300">
+              Timeline estimasi: {proposal.service.timeline}
+            </p>
+            <div className="mt-5 rounded-md border border-white/10 bg-white/[0.06] p-4">
+              <p className="text-sm font-bold leading-6">
+                Next step: validasi kebutuhan, finalisasi scope, lalu mulai blueprint
+                halaman, flow chat, atau modul aplikasi sesuai paket.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={onOpenProposal}
+              className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-4 text-sm font-black text-[#080b12] transition duration-300 hover:-translate-y-0.5 hover:bg-[#f5d89b]"
+            >
+              Buka proposal lengkap
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function OutputShowcase() {
+  return (
+    <section id="work" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+      <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            Output yang terlihat premium
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Yang dijual bukan file, tapi sistem digital yang siap dipakai.
+          </h2>
+          <div className="mt-6 space-y-3">
+            {serviceOutcomes.map((outcome) => (
+              <div key={outcome} className="flex gap-3 text-sm font-bold text-[#374151]">
+                <ShieldCheck className="mt-0.5 h-5 w-5 flex-none text-[#0f766e]" aria-hidden="true" />
+                {outcome}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2">
+          {[
+            ["Website launch", "Hero, service section, pricing, CTA, trust signal, dan halaman legal dasar."],
+            ["AI chat flow", "Greeting, kualifikasi lead, rekomendasi paket, follow-up, dan handover ke admin."],
+            ["Mobile MVP", "Onboarding, katalog, detail layanan, form order, dan akun pelanggan."],
+            ["Sales assets", "Bio toko, template chat, proposal singkat, dan narasi penawaran."],
+          ].map(([title, description], index) => (
+            <article
+              key={title}
+              className={`group rounded-md border border-[#ded8cc] p-5 transition duration-300 hover:-translate-y-2 hover:shadow-[0_20px_46px_rgba(17,24,39,0.12)] ${
+                index === 0 ? "bg-[#111827] text-white" : "bg-white"
+              }`}
+            >
+              <div className="mb-8 h-28 rounded-md border border-current/10 bg-current/5 p-3 transition duration-300 group-hover:scale-[1.02]">
+                <div className="animate-progress-grow h-2 w-1/2 rounded bg-current/40" />
+                <div className="animate-progress-grow animation-delay-100 mt-3 h-2 w-3/4 rounded bg-current/20" />
+                <div className="mt-6 grid grid-cols-3 gap-2">
+                  <div className="h-12 rounded bg-current/20" />
+                  <div className="h-12 rounded bg-current/30" />
+                  <div className="h-12 rounded bg-current/10" />
+                </div>
+              </div>
+              <h3 className="text-xl font-black">{title}</h3>
+              <p className={`mt-2 text-sm leading-6 ${index === 0 ? "text-slate-300" : "text-[#4b5563]"}`}>
+                {description}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ExampleBuilds() {
+  return (
+    <section className="border-t border-[#ded8cc] bg-[#f7f4ee]">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+              Example builds
+            </p>
+            <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+              Contoh output yang terasa seperti brand matang.
+            </h2>
+          </div>
+          <BriefcaseBusiness className="hidden h-11 w-11 text-[#8a6d30] lg:block" />
+        </div>
+
+        <div className="grid gap-4 lg:grid-cols-4">
+          {exampleBuilds.map((build, index) => (
+            <article
+              key={build.title}
+              className={`group overflow-hidden rounded-md border border-[#ded8cc] bg-white transition duration-300 hover:-translate-y-2 hover:shadow-[0_22px_50px_rgba(17,24,39,0.12)] ${
+                index === 0 ? "lg:col-span-2" : ""
+              }`}
+            >
+              <div className="h-40 bg-[#111827] p-4">
+                <div className="h-full rounded-md border border-white/10 bg-white/[0.06] p-3 transition duration-300 group-hover:scale-[1.02]">
+                  <div className="h-2 w-1/2 rounded bg-[#c7a66b]" />
+                  <div className="mt-3 h-2 w-3/4 rounded bg-white/30" />
+                  <div className="mt-6 grid grid-cols-3 gap-2">
+                    <div className="h-16 rounded bg-white/20" />
+                    <div className="h-16 rounded bg-[#0f766e]" />
+                    <div className="h-16 rounded bg-[#c7a66b]" />
+                  </div>
+                </div>
+              </div>
+              <div className="p-5">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+                  {build.type}
+                </p>
+                <h3 className="mt-2 text-xl font-black">{build.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-[#4b5563]">
+                  {build.description}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function OutcomeCalculator({ proposal }) {
+  const baseImpact = proposal.service.id === "growth-stack" ? 42 : 28;
+  const goalBoost =
+    proposal.goal.id === "authority" ? 16 : proposal.goal.id === "automation" ? 14 : 10;
+  const complexityBoost = Math.min(proposal.selectedSummary.length * 4, 18);
+  const impactScore = Math.min(baseImpact + goalBoost + complexityBoost, 92);
+  const clarityScore = Math.min(impactScore + 6, 96);
+  const responseScore = proposal.service.id === "chatbot" || proposal.service.id === "growth-stack" ? 88 : 74;
+
+  const metrics = [
+    ["Offer clarity", clarityScore, "Calon klien lebih cepat paham scope dan value."],
+    ["Lead readiness", impactScore, "CTA, proposal, dan flow dibuat lebih siap jual."],
+    ["Response system", responseScore, "Alur chat dan follow-up lebih terstruktur."],
+  ];
+
+  return (
+    <section className="border-y border-[#ded8cc] bg-white">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+        <div>
+          <div className="mb-4 inline-grid h-12 w-12 place-items-center rounded-md bg-[#111827] text-[#c7a66b]">
+            <Calculator className="h-6 w-6" aria-hidden="true" />
+          </div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            Outcome estimate
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Tunjukkan dampak, bukan hanya daftar fitur.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-[#4b5563]">
+            Estimasi ini membantu calon klien memahami kenapa paket yang dipilih
+            bernilai: kejelasan penawaran, kesiapan lead, dan sistem respons.
+          </p>
+        </div>
+
+        <div className="rounded-md border border-[#ded8cc] bg-[#f7f4ee] p-5">
+          <div className="mb-5 flex items-center justify-between gap-4">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+                Active scenario
+              </p>
+              <h3 className="mt-1 text-xl font-black text-[#111827]">
+                {proposal.industry.label} · {proposal.goal.label}
+              </h3>
+            </div>
+            <span className="rounded-full bg-[#111827] px-3 py-1 text-xs font-black text-white">
+              {proposal.theme.label}
+            </span>
+          </div>
+
+          <div className="space-y-5">
+            {metrics.map(([label, score, description]) => (
+              <div key={label}>
+                <div className="mb-2 flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-sm font-black text-[#111827]">{label}</p>
+                    <p className="text-xs text-[#6b7280]">{description}</p>
+                  </div>
+                  <p className="text-lg font-black text-[#0f766e]">{score}%</p>
+                </div>
+                <div className="h-3 overflow-hidden rounded-full bg-white">
+                  <div
+                    className="h-full rounded-full bg-[#0f766e] transition-[width] duration-700"
+                    style={{ width: `${score}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CredibilitySection() {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+      <div className="mb-8 grid gap-4 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            Credibility layer
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Website terasa premium karena sistemnya jelas.
+          </h2>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {credibilitySignals.map((signal) => (
+            <article key={signal.title} className="rounded-md border border-[#ded8cc] bg-white p-4">
+              <h3 className="font-black text-[#111827]">{signal.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-[#4b5563]">
+                {signal.description}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-3">
+        {testimonials.map((testimonial) => (
+          <article
+            key={testimonial.name}
+            className="rounded-md border border-[#ded8cc] bg-[#111827] p-5 text-white"
+          >
+            <Quote className="h-6 w-6 text-[#c7a66b]" aria-hidden="true" />
+            <p className="mt-5 text-sm font-bold leading-7 text-slate-200">
+              "{testimonial.quote}"
+            </p>
+            <div className="mt-6 border-t border-white/10 pt-4">
+              <p className="font-black">{testimonial.name}</p>
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#c7a66b]">
+                {testimonial.role}
+              </p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function BeforeAfterSection({ onOpenProposal }) {
+  const rows = [
+    [
+      "Penawaran terlihat generik",
+      "Positioning, headline, dan CTA dibuat spesifik untuk target market",
+    ],
+    [
+      "Calon pelanggan bingung pilih paket",
+      "Konfigurator membantu memilih scope, estimasi, dan next step",
+    ],
+    [
+      "Chat berulang tanpa struktur",
+      "AI assistant mengarahkan kebutuhan sebelum masuk ke admin",
+    ],
+    [
+      "Website hanya jadi brosur",
+      "Website menjadi sistem penjualan dengan proof, flow, dan proposal",
+    ],
+  ];
+
+  return (
+    <section className="border-y border-[#ded8cc] bg-[#080b12] text-white">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+            Before / After
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Transformasi yang harus terasa sebelum klien menghubungi.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-slate-300">
+            Website jasa digital yang bagus bukan hanya tampil mahal. Ia harus
+            membuat calon klien lebih cepat paham, percaya, dan tahu langkah berikutnya.
+          </p>
+          <button
+            type="button"
+            onClick={onOpenProposal}
+            className="mt-6 inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-5 text-sm font-black text-[#080b12] transition duration-300 hover:-translate-y-0.5 hover:bg-[#f5d89b]"
+          >
+            Generate proposal
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
+
+        <div className="grid gap-3">
+          {rows.map(([before, after], index) => (
+            <div
+              key={before}
+              className="grid gap-3 rounded-md border border-white/10 bg-white/[0.04] p-3 sm:grid-cols-[1fr_auto_1fr]"
+            >
+              <div className="rounded-md bg-white/[0.05] p-4">
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500">
+                  Before {String(index + 1).padStart(2, "0")}
+                </p>
+                <p className="mt-2 text-sm font-bold leading-6 text-slate-300">
+                  {before}
+                </p>
+              </div>
+              <div className="hidden items-center justify-center text-[#c7a66b] sm:flex">
+                <ArrowRight className="h-5 w-5" />
+              </div>
+              <div className="rounded-md bg-[#c7a66b] p-4 text-[#080b12]">
+                <p className="text-xs font-black uppercase tracking-[0.14em]">
+                  After
+                </p>
+                <p className="mt-2 text-sm font-black leading-6">{after}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ScenarioSection() {
+  const scenarios = [
+    {
+      title: "Bisnis jasa lokal ingin naik kelas",
+      metric: "3x",
+      label: "lebih jelas",
+      description:
+        "Website dibuat seperti proposal interaktif: layanan, bukti kerja, harga, dan CTA konsultasi tertata dalam satu alur.",
+    },
+    {
+      title: "Owner kewalahan membalas chat",
+      metric: "24/7",
+      label: "respons awal",
+      description:
+        "AI assistant menyaring kebutuhan prospek, mengarahkan pilihan paket, lalu memberi konteks ke admin sebelum closing.",
+    },
+    {
+      title: "Produk digital butuh validasi cepat",
+      metric: "MVP",
+      label: "siap uji",
+      description:
+        "Aplikasi dibuat sebagai versi minimum yang terlihat rapi, mudah dicoba, dan cukup kuat untuk mengukur minat pasar.",
+    },
+  ];
+
+  return (
+    <section id="proof" className="border-y border-[#ded8cc] bg-white">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="mb-8 grid gap-4 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+              Skenario hasil
+            </p>
+            <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+              Bukan cuma bagus dilihat, tapi jelas fungsinya.
+            </h2>
+          </div>
+          <p className="text-sm leading-7 text-[#4b5563]">
+            Setiap deliverable diarahkan ke masalah bisnis yang nyata: trust,
+            lead, respons, presentasi, dan operasional.
+          </p>
+        </div>
+
+        <div className="grid gap-4 lg:grid-cols-3">
+          {scenarios.map((scenario, index) => (
+            <article
+              key={scenario.title}
+              className={`group rounded-md border border-[#ded8cc] bg-[#fbfaf7] p-6 transition duration-300 hover:-translate-y-2 hover:bg-white hover:shadow-[0_22px_50px_rgba(17,24,39,0.12)] ${
+                index === 1 ? "lg:mt-8" : ""
+              }`}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <Quote className="h-7 w-7 text-[#c7a66b]" aria-hidden="true" />
+                <div className="text-right">
+                  <p className="text-3xl font-black text-[#111827]">{scenario.metric}</p>
+                  <p className="text-xs font-black uppercase tracking-[0.14em] text-[#8a6d30]">
+                    {scenario.label}
+                  </p>
+                </div>
+              </div>
+              <h3 className="mt-8 text-xl font-black">{scenario.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-[#4b5563]">
+                {scenario.description}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProcessSection() {
+  const steps = [
+    ["Discovery", "Bedah tujuan bisnis, target audience, positioning, dan prioritas fitur."],
+    ["Blueprint", "Susun struktur website, flow chatbot, screen app, dan copy utama."],
+    ["Production", "Eksekusi desain dan development dengan review bertahap."],
+    ["Launch", "Testing responsif, perapihan CTA, dan serah terima aset."],
+  ];
+
+  return (
+    <section id="process" className="border-y border-[#ded8cc] bg-[#111827] text-white">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+              Proses kerja
+            </p>
+            <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+              Terstruktur dari ide sampai siap dipakai.
+            </h2>
+          </div>
+          <ClipboardCheck className="hidden h-12 w-12 text-[#c7a66b] lg:block" aria-hidden="true" />
+        </div>
+
+        <div className="grid gap-4 lg:grid-cols-4">
+          {steps.map(([title, description], index) => (
+            <article key={title} className="group border-l border-white/15 pl-5 transition duration-300 hover:border-[#c7a66b]">
+              <span className="text-sm font-black text-[#c7a66b]">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3 className="mt-4 text-xl font-black transition duration-300 group-hover:text-[#c7a66b]">{title}</h3>
+              <p className="mt-3 text-sm leading-6 text-slate-300">{description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FAQSection() {
+  const faqs = [
+    [
+      "Apakah paket harus mengikuti template?",
+      "Tidak. Konfigurator hanya membantu menyusun scope awal. Struktur, gaya visual, dan fitur bisa diarahkan sesuai bisnis.",
+    ],
+    [
+      "Apakah cocok untuk UMKM?",
+      "Cocok, terutama jika ingin tampil lebih kredibel saat calon pelanggan membuka website atau menerima penawaran.",
+    ],
+    [
+      "Apa bedanya dengan jasa murah biasa?",
+      "Fokusnya bukan hanya membuat halaman jadi online, tetapi merancang alur, copy, CTA, dan sistem agar terasa matang.",
+    ],
+    [
+      "Bisa dibuat bertahap?",
+      "Bisa. Website atau chatbot bisa dimulai dulu, lalu ditambah aplikasi, konten, atau aset sales setelah validasi berjalan.",
+    ],
+  ];
+
+  return (
+    <section id="faq" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+      <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            FAQ
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Jawaban yang membuat calon klien lebih yakin.
+          </h2>
+        </div>
+        <div className="grid gap-3">
+          {faqs.map(([question, answer]) => (
+            <details
+              key={question}
+              className="group rounded-md border border-[#ded8cc] bg-white p-5 transition duration-300 open:shadow-[0_18px_44px_rgba(17,24,39,0.10)]"
+            >
+              <summary className="cursor-pointer list-none text-base font-black text-[#111827]">
+                <span className="inline-flex w-full items-center justify-between gap-4">
+                  {question}
+                  <ChevronDown className="h-5 w-5 flex-none text-[#8a6d30] transition duration-300 group-open:rotate-180" />
+                </span>
+              </summary>
+              <p className="mt-4 text-sm leading-7 text-[#4b5563]">{answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FinalCTA({ onOpenProposal }) {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+      <div className="shimmer-surface rounded-md border border-[#ded8cc] bg-white p-6 sm:p-10">
+        <div className="grid gap-8 lg:grid-cols-[1fr_0.6fr] lg:items-center">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+              Siap dibuat serius
+            </p>
+            <h2 className="mt-3 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+              Jadikan jasa digital terlihat seperti brand yang sudah mapan.
+            </h2>
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-[#4b5563]">
+              Mulai dari konfigurasi paket, pilih kebutuhan utama, lalu gunakan
+              ringkasan estimasi sebagai bahan konsultasi atau penawaran.
+            </p>
+          </div>
+          <div className="grid gap-3">
+            <button
+              type="button"
+              onClick={onOpenProposal}
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#111827] px-5 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#1f2937] hover:shadow-[0_18px_34px_rgba(17,24,39,0.20)]"
+            >
+              Generate proposal
+              <Zap className="h-4 w-4" aria-hidden="true" />
+            </button>
+            <div className="flex items-center justify-center gap-2 rounded-md bg-[#f7f4ee] px-4 py-3 text-sm font-bold text-[#374151]">
+              <MonitorSmartphone className="h-4 w-4 text-[#0f766e]" aria-hidden="true" />
+              Responsif untuk desktop dan mobile
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StickyQuoteBar({ proposal, onOpenProposal }) {
+  return (
+    <div className="fixed bottom-3 left-3 right-3 z-40 max-w-[calc(100vw-1.5rem)] rounded-md border border-[#c7a66b]/30 bg-[#080b12]/95 p-3 text-white shadow-[0_22px_60px_rgba(0,0,0,0.32)] backdrop-blur lg:hidden">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
+        <div className="min-w-0">
+          <p className="truncate text-xs font-bold text-slate-300">
+            {proposal.service.label} · {proposal.theme.label}
+          </p>
+          <p className="text-lg font-black text-[#f5d89b]">
+            {formatRupiah(proposal.quote)}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={onOpenProposal}
+          className="grid h-10 w-10 place-items-center rounded-md bg-[#c7a66b] text-[#080b12]"
+          aria-label="Buka proposal"
+        >
+          <ArrowRight className="h-4 w-4" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function PremiumFooter({ onOpenProposal }) {
+  return (
+    <footer className="border-t border-[#ded8cc] bg-[#080b12] text-white">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1fr_auto] lg:px-8">
+        <div>
+          <div className="flex items-center gap-3">
+            <span className="grid h-11 w-11 place-items-center rounded-md bg-white text-[#080b12]">
+              <Code2 className="h-5 w-5" />
+            </span>
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+                Digital Craft
+              </p>
+              <p className="text-sm font-semibold text-slate-300">
+                Premium websites, AI chat systems, and mobile MVPs.
+              </p>
+            </div>
+          </div>
+          <p className="mt-6 max-w-2xl text-sm leading-7 text-slate-400">
+            Built for businesses that want to look credible, explain offers clearly,
+            and turn digital presence into a more structured sales system.
+          </p>
+        </div>
+        <div className="grid content-start gap-3 sm:min-w-[260px]">
+          <button
+            type="button"
+            onClick={onOpenProposal}
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-5 text-sm font-black text-[#080b12] transition hover:bg-[#f5d89b]"
+          >
+            Generate proposal
+            <ArrowRight className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollToSection("configurator")}
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/15 px-5 text-sm font-black text-white transition hover:border-[#c7a66b]"
+          >
+            Edit package
+          </button>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function ProposalModal({ proposal, onClose }) {
+  const proposalText = createProposalText(proposal);
+
+  async function copyProposal() {
+    try {
+      await navigator.clipboard.writeText(proposalText);
+    } catch {
+      // Clipboard can fail in restricted browser contexts; the text remains selectable.
+    }
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 bg-[#080b12]/80 px-4 py-5 backdrop-blur">
+      <div className="mx-auto flex max-h-full max-w-5xl flex-col overflow-hidden rounded-md border border-[#c7a66b]/30 bg-[#f7f4ee] shadow-[0_30px_100px_rgba(0,0,0,0.45)]">
+        <header className="flex items-start justify-between gap-4 border-b border-[#ded8cc] p-5">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+              Generated proposal
+            </p>
+            <h2 className="mt-2 text-2xl font-black text-[#111827]">
+              Draft proposal siap copy
+            </h2>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="grid h-10 w-10 place-items-center rounded-md bg-white text-[#111827] transition hover:bg-[#111827] hover:text-white"
+            aria-label="Tutup proposal"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </header>
+
+        <div className="grid min-h-0 flex-1 overflow-auto lg:grid-cols-[1fr_0.7fr]">
+          <section className="p-5">
+            <pre className="min-h-[520px] whitespace-pre-wrap rounded-md border border-[#ded8cc] bg-white p-5 text-sm leading-7 text-[#374151]">
+              {proposalText}
+            </pre>
+          </section>
+          <aside className="border-t border-[#ded8cc] bg-[#111827] p-5 text-white lg:border-l lg:border-t-0">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+              Ringkasan
+            </p>
+            <div className="mt-5 space-y-4">
+              {[
+                ["Paket", proposal.service.name],
+                ["Industri", proposal.industry.label],
+                ["Tujuan", proposal.goal.label],
+                ["Visual", proposal.theme.label],
+                ["Investasi", formatRupiah(proposal.quote)],
+                ["Timeline", proposal.service.timeline],
+              ].map(([label, value]) => (
+                <div key={label} className="rounded-md border border-white/10 bg-white/[0.06] p-4">
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-slate-400">
+                    {label}
+                  </p>
+                  <p className="mt-1 text-sm font-black">{value}</p>
+                </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={copyProposal}
+              className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-4 text-sm font-black text-[#080b12] transition hover:bg-[#f5d89b]"
+            >
+              <Copy className="h-4 w-4" />
+              Copy proposal
+            </button>
+          </aside>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function createProposalText(proposal) {
+  return `PROPOSAL DIGITAL SYSTEM
+
+Paket Direkomendasikan:
+${proposal.service.name}
+
+Konteks Bisnis:
+- Industri: ${proposal.industry.label}
+- Tujuan utama: ${proposal.goal.label}
+- Arah visual: ${proposal.theme.label}
+
+Executive Summary:
+Kami merekomendasikan ${proposal.service.name} untuk membantu bisnis terlihat lebih kredibel, mudah dipahami, dan siap menerima calon pelanggan dengan alur yang lebih rapi. Fokus utama paket ini adalah ${proposal.goal.impact.toLowerCase()}
+
+Scope Utama:
+${proposal.service.includes.map((item) => `- ${item}`).join("\n")}
+
+Pilihan Konfigurasi:
+${proposal.selectedSummary.map((item) => `- ${item}`).join("\n")}
+
+Deliverables:
+- Blueprint struktur penawaran
+- UI responsif premium
+- Copywriting utama dan CTA
+- Setup flow konsultasi atau lead capture
+- Review dan serah terima final
+
+Estimasi Investasi:
+${formatRupiah(proposal.quote)}
+
+Estimasi Timeline:
+${proposal.service.timeline}
+
+Next Step:
+1. Validasi kebutuhan bisnis dan target pelanggan.
+2. Finalisasi scope dan prioritas fitur.
+3. Mulai blueprint, desain, dan implementasi.
+4. Testing responsif dan serah terima aset.`;
+}

@@ -1,5 +1,8 @@
 node_modules/
 dist/
+preview-dashboard.png
+preview-mobile.png
+vite-preview*.log
 .env
 .env.*
 npm-debug.log*
