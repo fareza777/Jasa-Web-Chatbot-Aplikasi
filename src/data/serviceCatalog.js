@@ -6,7 +6,7 @@ export const serviceCatalog = [
     headline: "Website premium yang siap menjual, bukan sekadar tampil online.",
     description:
       "Untuk bisnis yang butuh landing page, company profile, katalog, booking, atau website multi-halaman dengan copywriting dan struktur konversi yang matang.",
-    basePrice: 1800000,
+    basePrice: 750000,
     timeline: "7-14 hari kerja",
     includes: [
       "Strategi struktur halaman",
@@ -22,8 +22,8 @@ export const serviceCatalog = [
         type: "select",
         choices: [
           { label: "1 landing page fokus konversi", value: "1 halaman", price: 0 },
-          { label: "5 halaman bisnis lengkap", value: "5 halaman", price: 1200000 },
-          { label: "10 halaman + katalog layanan", value: "10 halaman", price: 2600000 },
+          { label: "5 halaman bisnis lengkap", value: "5 halaman", price: 650000 },
+          { label: "10 halaman + katalog layanan", value: "10 halaman", price: 1400000 },
         ],
       },
       {
@@ -32,8 +32,8 @@ export const serviceCatalog = [
         type: "select",
         choices: [
           { label: "Luxury corporate", value: "Luxury corporate", price: 0 },
-          { label: "Modern tech startup", value: "Modern tech startup", price: 250000 },
-          { label: "Bold product launch", value: "Bold product launch", price: 350000 },
+          { label: "Modern tech startup", value: "Modern tech startup", price: 150000 },
+          { label: "Bold product launch", value: "Bold product launch", price: 200000 },
         ],
       },
       {
@@ -51,10 +51,10 @@ export const serviceCatalog = [
         label: "Fitur tambahan",
         type: "multi",
         choices: [
-          { label: "Form konsultasi terstruktur", value: "Form konsultasi", price: 350000 },
-          { label: "Katalog produk atau jasa", value: "Katalog", price: 500000 },
-          { label: "Integrasi pixel tracking", value: "Pixel tracking", price: 300000 },
-          { label: "Blog atau artikel SEO", value: "Blog SEO", price: 650000 },
+          { label: "Form konsultasi terstruktur", value: "Form konsultasi", price: 150000 },
+          { label: "Katalog produk atau jasa", value: "Katalog", price: 250000 },
+          { label: "Integrasi pixel tracking", value: "Pixel tracking", price: 150000 },
+          { label: "Blog atau artikel SEO", value: "Blog SEO", price: 300000 },
         ],
       },
     ],
@@ -66,7 +66,7 @@ export const serviceCatalog = [
     headline: "Chatbot AI yang merespons prospek seperti sales profesional.",
     description:
       "Untuk bisnis yang ingin balasan cepat, kualifikasi calon pembeli, follow-up otomatis, dan skrip chat yang rapi di WhatsApp.",
-    basePrice: 2400000,
+    basePrice: 950000,
     timeline: "5-10 hari kerja",
     includes: [
       "Mapping flow percakapan",
@@ -82,8 +82,8 @@ export const serviceCatalog = [
         type: "select",
         choices: [
           { label: "FAQ dan respons cepat", value: "FAQ", price: 0 },
-          { label: "Lead qualification", value: "Kualifikasi lead", price: 900000 },
-          { label: "Full sales assistant", value: "Full sales assistant", price: 1800000 },
+          { label: "Lead qualification", value: "Kualifikasi lead", price: 450000 },
+          { label: "Full sales assistant", value: "Full sales assistant", price: 900000 },
         ],
       },
       {
@@ -93,7 +93,7 @@ export const serviceCatalog = [
         choices: [
           { label: "Ramah dan konsultatif", value: "Konsultatif", price: 0 },
           { label: "Cepat dan direct closing", value: "Direct closing", price: 0 },
-          { label: "Premium concierge", value: "Premium concierge", price: 300000 },
+          { label: "Premium concierge", value: "Premium concierge", price: 150000 },
         ],
       },
       {
@@ -101,10 +101,10 @@ export const serviceCatalog = [
         label: "Integrasi",
         type: "multi",
         choices: [
-          { label: "Google Sheet lead log", value: "Google Sheet", price: 450000 },
-          { label: "Notifikasi admin", value: "Notifikasi admin", price: 250000 },
-          { label: "Routing ke CS berbeda", value: "Routing CS", price: 600000 },
-          { label: "Template follow-up 7 hari", value: "Follow-up", price: 500000 },
+          { label: "Google Sheet lead log", value: "Google Sheet", price: 200000 },
+          { label: "Notifikasi admin", value: "Notifikasi admin", price: 150000 },
+          { label: "Routing ke CS berbeda", value: "Routing CS", price: 300000 },
+          { label: "Template follow-up 7 hari", value: "Follow-up", price: 250000 },
         ],
       },
     ],
@@ -116,7 +116,7 @@ export const serviceCatalog = [
     headline: "Aplikasi mobile yang terasa solid untuk validasi produk dan layanan.",
     description:
       "Untuk bisnis yang butuh aplikasi katalog, portal pelanggan, booking, komunitas, edukasi, atau MVP internal yang bisa diuji cepat.",
-    basePrice: 5200000,
+    basePrice: 2500000,
     timeline: "14-30 hari kerja",
     includes: [
       "Wireframe flow aplikasi",
@@ -132,8 +132,8 @@ export const serviceCatalog = [
         type: "select",
         choices: [
           { label: "Android APK", value: "Android", price: 0 },
-          { label: "Android + PWA", value: "Android + PWA", price: 1600000 },
-          { label: "Cross-platform plan", value: "Cross-platform", price: 3200000 },
+          { label: "Android + PWA", value: "Android + PWA", price: 850000 },
+          { label: "Cross-platform plan", value: "Cross-platform", price: 1800000 },
         ],
       },
       {
@@ -142,8 +142,8 @@ export const serviceCatalog = [
         type: "select",
         choices: [
           { label: "5 layar inti", value: "5 layar", price: 0 },
-          { label: "10 layar lengkap", value: "10 layar", price: 1700000 },
-          { label: "15 layar + dashboard", value: "15 layar", price: 3600000 },
+          { label: "10 layar lengkap", value: "10 layar", price: 850000 },
+          { label: "15 layar + dashboard", value: "15 layar", price: 1800000 },
         ],
       },
       {
@@ -151,10 +151,10 @@ export const serviceCatalog = [
         label: "Modul tambahan",
         type: "multi",
         choices: [
-          { label: "Login pelanggan", value: "Login", price: 900000 },
-          { label: "Booking atau reservasi", value: "Booking", price: 1400000 },
-          { label: "Push notification plan", value: "Push notification", price: 800000 },
-          { label: "Katalog interaktif", value: "Katalog interaktif", price: 1100000 },
+          { label: "Login pelanggan", value: "Login", price: 450000 },
+          { label: "Booking atau reservasi", value: "Booking", price: 700000 },
+          { label: "Push notification plan", value: "Push notification", price: 400000 },
+          { label: "Katalog interaktif", value: "Katalog interaktif", price: 550000 },
         ],
       },
     ],
@@ -166,7 +166,7 @@ export const serviceCatalog = [
     headline: "Website, chatbot, dan aset digital yang dirancang sebagai satu mesin penjualan.",
     description:
       "Untuk bisnis yang ingin langsung punya etalase, sistem chat, tracking lead, dan materi presentasi yang konsisten dalam satu eksekusi.",
-    basePrice: 6800000,
+    basePrice: 3200000,
     timeline: "21-35 hari kerja",
     includes: [
       "Website conversion system",
@@ -182,8 +182,8 @@ export const serviceCatalog = [
         type: "select",
         choices: [
           { label: "Launch stack", value: "Launch", price: 0 },
-          { label: "Scale stack", value: "Scale", price: 2600000 },
-          { label: "Authority stack", value: "Authority", price: 5200000 },
+          { label: "Scale stack", value: "Scale", price: 1400000 },
+          { label: "Authority stack", value: "Authority", price: 2700000 },
         ],
       },
       {
@@ -191,10 +191,10 @@ export const serviceCatalog = [
         label: "Aset tambahan",
         type: "multi",
         choices: [
-          { label: "Pitch deck 8 halaman", value: "Pitch deck", price: 900000 },
-          { label: "Template konten 30 hari", value: "Konten 30 hari", price: 1500000 },
-          { label: "Brand mini guide", value: "Brand guide", price: 1200000 },
-          { label: "Proposal PDF premium", value: "Proposal PDF", price: 850000 },
+          { label: "Pitch deck 8 halaman", value: "Pitch deck", price: 450000 },
+          { label: "Template konten 30 hari", value: "Konten 30 hari", price: 750000 },
+          { label: "Brand mini guide", value: "Brand guide", price: 600000 },
+          { label: "Proposal PDF premium", value: "Proposal PDF", price: 400000 },
         ],
       },
     ],
@@ -206,7 +206,7 @@ export const serviceCatalog = [
     headline: "Asisten digital siap pakai untuk membantu chat, lead, admin, dan workflow pelanggan.",
     description:
       "Untuk bisnis yang ingin punya asisten digital seperti Hermes: menjawab, mengarahkan, merangkum, membantu admin, dan menjalankan workflow sesuai SOP pelanggan.",
-    basePrice: 7600000,
+    basePrice: 2900000,
     timeline: "21-40 hari kerja",
     includes: [
       "Blueprint persona asisten",
@@ -222,8 +222,8 @@ export const serviceCatalog = [
         type: "select",
         choices: [
           { label: "Customer support assistant", value: "Customer support", price: 0 },
-          { label: "Sales qualification assistant", value: "Sales qualification", price: 1200000 },
-          { label: "Operations co-pilot", value: "Operations co-pilot", price: 2200000 },
+          { label: "Sales qualification assistant", value: "Sales qualification", price: 650000 },
+          { label: "Operations co-pilot", value: "Operations co-pilot", price: 1100000 },
         ],
       },
       {
@@ -232,8 +232,8 @@ export const serviceCatalog = [
         type: "select",
         choices: [
           { label: "Website assistant", value: "Website assistant", price: 0 },
-          { label: "WhatsApp assistant", value: "WhatsApp assistant", price: 1600000 },
-          { label: "Multi-channel assistant", value: "Multi-channel assistant", price: 3400000 },
+          { label: "WhatsApp assistant", value: "WhatsApp assistant", price: 850000 },
+          { label: "Multi-channel assistant", value: "Multi-channel assistant", price: 1800000 },
         ],
       },
       {
@@ -241,11 +241,11 @@ export const serviceCatalog = [
         label: "Modul kecerdasan",
         type: "multi",
         choices: [
-          { label: "FAQ knowledge base", value: "FAQ knowledge base", price: 600000 },
-          { label: "Lead scoring", value: "Lead scoring", price: 900000 },
-          { label: "Task summary", value: "Task summary", price: 750000 },
-          { label: "Human handover routing", value: "Human handover", price: 850000 },
-          { label: "Internal SOP assistant", value: "SOP assistant", price: 1400000 },
+          { label: "FAQ knowledge base", value: "FAQ knowledge base", price: 250000 },
+          { label: "Lead scoring", value: "Lead scoring", price: 400000 },
+          { label: "Task summary", value: "Task summary", price: 350000 },
+          { label: "Human handover routing", value: "Human handover", price: 400000 },
+          { label: "Internal SOP assistant", value: "SOP assistant", price: 700000 },
         ],
       },
     ],
@@ -454,7 +454,7 @@ export const packageTiers = [
   {
     id: "launch",
     name: "Launch",
-    priceLabel: "Mulai Rp1,8jt",
+    priceLabel: "Mulai Rp750rb",
     bestFor: "Bisnis yang butuh presence premium cepat.",
     includes: [
       "Website atau chatbot scope kecil",
@@ -466,7 +466,7 @@ export const packageTiers = [
   {
     id: "scale",
     name: "Scale",
-    priceLabel: "Mulai Rp4,8jt",
+    priceLabel: "Mulai Rp2,5jt",
     bestFor: "Bisnis yang ingin sistem lead lebih lengkap.",
     includes: [
       "Website multi-section",
@@ -479,7 +479,7 @@ export const packageTiers = [
   {
     id: "authority",
     name: "Authority",
-    priceLabel: "Mulai Rp8jt+",
+    priceLabel: "Mulai Rp4,5jt+",
     bestFor: "Brand yang ingin terlihat mapan dan siap scale.",
     includes: [
       "Growth stack lengkap",
