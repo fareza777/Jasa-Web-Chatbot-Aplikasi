@@ -334,7 +334,7 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
 
   return (
     <section
-      className="relative overflow-hidden border-b border-[#ded8cc] text-white"
+      className="noise-wash luxury-grid relative overflow-hidden border-b border-[#ded8cc] text-white"
       style={{ backgroundColor: themeColors.dark }}
     >
       <div
@@ -386,11 +386,20 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
             borderColor: `${themeColors.accent}55`,
           }}
         >
-          <div className="absolute inset-x-0 top-0 h-14 border-b border-white/10 bg-[#0b1220]" />
+          <div className="absolute inset-x-0 top-0 flex h-14 items-center justify-between border-b border-white/10 bg-[#0b1220] px-4">
+            <span className="chrome-dots" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </span>
+            <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">
+              Command Center
+            </span>
+          </div>
           <div className="relative pt-16">
             <div className="mb-4 grid gap-3 sm:grid-cols-3">
               {["Lead intent", "Conversion", "Quote"].map((label, index) => (
-                <div key={label} className="shimmer-surface rounded-md border border-white/10 bg-white/[0.06] p-3 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.10]">
+                <div key={label} className="dark-glass shimmer-surface rounded-md p-3 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.10]">
                   <p className="text-xs font-bold text-slate-400">{label}</p>
                   <p className="mt-2 text-lg font-black text-white">
                     {index === 0 ? "High" : index === 1 ? "+38%" : formatRupiah(quote)}
@@ -399,7 +408,7 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
               ))}
             </div>
 
-            <div className="rounded-md bg-[#f7f4ee] p-5 text-[#111827] transition duration-500">
+            <div className="rounded-md bg-[#f7f4ee] p-5 text-[#111827] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] transition duration-500">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
@@ -425,7 +434,7 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
             </div>
 
             <div className="mt-4 grid gap-4 sm:grid-cols-[1fr_0.72fr]">
-              <div className="rounded-md border border-white/10 bg-white/[0.06] p-4">
+              <div className="dark-glass rounded-md p-4">
                 <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#c7a66b]">
                   Build preview
                 </p>
@@ -445,7 +454,7 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
               </div>
               <AIConversationCard />
             </div>
-            <div className="mt-4 rounded-md border border-[#c7a66b]/20 bg-[#0b1220] p-4">
+            <div className="mt-4 rounded-md border border-[#c7a66b]/20 bg-[#0b1220] p-4 shadow-[inset_0_1px_0_rgba(199,166,107,0.12)]">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#c7a66b]">
                 Recommended strategy
               </p>
@@ -572,7 +581,7 @@ function SmartBuilder({
     <section className="border-b border-[#ded8cc] bg-[#f7f4ee]">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+          <p className="section-kicker">
             Smart package builder
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -645,10 +654,10 @@ function ChoiceGrid({ title, items, selectedId, onSelect }) {
             key={item.id}
             type="button"
             onClick={() => onSelect(item.id)}
-            className={`rounded-md border p-4 text-left transition duration-300 hover:-translate-y-0.5 ${
+              className={`rounded-md border p-4 text-left transition duration-300 hover:-translate-y-0.5 ${
               selectedId === item.id
                 ? "border-[#111827] bg-white shadow-[0_16px_34px_rgba(17,24,39,0.12)]"
-                : "border-[#ded8cc] bg-[#fbfaf7] hover:border-[#111827] hover:bg-white"
+                : "premium-card hover:border-[#111827]"
             }`}
           >
             <p className="font-black text-[#111827]">{item.label}</p>
@@ -667,7 +676,7 @@ function Services({ activeServiceId, onSelect }) {
     <section id="services" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+          <p className="section-kicker">
             Layanan inti
           </p>
           <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -693,7 +702,7 @@ function Services({ activeServiceId, onSelect }) {
               className={`group flex min-h-[280px] flex-col rounded-md border p-5 text-left transition duration-300 hover:-translate-y-2 ${
                 isActive
                   ? "border-[#111827] bg-white shadow-[0_18px_50px_rgba(17,24,39,0.12)]"
-                  : "border-[#ded8cc] bg-[#fbfaf7] hover:border-[#111827] hover:shadow-[0_18px_44px_rgba(17,24,39,0.10)]"
+                  : "premium-card hover:border-[#111827] hover:shadow-[0_18px_44px_rgba(17,24,39,0.10)]"
               }`}
             >
               <span className="grid h-12 w-12 place-items-center rounded-md bg-[#111827] text-[#c7a66b] transition duration-300 group-hover:rotate-3 group-hover:scale-105">
@@ -734,7 +743,7 @@ function Configurator({
     <section id="configurator" className="border-y border-[#ded8cc] bg-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+          <p className="section-kicker">
             Konfigurator paket
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -778,7 +787,7 @@ function Configurator({
           </div>
         </div>
 
-        <div key={`${activeService.id}-panel`} className="animate-fade-up rounded-md border border-[#ded8cc] bg-[#fbfaf7] p-4 sm:p-6">
+        <div key={`${activeService.id}-panel`} className="premium-card animate-fade-up rounded-md p-4 sm:p-6">
           <div className="space-y-6">
             {activeService.options.map((option) => (
               <div key={option.id}>
@@ -1002,7 +1011,7 @@ function OutputShowcase() {
     <section id="work" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+          <p className="section-kicker">
             Output yang terlihat premium
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -1027,8 +1036,8 @@ function OutputShowcase() {
           ].map(([title, description], index) => (
             <article
               key={title}
-              className={`group rounded-md border border-[#ded8cc] p-5 transition duration-300 hover:-translate-y-2 hover:shadow-[0_20px_46px_rgba(17,24,39,0.12)] ${
-                index === 0 ? "bg-[#111827] text-white" : "bg-white"
+              className={`group rounded-md p-5 transition duration-300 hover:-translate-y-2 hover:shadow-[0_20px_46px_rgba(17,24,39,0.12)] ${
+                index === 0 ? "border border-[#111827] bg-[#111827] text-white" : "premium-card"
               }`}
             >
               <div className="mb-8 h-28 rounded-md border border-current/10 bg-current/5 p-3 transition duration-300 group-hover:scale-[1.02]">
@@ -1058,9 +1067,9 @@ function ExampleBuilds() {
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
-              Example builds
-            </p>
+          <p className="section-kicker">
+            Example builds
+          </p>
             <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
               Contoh output yang terasa seperti brand matang.
             </h2>
@@ -1072,7 +1081,7 @@ function ExampleBuilds() {
           {exampleBuilds.map((build, index) => (
             <article
               key={build.title}
-              className={`group overflow-hidden rounded-md border border-[#ded8cc] bg-white transition duration-300 hover:-translate-y-2 hover:shadow-[0_22px_50px_rgba(17,24,39,0.12)] ${
+              className={`premium-card group overflow-hidden rounded-md transition duration-300 hover:-translate-y-2 hover:shadow-[0_22px_50px_rgba(17,24,39,0.12)] ${
                 index === 0 ? "lg:col-span-2" : ""
               }`}
             >
@@ -1550,7 +1559,7 @@ function OutcomeCalculator({ proposal }) {
           <div className="mb-4 inline-grid h-12 w-12 place-items-center rounded-md bg-[#111827] text-[#c7a66b]">
             <Calculator className="h-6 w-6" aria-hidden="true" />
           </div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+          <p className="section-kicker">
             Outcome estimate
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -1562,7 +1571,7 @@ function OutcomeCalculator({ proposal }) {
           </p>
         </div>
 
-        <div className="rounded-md border border-[#ded8cc] bg-[#f7f4ee] p-5">
+        <div className="premium-card rounded-md p-5">
           <div className="mb-5 flex items-center justify-between gap-4">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
@@ -1814,7 +1823,7 @@ function PackageComparison({ onOpenProposal, onOpenIntake }) {
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+          <p className="section-kicker">
             Package levels
           </p>
           <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -1834,7 +1843,7 @@ function PackageComparison({ onOpenProposal, onOpenIntake }) {
             className={`relative rounded-md border p-6 transition duration-300 hover:-translate-y-2 hover:shadow-[0_24px_60px_rgba(17,24,39,0.13)] ${
               tier.featured
                 ? "border-[#111827] bg-[#111827] text-white"
-                : "border-[#ded8cc] bg-white text-[#111827]"
+                : "premium-card text-[#111827]"
             }`}
           >
             {tier.featured && (

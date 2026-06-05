@@ -154,6 +154,72 @@ html {
   animation: shimmer-line 3.5s ease-in-out infinite;
 }
 
+.luxury-grid {
+  background-image:
+    linear-gradient(rgba(199, 166, 107, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(199, 166, 107, 0.08) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.noise-wash {
+  position: relative;
+}
+
+.noise-wash::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(199, 166, 107, 0.12), transparent 22%),
+    radial-gradient(circle at 80% 10%, rgba(15, 118, 110, 0.1), transparent 24%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.04), transparent 38%);
+}
+
+.premium-card {
+  border: 1px solid rgba(222, 216, 204, 0.95);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(247, 244, 238, 0.92));
+  box-shadow: 0 18px 48px rgba(17, 24, 39, 0.08);
+}
+
+.dark-glass {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.035));
+  backdrop-filter: blur(12px);
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #8a6d30;
+  font-size: 0.875rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.section-kicker::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: #c7a66b;
+}
+
+.chrome-dots {
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+.chrome-dots span {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.24);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
