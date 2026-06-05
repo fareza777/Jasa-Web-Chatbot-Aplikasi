@@ -233,7 +233,7 @@ export default function PremiumStudio() {
             </span>
             <span>
               <span className="block text-sm font-black uppercase tracking-[0.18em]">
-                Digital Craft
+                OpenClaw Digital
               </span>
               <span className="block text-xs font-semibold text-[#6b7280]">
                 Website, AI, Aplikasi
@@ -259,7 +259,7 @@ export default function PremiumStudio() {
             onClick={() => setProposalOpen(true)}
             className="hidden h-10 flex-none items-center gap-2 rounded-md bg-[#111827] px-4 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#1f2937] hover:shadow-[0_14px_30px_rgba(17,24,39,0.18)] sm:inline-flex"
           >
-            Generate Proposal
+            Cek Paket
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
@@ -302,6 +302,10 @@ export default function PremiumStudio() {
         />
         <PremiumVisualLab proposal={proposal} />
         <ClientDeliverableWall proposal={proposal} />
+        <QuickPackagePicker
+          onOpenProposal={() => setProposalOpen(true)}
+          onOpenIntake={() => setIntakeOpen(true)}
+        />
         <Configurator
           activeService={activeService}
           activeConfig={activeConfig}
@@ -346,6 +350,7 @@ export default function PremiumStudio() {
         proposal={proposal}
         onOpenProposal={() => setProposalOpen(true)}
       />
+      <DesktopWhatsAppBar proposal={proposal} />
       {proposalOpen && (
         <ProposalModal
           proposal={proposal}
@@ -1221,6 +1226,90 @@ function ClientDeliverableWall({ proposal }) {
   );
 }
 
+function QuickPackagePicker({ onOpenProposal, onOpenIntake }) {
+  const packageImages = [visualAssets.website, visualAssets.devices, visualAssets.assistant];
+
+  return (
+    <section className="relative overflow-hidden border-b border-[#ded8cc] bg-[#080b12] text-white">
+      <div className="aurora-layer opacity-50" aria-hidden="true" />
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="mb-8 grid gap-4 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+              Paket cepat
+            </p>
+            <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+              Untuk yang tidak mau ribet pilih dari nol.
+            </h2>
+          </div>
+          <p className="text-sm leading-7 text-slate-300">
+            Konfigurator tetap ada untuk custom detail. Tapi tiga paket ini
+            membantu calon pelanggan langsung paham opsi paling umum: mulai
+            ringan, siap growth, atau paket lengkap.
+          </p>
+        </div>
+
+        <div className="grid gap-4 lg:grid-cols-3">
+          {packageTiers.map((tier, index) => (
+            <article
+              key={tier.id}
+              className={`premium-frame group overflow-hidden rounded-md border transition duration-300 hover:-translate-y-2 ${
+                tier.featured
+                  ? "border-[#c7a66b]/45 bg-white text-[#111827] shadow-[0_28px_70px_rgba(199,166,107,0.18)]"
+                  : "border-white/10 bg-white/[0.06] text-white"
+              }`}
+            >
+              <div className="relative h-44 overflow-hidden">
+                <img
+                  src={packageImages[index] || visualAssets.workspace}
+                  alt={`Visual paket ${tier.name}`}
+                  className="h-full w-full object-cover opacity-80 transition duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className={`absolute inset-0 bg-gradient-to-t ${tier.featured ? "from-white" : "from-[#080b12]"} via-transparent to-transparent`} />
+                {tier.featured && (
+                  <span className="absolute right-4 top-4 rounded-full bg-[#c7a66b] px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#080b12]">
+                    Paling aman
+                  </span>
+                )}
+              </div>
+              <div className="p-6">
+                <h3 className="text-2xl font-black">{tier.name}</h3>
+                <p className={`mt-2 text-sm leading-6 ${tier.featured ? "text-[#4b5563]" : "text-slate-300"}`}>
+                  {tier.bestFor}
+                </p>
+                <p className={`mt-5 text-3xl font-black ${tier.featured ? "text-[#8a6d30]" : "text-[#f5d89b]"}`}>
+                  {tier.priceLabel}
+                </p>
+                <div className="mt-6 space-y-3">
+                  {tier.includes.map((item) => (
+                    <div key={item} className="flex gap-3 text-sm font-bold">
+                      <CheckCircle2 className={`mt-0.5 h-4 w-4 flex-none ${tier.featured ? "text-[#0f766e]" : "text-[#c7a66b]"}`} />
+                      {item}
+                    </div>
+                  ))}
+                </div>
+                <button
+                  type="button"
+                  onClick={tier.featured ? onOpenIntake : onOpenProposal}
+                  className={`mt-8 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md px-4 text-sm font-black transition hover:-translate-y-0.5 ${
+                    tier.featured
+                      ? "bg-[#111827] text-white hover:bg-[#1f2937]"
+                      : "bg-[#c7a66b] text-[#080b12] hover:bg-[#f5d89b]"
+                  }`}
+                >
+                  {tier.featured ? "Mulai brief" : "Cek estimasi"}
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Configurator({
   activeService,
   activeConfig,
@@ -1351,7 +1440,7 @@ function Configurator({
                 onClick={onOpenProposal}
                 className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#0f766e] px-4 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#115e59] hover:shadow-[0_16px_30px_rgba(15,118,110,0.25)]"
               >
-                Generate proposal
+                Buat proposal
                 <MessageCircle className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>
@@ -1681,7 +1770,7 @@ function CaseStudySimulator({ onOpenProposal }) {
               onClick={onOpenProposal}
               className="inline-flex h-11 flex-none items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-4 text-sm font-black text-[#080b12] transition hover:bg-[#f5d89b]"
             >
-              Generate proposal
+              Buat proposal
               <ArrowRight className="h-4 w-4" />
             </button>
           </div>
@@ -1798,7 +1887,7 @@ function ObjectionHandler({ onOpenProposal }) {
             onClick={onOpenProposal}
             className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#111827] px-4 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#1f2937]"
           >
-            Generate proposal untuk menjawab concern ini
+            Buat proposal untuk menjawab concern ini
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>
@@ -2618,7 +2707,7 @@ function PackageComparison({ onOpenProposal, onOpenIntake }) {
       <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
         <div>
           <p className="section-kicker">
-            Package levels
+            Level paket
           </p>
           <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
             Pilih kedalaman eksekusi sesuai tahap bisnis.
@@ -2670,7 +2759,7 @@ function PackageComparison({ onOpenProposal, onOpenIntake }) {
                     : "bg-[#111827] text-white hover:bg-[#1f2937]"
                 }`}
               >
-                {tier.featured ? "Start brief" : "Generate proposal"}
+                {tier.featured ? "Mulai brief" : "Cek estimasi"}
                 <ArrowRight className="h-4 w-4" />
               </button>
             </div>
@@ -2735,7 +2824,7 @@ function ScopeMatrix({ onOpenIntake }) {
               onClick={onOpenIntake}
               className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#111827] px-4 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#1f2937]"
             >
-              Start brief
+              Mulai brief
               <ArrowRight className="h-4 w-4" />
             </button>
           </aside>
@@ -2881,21 +2970,21 @@ function BeforeAfterSection({ onOpenProposal }) {
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
-            Before / After
+            Sebelum / Sesudah
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
-            Transformasi yang harus terasa sebelum klien menghubungi.
+            Dari sekadar online menjadi sistem yang siap menerima calon pelanggan.
           </h2>
           <p className="mt-4 text-sm leading-7 text-slate-300">
-            Website jasa digital yang bagus bukan hanya tampil mahal. Ia harus
-            membuat calon klien lebih cepat paham, percaya, dan tahu langkah berikutnya.
+            Ini gambaran perubahan yang harus langsung terasa: lebih jelas,
+            lebih meyakinkan, dan lebih mudah diarahkan ke WhatsApp atau brief.
           </p>
           <button
             type="button"
             onClick={onOpenProposal}
             className="mt-6 inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-5 text-sm font-black text-[#080b12] transition duration-300 hover:-translate-y-0.5 hover:bg-[#f5d89b]"
           >
-            Generate proposal
+            Cek paket yang cocok
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>
@@ -2908,7 +2997,7 @@ function BeforeAfterSection({ onOpenProposal }) {
             >
               <div className="rounded-md bg-white/[0.05] p-4">
                 <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500">
-                  Before {String(index + 1).padStart(2, "0")}
+                  Sebelum {String(index + 1).padStart(2, "0")}
                 </p>
                 <p className="mt-2 text-sm font-bold leading-6 text-slate-300">
                   {before}
@@ -2919,7 +3008,7 @@ function BeforeAfterSection({ onOpenProposal }) {
               </div>
               <div className="rounded-md bg-[#c7a66b] p-4 text-[#080b12]">
                 <p className="text-xs font-black uppercase tracking-[0.14em]">
-                  After
+                  Sesudah
                 </p>
                 <p className="mt-2 text-sm font-black leading-6">{after}</p>
               </div>
@@ -3178,7 +3267,7 @@ function FinalCTA({ onOpenProposal }) {
               onClick={onOpenProposal}
               className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#111827] px-5 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#1f2937] hover:shadow-[0_18px_34px_rgba(17,24,39,0.20)]"
             >
-              Generate proposal
+              Buat proposal
               <Zap className="h-4 w-4" aria-hidden="true" />
             </button>
             <div className="flex items-center justify-center gap-2 rounded-md bg-[#f7f4ee] px-4 py-3 text-sm font-bold text-[#374151]">
@@ -3232,6 +3321,36 @@ function StickyQuoteBar({ proposal, onOpenProposal }) {
   );
 }
 
+function DesktopWhatsAppBar({ proposal }) {
+  const text = createWhatsAppText(proposal);
+  const href = `https://wa.me/?text=${encodeURIComponent(text)}`;
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="fixed bottom-5 right-5 z-40 hidden w-[320px] rounded-md border border-[#c7a66b]/35 bg-[#080b12]/95 p-4 text-white shadow-[0_24px_70px_rgba(0,0,0,0.34)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-[#c7a66b] lg:block"
+    >
+      <div className="flex items-start gap-3">
+        <span className="grid h-11 w-11 flex-none place-items-center rounded-md bg-[#25D366] text-[#062d17]">
+          <MessageCircle className="h-5 w-5" aria-hidden="true" />
+        </span>
+        <span className="min-w-0">
+          <span className="block text-sm font-black">Konsultasi via WhatsApp</span>
+          <span className="mt-1 block text-xs leading-5 text-slate-300">
+            {proposal.service.label} mulai {formatRupiah(proposal.quote)}
+          </span>
+        </span>
+      </div>
+      <span className="mt-3 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.14em] text-[#f5d89b]">
+        Buka chat
+        <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+      </span>
+    </a>
+  );
+}
+
 function PremiumFooter({ onOpenProposal }) {
   return (
     <footer className="border-t border-[#ded8cc] bg-[#080b12] text-white">
@@ -3243,7 +3362,7 @@ function PremiumFooter({ onOpenProposal }) {
             </span>
             <div>
               <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
-                Digital Craft
+                OpenClaw Digital
               </p>
               <p className="text-sm font-semibold text-slate-300">
                 Website, chatbot AI, asisten digital, dan aplikasi ringan.
