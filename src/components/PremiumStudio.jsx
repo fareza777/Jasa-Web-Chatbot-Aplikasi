@@ -9,6 +9,7 @@ import {
   ClipboardCheck,
   Code2,
   Copy,
+  Cpu,
   Globe2,
   Layers3,
   MessageCircle,
@@ -55,6 +56,7 @@ const serviceIcons = {
   chatbot: Bot,
   "mobile-app": Smartphone,
   "growth-stack": Layers3,
+  "digital-assistant": Bot,
 };
 
 const sectionLinks = [
@@ -270,6 +272,12 @@ export default function PremiumStudio() {
           activeServiceId={activeServiceId}
           onSelect={(id) => {
             setActiveServiceId(id);
+            scrollToSection("configurator");
+          }}
+        />
+        <OpenClawAssistantLab
+          onSelectAssistant={() => {
+            setActiveServiceId("digital-assistant");
             scrollToSection("configurator");
           }}
         />
@@ -694,7 +702,7 @@ function Services({ activeServiceId, onSelect }) {
         </p>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
         {serviceCatalog.map((service) => {
           const Icon = serviceIcons[service.id] || Sparkles;
           const isActive = service.id === activeServiceId;
@@ -726,6 +734,94 @@ function Services({ activeServiceId, onSelect }) {
             </button>
           );
         })}
+      </div>
+    </section>
+  );
+}
+
+function OpenClawAssistantLab({ onSelectAssistant }) {
+  const capabilities = [
+    ["Knowledge Core", "FAQ, layanan, harga, SOP, dan kebijakan bisnis."],
+    ["Lead Intelligence", "Scoring, intent, urgency, dan rekomendasi paket."],
+    ["Workflow Routing", "Handover ke admin, follow-up, dan task summary."],
+    ["Guardrail Mode", "Batasan jawaban, fallback, dan eskalasi manusia."],
+  ];
+
+  return (
+    <section className="noise-wash border-y border-[#ded8cc] bg-[#080b12] text-white">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+            OpenClaw assistant service
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Asisten digital seperti Hermes, dibuat siap pakai untuk pelanggan.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-slate-300">
+            Paket ini bukan hanya chatbot. Ini adalah assistant layer yang punya
+            persona, knowledge base, workflow, lead scoring, dan handover ke tim manusia.
+          </p>
+          <button
+            type="button"
+            onClick={onSelectAssistant}
+            className="mt-6 inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-5 text-sm font-black text-[#080b12] transition hover:-translate-y-0.5 hover:bg-[#f5d89b]"
+          >
+            Rancang asisten digital
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
+
+        <div className="relative overflow-hidden rounded-md border border-[#c7a66b]/30 bg-[#0b1220] p-5 shadow-[0_30px_90px_rgba(0,0,0,0.35)]">
+          <div className="luxury-grid absolute inset-0 opacity-30" />
+          <div className="relative">
+            <div className="mb-5 flex items-center justify-between">
+              <span className="chrome-dots" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
+              <span className="rounded-full border border-[#c7a66b]/20 bg-[#c7a66b]/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#f5d89b]">
+                Assistant Lab
+              </span>
+            </div>
+
+            <div className="grid gap-4 lg:grid-cols-[220px_1fr]">
+              <div className="grid place-items-center rounded-md border border-white/10 bg-white/[0.04] p-6">
+                <div className="relative grid h-40 w-40 place-items-center rounded-full border border-[#c7a66b]/30">
+                  <div className="absolute inset-5 rounded-full border border-[#0f766e]/40" />
+                  <div className="absolute inset-10 rounded-full bg-[#c7a66b]/10 blur-xl" />
+                  <div className="relative grid h-20 w-20 place-items-center rounded-full bg-[#c7a66b] text-[#080b12] shadow-[0_0_40px_rgba(199,166,107,0.35)]">
+                    <Cpu className="h-9 w-9" />
+                  </div>
+                </div>
+                <p className="mt-5 text-center text-sm font-black text-[#f5d89b]">
+                  OpenClaw Core
+                </p>
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                {capabilities.map(([title, description]) => (
+                  <article key={title} className="dark-glass rounded-md p-4">
+                    <p className="font-black text-white">{title}</p>
+                    <p className="mt-2 text-xs leading-5 text-slate-400">
+                      {description}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-4 rounded-md border border-white/10 bg-white/[0.04] p-4">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+                Delivery promise
+              </p>
+              <p className="mt-2 text-sm font-bold leading-6 text-slate-200">
+                Pelanggan mendapatkan assistant blueprint, flow skenario, knowledge base,
+                dan mode handover sehingga asisten bisa langsung diuji dan dipakai.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -1605,7 +1701,7 @@ function ArchitectureMap({ proposal, onOpenProposal }) {
               </span>
             </div>
 
-            <div className="grid gap-4 lg:grid-cols-5">
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
               {architectureNodes.map((node, index) => {
                 const active = activeNode.id === node.id;
 
@@ -1637,7 +1733,7 @@ function ArchitectureMap({ proposal, onOpenProposal }) {
                       </span>
                     </button>
                     {index < architectureNodes.length - 1 && (
-                      <div className="absolute left-full top-1/2 z-0 hidden h-px w-4 bg-[#c7a66b]/60 lg:block" />
+                      <div className="absolute left-full top-1/2 z-0 hidden h-px w-4 bg-[#c7a66b]/60 xl:block" />
                     )}
                   </div>
                 );

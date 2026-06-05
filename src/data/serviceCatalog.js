@@ -199,6 +199,57 @@ export const serviceCatalog = [
       },
     ],
   },
+  {
+    id: "digital-assistant",
+    name: "OpenClaw Digital Assistant",
+    label: "Asisten Digital",
+    headline: "Asisten digital siap pakai untuk membantu chat, lead, admin, dan workflow pelanggan.",
+    description:
+      "Untuk bisnis yang ingin punya asisten digital seperti Hermes: menjawab, mengarahkan, merangkum, membantu admin, dan menjalankan workflow sesuai SOP pelanggan.",
+    basePrice: 7600000,
+    timeline: "21-40 hari kerja",
+    includes: [
+      "Blueprint persona asisten",
+      "Knowledge base bisnis",
+      "Workflow automation",
+      "Admin handover mode",
+      "Testing skenario pelanggan",
+    ],
+    options: [
+      {
+        id: "assistantRole",
+        label: "Peran asisten",
+        type: "select",
+        choices: [
+          { label: "Customer support assistant", value: "Customer support", price: 0 },
+          { label: "Sales qualification assistant", value: "Sales qualification", price: 1200000 },
+          { label: "Operations co-pilot", value: "Operations co-pilot", price: 2200000 },
+        ],
+      },
+      {
+        id: "deployment",
+        label: "Mode deployment",
+        type: "select",
+        choices: [
+          { label: "Website assistant", value: "Website assistant", price: 0 },
+          { label: "WhatsApp assistant", value: "WhatsApp assistant", price: 1600000 },
+          { label: "Multi-channel assistant", value: "Multi-channel assistant", price: 3400000 },
+        ],
+      },
+      {
+        id: "assistantModules",
+        label: "Modul kecerdasan",
+        type: "multi",
+        choices: [
+          { label: "FAQ knowledge base", value: "FAQ knowledge base", price: 600000 },
+          { label: "Lead scoring", value: "Lead scoring", price: 900000 },
+          { label: "Task summary", value: "Task summary", price: 750000 },
+          { label: "Human handover routing", value: "Human handover", price: 850000 },
+          { label: "Internal SOP assistant", value: "SOP assistant", price: 1400000 },
+        ],
+      },
+    ],
+  },
 ];
 
 export const serviceOutcomes = [
@@ -239,6 +290,12 @@ export const industries = [
     headline: "Gabungkan katalog, chat, dan tracking lead dalam satu alur.",
     recommendedService: "growth-stack",
   },
+  {
+    id: "operations",
+    label: "Operasional & Admin",
+    headline: "Buat asisten digital yang membantu menjawab, merangkum, dan mengarahkan pekerjaan harian.",
+    recommendedService: "digital-assistant",
+  },
 ];
 
 export const goals = [
@@ -265,6 +322,12 @@ export const goals = [
     label: "Naikkan trust",
     impact: "Prioritas pada visual premium, proof, dan proposal digital.",
     recommendedService: "growth-stack",
+  },
+  {
+    id: "assistant",
+    label: "Bangun asisten digital",
+    impact: "Prioritas pada knowledge base, workflow, handover, dan automasi operasional.",
+    recommendedService: "digital-assistant",
   },
 ];
 
@@ -336,6 +399,11 @@ export const exampleBuilds = [
     type: "Combo",
     description: "Website, chatbot, lead capture, template proposal, dan tracking dasar.",
   },
+  {
+    title: "OpenClaw Digital Assistant",
+    type: "Asisten Digital",
+    description: "Persona asisten, knowledge base, workflow routing, lead scoring, dan handover admin.",
+  },
 ];
 
 export const credibilitySignals = [
@@ -354,6 +422,10 @@ export const credibilitySignals = [
   {
     title: "Launch Readiness",
     description: "Setiap paket punya scope, timeline, deliverables, dan next step yang jelas.",
+  },
+  {
+    title: "Assistant Blueprint",
+    description: "Persona, batasan jawaban, escalation path, dan SOP dibuat sebelum asisten dipasang.",
   },
 ];
 
@@ -467,6 +539,16 @@ export const industryPlaybooks = {
       "Tampilkan best seller dan alasan membeli",
       "Gunakan chat untuk rekomendasi produk",
       "Tambahkan tracking lead untuk campaign",
+    ],
+  },
+  operations: {
+    title: "Digital Assistant Operations Playbook",
+    focus: "Membuat asisten digital yang membantu admin, sales, dan support bekerja lebih konsisten.",
+    moves: [
+      "Tentukan persona, batasan jawaban, dan SOP escalation",
+      "Bangun knowledge base dari FAQ, produk, layanan, dan kebijakan bisnis",
+      "Tambahkan lead scoring dan ringkasan kebutuhan pelanggan",
+      "Gunakan human handover untuk pertanyaan sensitif atau high-value",
     ],
   },
 };
@@ -624,6 +706,17 @@ export const caseStudySimulations = [
     stack: ["Authority Website", "Proposal Generator", "Credibility System", "Scope Matrix"],
     outcome: "Value jasa lebih mudah dijelaskan dan proses konsultasi terasa lebih profesional.",
   },
+  {
+    id: "assistant-ops",
+    title: "Bisnis ingin punya asisten digital siap pakai",
+    industry: "Operasional & Admin",
+    problem:
+      "Admin sering menjawab pertanyaan berulang, merangkum kebutuhan manual, dan kehilangan konteks saat handover.",
+    solution:
+      "OpenClaw Digital Assistant dengan persona, knowledge base, lead scoring, SOP helper, dan human handover routing.",
+    stack: ["OpenClaw Assistant", "Knowledge Base", "Lead Scoring", "Human Handover"],
+    outcome: "Tim menerima ringkasan kebutuhan yang lebih jelas dan respons pelanggan lebih konsisten.",
+  },
 ];
 
 export const objectionHandlers = [
@@ -661,6 +754,13 @@ export const objectionHandlers = [
     response:
       "Chatbot, lead qualification, CTA flow, dan tracking membantu menyaring kebutuhan sebelum masuk proses closing.",
     proof: ["AI qualification", "Lead capture", "Response system"],
+  },
+  {
+    id: "ai-control",
+    concern: "Takut asisten digital menjawab sembarangan",
+    response:
+      "Asisten dibuat dengan persona, knowledge base, guardrail, fallback, dan handover ke manusia untuk pertanyaan sensitif.",
+    proof: ["Assistant blueprint", "Knowledge base", "Human handover"],
   },
 ];
 
@@ -743,6 +843,11 @@ export const premiumDeliverables = [
     label: "Operations",
     description: "Readiness score, roadmap, checklist aset, dan prioritas optimasi berikutnya.",
   },
+  {
+    title: "Digital Assistant",
+    label: "AI Operations",
+    description: "Persona, knowledge base, workflow action, lead scoring, dan human handover.",
+  },
 ];
 
 export const architectureNodes = [
@@ -785,5 +890,13 @@ export const architectureNodes = [
     description:
       "Readiness score, checklist, roadmap, dan asset handover memastikan sistem siap dipakai.",
     output: "Project terasa lengkap sampai tahap serah terima.",
+  },
+  {
+    id: "assistant",
+    title: "Assistant",
+    subtitle: "OpenClaw workflow layer",
+    description:
+      "Asisten digital membaca kebutuhan user, memakai knowledge base, menjalankan flow, dan mengarahkan ke admin saat perlu.",
+    output: "Operasional pelanggan lebih cepat, konsisten, dan mudah diskalakan.",
   },
 ];
