@@ -36,6 +36,7 @@ import {
   industries,
   industryPlaybooks,
   maturityAuditItems,
+  objectionHandlers,
   packageTiers,
   scopeMatrix,
   serviceCatalog,
@@ -282,6 +283,7 @@ export default function PremiumStudio() {
         <OutputShowcase />
         <ExampleBuilds />
         <CaseStudySimulator onOpenProposal={() => setProposalOpen(true)} />
+        <ObjectionHandler onOpenProposal={() => setProposalOpen(true)} />
         <MaturityAudit onOpenProposal={() => setProposalOpen(true)} />
         <OutcomeCalculator proposal={proposal} />
         <ROISection proposal={proposal} />
@@ -1190,6 +1192,89 @@ function CaseStudySimulator({ onOpenProposal }) {
               ))}
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ObjectionHandler({ onOpenProposal }) {
+  const [activeObjectionId, setActiveObjectionId] = useState(objectionHandlers[0].id);
+  const activeObjection =
+    objectionHandlers.find((item) => item.id === activeObjectionId) ||
+    objectionHandlers[0];
+
+  return (
+    <section className="border-y border-[#ded8cc] bg-[#f7f4ee]">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            Objection handler
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Jawab keraguan calon klien sebelum mereka pergi.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-[#4b5563]">
+            Website jasa premium harus bisa menjawab alasan kenapa orang ragu:
+            harga, scope, kualitas, operasional, dan kualitas lead.
+          </p>
+
+          <div className="mt-6 grid gap-2">
+            {objectionHandlers.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setActiveObjectionId(item.id)}
+                className={`rounded-md border px-4 py-3 text-left text-sm font-black transition duration-300 hover:-translate-y-0.5 ${
+                  activeObjection.id === item.id
+                    ? "border-[#111827] bg-[#111827] text-white"
+                    : "border-[#ded8cc] bg-white text-[#111827] hover:border-[#111827]"
+                }`}
+              >
+                {item.concern}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-md border border-[#ded8cc] bg-white p-5 shadow-[0_18px_44px_rgba(17,24,39,0.08)]">
+          <div className="rounded-md bg-[#111827] p-5 text-white">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+              Concern
+            </p>
+            <h3 className="mt-2 text-2xl font-black leading-tight">
+              {activeObjection.concern}
+            </h3>
+            <p className="mt-4 text-sm font-bold leading-7 text-slate-300">
+              {activeObjection.response}
+            </p>
+          </div>
+
+          <div className="mt-5">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+              Supporting proof
+            </p>
+            <div className="mt-3 grid gap-3 sm:grid-cols-3">
+              {activeObjection.proof.map((item) => (
+                <div
+                  key={item}
+                  className="rounded-md border border-[#ded8cc] bg-[#f7f4ee] p-4"
+                >
+                  <CheckCircle2 className="h-5 w-5 text-[#0f766e]" />
+                  <p className="mt-3 text-sm font-black text-[#111827]">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={onOpenProposal}
+            className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#111827] px-4 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#1f2937]"
+          >
+            Generate proposal untuk menjawab concern ini
+            <ArrowRight className="h-4 w-4" />
+          </button>
         </div>
       </div>
     </section>

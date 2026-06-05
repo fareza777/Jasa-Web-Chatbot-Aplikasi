@@ -625,3 +625,41 @@ export const caseStudySimulations = [
     outcome: "Value jasa lebih mudah dijelaskan dan proses konsultasi terasa lebih profesional.",
   },
 ];
+
+export const objectionHandlers = [
+  {
+    id: "too-expensive",
+    concern: "Takut investasinya terlalu mahal",
+    response:
+      "Harga dijelaskan lewat scope, deliverables, ROI estimator, dan payback logic agar keputusan terasa rasional.",
+    proof: ["ROI estimator", "Scope matrix", "Proposal preview"],
+  },
+  {
+    id: "unclear-scope",
+    concern: "Takut scope project tidak jelas",
+    response:
+      "Setiap paket punya matrix kedalaman, project brief, checklist aset, dan tahapan roadmap yang eksplisit.",
+    proof: ["Scope matrix", "Project intake", "Execution roadmap"],
+  },
+  {
+    id: "not-premium",
+    concern: "Takut hasilnya terlihat seperti template",
+    response:
+      "Visual theme, credibility layer, industry playbook, dan example builds membantu menunjukkan arah desain yang custom.",
+    proof: ["Visual themes", "Example builds", "Credibility layer"],
+  },
+  {
+    id: "hard-to-manage",
+    concern: "Takut setelah jadi sulit dipakai",
+    response:
+      "Output dilengkapi handover notes, brief siap copy, WhatsApp opener, dan launch checklist agar mudah digunakan.",
+    proof: ["Handover-ready", "Asset checklist", "WhatsApp brief"],
+  },
+  {
+    id: "low-quality-leads",
+    concern: "Takut lead tetap tidak berkualitas",
+    response:
+      "Chatbot, lead qualification, CTA flow, dan tracking membantu menyaring kebutuhan sebelum masuk proses closing.",
+    proof: ["AI qualification", "Lead capture", "Response system"],
+  },
+];
