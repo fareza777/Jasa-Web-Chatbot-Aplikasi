@@ -341,6 +341,8 @@ export default function PremiumStudio() {
         <ScenarioSection />
         <ExecutionRoadmap />
         <ProcessSection />
+        <StackComposer proposal={proposal} onOpenProposal={() => setProposalOpen(true)} />
+        <LaunchKitChecklist proposal={proposal} />
         <MaintenancePlans />
         <FAQSection />
         <LeadCaptureSection proposal={proposal} />
@@ -3186,6 +3188,256 @@ function ProcessSection() {
               </span>
               <h3 className="mt-4 text-xl font-black transition duration-300 group-hover:text-[#c7a66b]">{title}</h3>
               <p className="mt-3 text-sm leading-6 text-slate-300">{description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StackComposer({ proposal, onOpenProposal }) {
+  const layers = [
+    {
+      id: "website",
+      label: "Website utama",
+      price: 750000,
+      icon: Globe2,
+      image: visualAssets.website,
+      result: "Landing page premium, CTA jelas, dan katalog layanan siap dibaca.",
+      accent: "from-[#0f766e] to-[#22c55e]",
+    },
+    {
+      id: "chatbot",
+      label: "Chatbot WhatsApp",
+      price: 450000,
+      icon: MessageCircle,
+      image: visualAssets.assistant,
+      result: "Jawaban otomatis untuk FAQ, paket, alur konsultasi, dan follow up calon klien.",
+      accent: "from-[#c7a66b] to-[#f5d89b]",
+    },
+    {
+      id: "assistant",
+      label: "OpenClaw assistant",
+      price: 850000,
+      icon: Bot,
+      image: visualAssets.mobile,
+      result: "Asisten digital siap jadi untuk intake, rekomendasi paket, dan handover ke admin.",
+      accent: "from-[#2563eb] to-[#67e8f9]",
+    },
+    {
+      id: "app",
+      label: "Aplikasi mobile",
+      price: 1200000,
+      icon: Smartphone,
+      image: visualAssets.app,
+      result: "Prototype atau app ringan untuk booking, member, katalog, atau internal workflow.",
+      accent: "from-[#7c3aed] to-[#f0abfc]",
+    },
+    {
+      id: "care",
+      label: "Growth care",
+      price: 300000,
+      icon: ShieldCheck,
+      image: visualAssets.devices,
+      result: "Update ringan, cek CTA, dan perawatan setelah launch agar sistem tetap rapi.",
+      accent: "from-[#111827] to-[#64748b]",
+    },
+  ];
+
+  const [activeLayers, setActiveLayers] = useState(["website", "chatbot", "care"]);
+  const selectedLayers = layers.filter((layer) => activeLayers.includes(layer.id));
+  const total = selectedLayers.reduce((sum, layer) => sum + layer.price, 0);
+  const readiness = Math.min(96, 38 + selectedLayers.length * 12);
+
+  function toggleLayer(id) {
+    setActiveLayers((current) =>
+      current.includes(id)
+        ? current.filter((item) => item !== id)
+        : [...current, id],
+    );
+  }
+
+  return (
+    <section className="overflow-hidden border-b border-[#ded8cc] bg-[#f7f4ee]">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="mb-8 grid gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div>
+            <p className="section-kicker">Stack builder</p>
+            <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] text-[#111827] sm:text-5xl">
+              Rakit paket digital yang terlihat serius sejak awal.
+            </h2>
+          </div>
+          <p className="text-sm leading-7 text-[#4b5563]">
+            Calon klien sering bingung mulai dari mana. Section ini membuat
+            pilihan layanan terasa konkret: website, chatbot, asisten digital,
+            aplikasi, sampai maintenance bisa disusun sesuai budget.
+          </p>
+        </div>
+
+        <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="grid gap-3">
+            {layers.map((layer) => {
+              const Icon = layer.icon;
+              const active = activeLayers.includes(layer.id);
+
+              return (
+                <button
+                  key={layer.id}
+                  type="button"
+                  onClick={() => toggleLayer(layer.id)}
+                  className={`group grid gap-4 rounded-md border p-4 text-left transition duration-300 sm:grid-cols-[auto_1fr_auto] sm:items-center ${
+                    active
+                      ? "border-[#111827] bg-white shadow-[0_18px_44px_rgba(17,24,39,0.10)]"
+                      : "border-[#ded8cc] bg-white/60 hover:-translate-y-1 hover:bg-white"
+                  }`}
+                >
+                  <span className={`grid h-12 w-12 place-items-center rounded-md bg-gradient-to-br ${layer.accent} text-white shadow-[0_16px_34px_rgba(17,24,39,0.18)]`}>
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <span>
+                    <span className="block text-base font-black text-[#111827]">{layer.label}</span>
+                    <span className="mt-1 block text-sm leading-6 text-[#4b5563]">{layer.result}</span>
+                  </span>
+                  <span className="flex items-center justify-between gap-3 sm:block sm:text-right">
+                    <span className="block text-sm font-black text-[#8a6d30]">{formatRupiah(layer.price)}</span>
+                    <span className={`mt-2 inline-flex h-6 w-11 items-center rounded-full p-1 transition ${active ? "bg-[#0f766e]" : "bg-[#d8d1c6]"}`}>
+                      <span className={`h-4 w-4 rounded-full bg-white transition ${active ? "translate-x-5" : ""}`} />
+                    </span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="premium-frame overflow-hidden rounded-md border border-[#c7a66b]/30 bg-[#080b12] text-white shadow-[0_32px_90px_rgba(17,24,39,0.22)]">
+            <div className="relative min-h-[260px] overflow-hidden">
+              <img
+                src={selectedLayers[0]?.image || visualAssets.workspace}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover opacity-35"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#080b12] via-[#080b12]/80 to-transparent" />
+              <div className="relative p-5 sm:p-7">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="rounded-full border border-[#c7a66b]/40 bg-[#c7a66b]/15 px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-[#f5d89b]">
+                    Komposisi aktif
+                  </span>
+                  <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-bold text-slate-200">
+                    {selectedLayers.length} modul dipilih
+                  </span>
+                </div>
+                <h3 className="mt-5 max-w-xl text-3xl font-black tracking-[-0.02em] sm:text-4xl">
+                  {proposal.service.name} dengan paket pendukung yang siap dijual.
+                </h3>
+                <p className="mt-3 max-w-xl text-sm leading-7 text-slate-300">
+                  Estimasi stack: <span className="font-black text-[#f5d89b]">{formatRupiah(total)}</span>.
+                  Bisa dibuat bertahap agar tetap murah, tetapi tampilan dan flow
+                  tetap terasa premium.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid gap-4 border-t border-white/10 p-5 sm:p-7 lg:grid-cols-[0.8fr_1.2fr]">
+              <div>
+                <div className="flex items-end justify-between gap-3">
+                  <p className="text-sm font-black uppercase tracking-[0.14em] text-[#c7a66b]">
+                    Launch readiness
+                  </p>
+                  <p className="text-2xl font-black text-[#f5d89b]">{readiness}%</p>
+                </div>
+                <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-[#c7a66b] via-[#f5d89b] to-[#0f766e] transition-all duration-700"
+                    style={{ width: `${readiness}%` }}
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={onOpenProposal}
+                  className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-5 text-sm font-black text-[#080b12] transition duration-300 hover:-translate-y-0.5 hover:bg-[#f5d89b]"
+                >
+                  Jadikan proposal
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </button>
+              </div>
+
+              <div className="grid gap-3">
+                {selectedLayers.length === 0 ? (
+                  <div className="rounded-md border border-white/10 bg-white/[0.05] p-4 text-sm leading-6 text-slate-300">
+                    Pilih minimal satu modul untuk melihat paket.
+                  </div>
+                ) : (
+                  selectedLayers.map((layer, index) => (
+                    <div key={layer.id} className="flex items-start gap-3 rounded-md border border-white/10 bg-white/[0.05] p-3">
+                      <span className="grid h-7 w-7 flex-none place-items-center rounded-full bg-white text-xs font-black text-[#111827]">
+                        {index + 1}
+                      </span>
+                      <div>
+                        <p className="text-sm font-black text-white">{layer.label}</p>
+                        <p className="mt-1 text-xs leading-5 text-slate-300">{layer.result}</p>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LaunchKitChecklist({ proposal }) {
+  const kit = [
+    ["Positioning", `Narasi ${proposal.industry.name} dibuat lebih jelas dan tidak kaku.`],
+    ["Visual system", "Warna, tipografi, spacing, dan gaya gambar dibuat konsisten."],
+    ["CTA flow", "Tombol konsultasi, paket, dan WhatsApp diarahkan ke aksi yang mudah."],
+    ["Mobile check", "Section penting tetap enak dibaca di layar kecil."],
+    ["Content handover", "Teks inti, paket, FAQ, dan kebutuhan update disiapkan untuk admin."],
+    ["AI readiness", "Jika memakai chatbot atau OpenClaw, knowledge base awal ikut dirapikan."],
+  ];
+
+  return (
+    <section className="relative overflow-hidden bg-[#080b12] text-white">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#c7a66b] to-transparent" />
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+            Launch kit
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Bukan cuma jadi, tapi siap dipakai jualan.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-slate-300">
+            Website jasa digital yang premium harus terasa selesai dari atas
+            sampai bawah: narasi, visual, CTA, paket, FAQ, dan handover tetap
+            nyambung.
+          </p>
+          <div className="mt-6 rounded-md border border-[#c7a66b]/30 bg-[#c7a66b]/10 p-4">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#f5d89b]">
+              Fokus paket aktif
+            </p>
+            <p className="mt-2 text-lg font-black">{proposal.service.name}</p>
+            <p className="mt-2 text-sm leading-6 text-slate-300">{proposal.goal.description}</p>
+          </div>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          {kit.map(([title, description], index) => (
+            <article
+              key={title}
+              className="group rounded-md border border-white/10 bg-white/[0.055] p-5 transition duration-300 hover:-translate-y-2 hover:border-[#c7a66b]/50 hover:bg-white/[0.08]"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <span className="grid h-10 w-10 place-items-center rounded-md bg-white text-sm font-black text-[#111827] shadow-[0_14px_34px_rgba(0,0,0,0.22)]">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <CheckCircle2 className="h-5 w-5 text-[#c7a66b]" aria-hidden="true" />
+              </div>
+              <h3 className="mt-5 text-lg font-black text-white">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-300">{description}</p>
             </article>
           ))}
         </div>
