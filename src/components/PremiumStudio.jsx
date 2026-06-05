@@ -325,6 +325,8 @@ export default function PremiumStudio() {
         />
         <OutputShowcase />
         <ExampleBuilds />
+        <PremiumPortfolioGrid />
+        <InteractiveChatDemo proposal={proposal} />
         <CaseStudySimulator onOpenProposal={() => setProposalOpen(true)} />
         <ObjectionHandler onOpenProposal={() => setProposalOpen(true)} />
         <OfferPersonalizer onOpenProposal={() => setProposalOpen(true)} />
@@ -336,6 +338,7 @@ export default function PremiumStudio() {
         <ROISection proposal={proposal} />
         <LaunchReadiness proposal={proposal} />
         <IndustryPlaybook proposal={proposal} />
+        <AffordablePremiumSection />
         <PackageComparison
           onOpenProposal={() => setProposalOpen(true)}
           onOpenIntake={() => setIntakeOpen(true)}
@@ -1727,6 +1730,226 @@ function ExampleBuilds() {
   );
 }
 
+function PremiumPortfolioGrid() {
+  const projects = [
+    {
+      title: "Klinik kecantikan",
+      problem: "Calon pasien sering tanya treatment yang sama dan bingung harga mulai dari mana.",
+      solution: "Landing page layanan, FAQ treatment, CTA booking, dan chatbot rekomendasi awal.",
+      price: "Mulai Rp850rb",
+      image: visualAssets.clinic,
+      tags: ["Website", "Chatbot", "Booking"],
+    },
+    {
+      title: "Properti & kontrakan",
+      problem: "Listing tersebar di chat, foto tidak rapi, dan prospek sulit difollow up.",
+      solution: "Katalog properti, detail unit, form minat, dan pesan WhatsApp otomatis.",
+      price: "Mulai Rp750rb",
+      image: visualAssets.property,
+      tags: ["Katalog", "Lead form", "WhatsApp"],
+    },
+    {
+      title: "Kursus online",
+      problem: "Program banyak, tapi calon siswa belum tahu kelas yang cocok.",
+      solution: "Program finder, halaman kurikulum, testimoni, dan alur konsultasi admin.",
+      price: "Mulai Rp900rb",
+      image: visualAssets.devices,
+      tags: ["Program finder", "Sales page", "FAQ"],
+    },
+    {
+      title: "Jasa profesional",
+      problem: "Layanan bagus, tetapi profil terlihat biasa dan proposal masih manual.",
+      solution: "Company profile premium, proposal generator, scope paket, dan intake brief.",
+      price: "Mulai Rp1,2jt",
+      image: visualAssets.workspace,
+      tags: ["Profile", "Proposal", "Brief"],
+    },
+    {
+      title: "Restoran & katering",
+      problem: "Menu dan paket sering berubah, admin lambat menjawab pertanyaan order.",
+      solution: "Menu digital, paket event, form order, dan chatbot FAQ pesanan.",
+      price: "Mulai Rp650rb",
+      image: visualAssets.mobile,
+      tags: ["Menu", "Order", "Chatbot"],
+    },
+    {
+      title: "Aplikasi member",
+      problem: "Bisnis ingin app ringan tanpa langsung membangun sistem besar.",
+      solution: "Prototype mobile, flow member, katalog, dan validasi MVP bertahap.",
+      price: "Mulai Rp1,5jt",
+      image: visualAssets.app,
+      tags: ["Mobile", "MVP", "Member"],
+    },
+  ];
+
+  return (
+    <section className="bg-white">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="mb-8 grid gap-4 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+          <div>
+            <p className="section-kicker">Mini portfolio</p>
+            <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] text-[#111827] sm:text-5xl">
+              Contoh project dibuat lebih nyata, bukan sekadar kartu layanan.
+            </h2>
+          </div>
+          <p className="text-sm leading-7 text-[#4b5563]">
+            Bagian ini membantu pengunjung melihat skenario bisnis yang familiar:
+            masalahnya apa, sistem yang dibuat seperti apa, dan kisaran harga
+            awalnya berapa.
+          </p>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {projects.map((project) => (
+            <article
+              key={project.title}
+              className="premium-card group overflow-hidden rounded-md transition duration-300 hover:-translate-y-2 hover:shadow-[0_24px_60px_rgba(17,24,39,0.13)]"
+            >
+              <div className="relative h-52 overflow-hidden bg-[#111827]">
+                <img
+                  src={project.image}
+                  alt={`Contoh project ${project.title}`}
+                  className="h-full w-full object-cover opacity-75 transition duration-500 group-hover:scale-105 group-hover:opacity-90"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#080b12] via-[#080b12]/25 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="rounded-full border border-white/15 bg-white/15 px-3 py-1 text-xs font-black text-white backdrop-blur">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="p-5">
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="text-xl font-black text-[#111827]">{project.title}</h3>
+                  <span className="flex-none rounded-full bg-[#f7f4ee] px-3 py-1 text-xs font-black text-[#8a6d30]">
+                    {project.price}
+                  </span>
+                </div>
+                <div className="mt-4 grid gap-3">
+                  <div className="rounded-md bg-[#f7f4ee] p-3">
+                    <p className="text-xs font-black uppercase tracking-[0.14em] text-[#8a6d30]">
+                      Masalah
+                    </p>
+                    <p className="mt-1 text-sm leading-6 text-[#4b5563]">{project.problem}</p>
+                  </div>
+                  <div className="rounded-md bg-[#111827] p-3 text-white">
+                    <p className="text-xs font-black uppercase tracking-[0.14em] text-[#c7a66b]">
+                      Solusi
+                    </p>
+                    <p className="mt-1 text-sm leading-6 text-slate-300">{project.solution}</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function InteractiveChatDemo({ proposal }) {
+  const scenarios = [
+    {
+      id: "price",
+      label: "Tanya harga",
+      user: "Kak, saya mau website tapi budget terbatas. Mulainya berapa?",
+      bot: `Bisa mulai bertahap dari ${formatRupiah(Math.min(proposal.quote, 850000))}. Fokus awalnya dibuat rapi dulu: halaman utama, layanan, CTA WhatsApp, dan trust section. Nanti fitur tambahan bisa menyusul.`,
+    },
+    {
+      id: "package",
+      label: "Pilih paket",
+      user: "Saya bingung perlu website, chatbot, atau OpenClaw.",
+      bot: `Kalau targetnya ${proposal.goal.label.toLowerCase()}, saya sarankan mulai dari ${proposal.service.name}. Setelah itu bisa ditambah chatbot atau OpenClaw kalau pertanyaan calon pelanggan sudah mulai berulang.`,
+    },
+    {
+      id: "booking",
+      label: "Booking konsultasi",
+      user: "Kalau mau konsultasi dulu bisa?",
+      bot: "Bisa. Kirim nama bisnis, jenis layanan, contoh referensi, dan budget indikatif. Nanti saya bantu susun scope yang paling hemat tapi tetap terlihat profesional.",
+    },
+  ];
+
+  const [activeScenarioId, setActiveScenarioId] = useState(scenarios[0].id);
+  const activeScenario = scenarios.find((scenario) => scenario.id === activeScenarioId) || scenarios[0];
+
+  return (
+    <section className="border-y border-[#ded8cc] bg-[#080b12] text-white">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+            Live chatbot demo
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Calon klien bisa merasakan flow chatbot sebelum membeli.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-slate-300">
+            Demo singkat ini membuat jasa chatbot dan asisten digital terasa
+            konkret. Pengunjung bisa melihat bagaimana pertanyaan harga, paket,
+            dan konsultasi dijawab dengan bahasa yang rapi.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {scenarios.map((scenario) => (
+              <button
+                key={scenario.id}
+                type="button"
+                onClick={() => setActiveScenarioId(scenario.id)}
+                className={`rounded-full border px-4 py-2 text-sm font-black transition duration-300 hover:-translate-y-0.5 ${
+                  activeScenarioId === scenario.id
+                    ? "border-[#c7a66b] bg-[#c7a66b] text-[#080b12]"
+                    : "border-white/15 bg-white/[0.06] text-white hover:border-[#c7a66b]"
+                }`}
+              >
+                {scenario.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="premium-frame rounded-md border border-[#c7a66b]/30 bg-[#f7f4ee] p-4 text-[#111827] shadow-[0_30px_90px_rgba(0,0,0,0.28)] sm:p-6">
+          <div className="mb-4 flex items-center justify-between gap-4 rounded-md bg-[#111827] p-3 text-white">
+            <div className="flex items-center gap-3">
+              <span className="grid h-10 w-10 place-items-center rounded-md bg-[#25D366] text-[#062d17]">
+                <Bot className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div>
+                <p className="text-sm font-black">Digital Craft Assistant</p>
+                <p className="text-xs font-semibold text-slate-300">Online · siap bantu pilih paket</p>
+              </div>
+            </div>
+            <span className="hidden rounded-full bg-[#0f766e] px-3 py-1 text-xs font-black text-white sm:inline-flex">
+              Demo
+            </span>
+          </div>
+
+          <div className="space-y-4">
+            <div className="ml-auto max-w-[86%] rounded-md rounded-tr-none bg-[#0f766e] p-4 text-white shadow-[0_14px_34px_rgba(15,118,110,0.20)]">
+              <p className="text-sm leading-6">{activeScenario.user}</p>
+            </div>
+            <div className="max-w-[90%] rounded-md rounded-tl-none border border-[#ded8cc] bg-white p-4 shadow-[0_14px_34px_rgba(17,24,39,0.08)]">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-[#8a6d30]">
+                Jawaban bot
+              </p>
+              <p className="mt-2 text-sm leading-7 text-[#374151]">{activeScenario.bot}</p>
+            </div>
+            <div className="grid gap-3 rounded-md border border-[#ded8cc] bg-white p-4 sm:grid-cols-3">
+              {["Kualifikasi lead", "Rekomendasi paket", "Handover admin"].map((item) => (
+                <div key={item} className="flex items-center gap-2 text-xs font-black text-[#111827]">
+                  <CheckCircle2 className="h-4 w-4 text-[#0f766e]" aria-hidden="true" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function CaseStudySimulator({ onOpenProposal }) {
   const [activeCaseId, setActiveCaseId] = useState(caseStudySimulations[0].id);
   const activeCase =
@@ -2581,6 +2804,85 @@ function ROISection({ proposal }) {
             Simulasi ini bukan garansi hasil. Tujuannya memberi konteks bisnis
             agar keputusan paket lebih rasional.
           </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AffordablePremiumSection() {
+  const principles = [
+    {
+      title: "Mulai dari core yang menghasilkan",
+      description: "Prioritas pertama adalah halaman, CTA, flow chat, dan narasi yang membantu calon pelanggan paham dan menghubungi.",
+      metric: "Core-first",
+    },
+    {
+      title: "Fitur dibuat bertahap",
+      description: "Add-on seperti chatbot, OpenClaw, app, dan maintenance bisa masuk setelah versi awal siap dipakai.",
+      metric: "Bertahap",
+    },
+    {
+      title: "Desain tetap premium",
+      description: "Harga hemat tidak berarti visual seadanya. Sistem warna, spacing, copy, dan mockup tetap dibuat konsisten.",
+      metric: "Premium look",
+    },
+    {
+      title: "Handover dibuat praktis",
+      description: "Klien mendapat arahan update, pesan WhatsApp, brief, dan checklist agar tidak bingung setelah launch.",
+      metric: "Siap pakai",
+    },
+  ];
+
+  return (
+    <section className="border-y border-[#ded8cc] bg-[#f7f4ee]">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
+          <div>
+            <p className="section-kicker">Murah tapi serius</p>
+            <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] text-[#111827] sm:text-5xl">
+              Harga dibuat hemat karena scope-nya cerdas, bukan karena hasilnya asal.
+            </h2>
+            <p className="mt-4 text-sm leading-7 text-[#4b5563]">
+              Ini penting untuk membangun trust. Calon klien perlu tahu kenapa
+              harganya realistis: pekerjaan dimulai dari kebutuhan yang paling
+              berdampak, lalu bisa ditambah ketika bisnis sudah siap.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {principles.map((item) => (
+              <article
+                key={item.title}
+                className="group rounded-md border border-[#ded8cc] bg-white p-5 transition duration-300 hover:-translate-y-2 hover:border-[#111827] hover:shadow-[0_22px_54px_rgba(17,24,39,0.12)]"
+              >
+                <span className="inline-flex rounded-full bg-[#111827] px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#f5d89b]">
+                  {item.metric}
+                </span>
+                <h3 className="mt-5 text-xl font-black text-[#111827]">{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-[#4b5563]">{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-6 grid gap-4 rounded-md border border-[#111827] bg-[#111827] p-5 text-white lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+              Cara menjelaskan ke calon klien
+            </p>
+            <p className="mt-3 text-2xl font-black">
+              “Kita mulai dari versi yang paling penting dulu, nanti upgrade saat bisnis sudah berjalan.”
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {["Lebih cepat launch", "Budget lebih ringan", "Tetap bisa scale"].map((item) => (
+              <div key={item} className="rounded-md border border-white/10 bg-white/[0.06] p-4 text-sm font-black">
+                <CheckCircle2 className="mb-3 h-5 w-5 text-[#c7a66b]" aria-hidden="true" />
+                {item}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
