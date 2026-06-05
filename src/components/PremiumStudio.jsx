@@ -78,6 +78,8 @@ const serviceImages = {
   "digital-assistant": visualAssets.assistant,
 };
 
+const whatsappNumber = "62816388384";
+
 const sectionLinks = [
   ["services", "Layanan"],
   ["configurator", "Konfigurator"],
@@ -102,6 +104,10 @@ function getSelectedChoice(option, value) {
 
 function scrollToSection(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function createWhatsAppLink(text) {
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
 }
 
 export default function PremiumStudio() {
@@ -346,6 +352,7 @@ export default function PremiumStudio() {
         <MaintenancePlans />
         <FAQSection />
         <LeadCaptureSection proposal={proposal} />
+        <PremiumContactExperience proposal={proposal} onOpenProposal={() => setProposalOpen(true)} />
         <FinalCTA onOpenProposal={() => setProposalOpen(true)} />
         <GuaranteeStrip />
         <PremiumFooter onOpenProposal={() => setProposalOpen(true)} />
@@ -3616,7 +3623,7 @@ Paket yang saya lihat: ${proposal.service.name}
 
 Bisa dibantu cek paket yang paling cocok?`;
 
-  const href = `https://wa.me/?text=${encodeURIComponent(leadText)}`;
+  const href = createWhatsAppLink(leadText);
 
   function updateLead(field, value) {
     setLead((current) => ({ ...current, [field]: value }));
@@ -3684,8 +3691,8 @@ Bisa dibantu cek paket yang paling cocok?`;
           </label>
           <div className="mt-6 grid gap-3 sm:grid-cols-[1fr_auto] sm:items-center">
             <p className="text-sm leading-6 text-[#4b5563]">
-              Tombol ini membuka WhatsApp dengan pesan otomatis. Nomor tujuan
-              bisa diganti ke nomor bisnis asli nanti.
+              Tombol ini membuka WhatsApp langsung ke nomor Digital Craft:
+              +62 816-388-384.
             </p>
             <a
               href={href}
@@ -3698,6 +3705,132 @@ Bisa dibantu cek paket yang paling cocok?`;
             </a>
           </div>
         </form>
+      </div>
+    </section>
+  );
+}
+
+function PremiumContactExperience({ proposal, onOpenProposal }) {
+  const contactOptions = [
+    {
+      title: "Cek paket paling cocok",
+      description: "Untuk calon klien yang belum yakin mulai dari website, chatbot, app, atau OpenClaw.",
+      icon: Target,
+    },
+    {
+      title: "Minta estimasi murah",
+      description: "Scope bisa dibuat bertahap agar tetap realistis, tanpa mengorbankan tampilan premium.",
+      icon: Calculator,
+    },
+    {
+      title: "Rapikan ide jadi brief",
+      description: "Cukup kirim kondisi bisnis, target pelanggan, contoh referensi, dan budget indikatif.",
+      icon: ScrollText,
+    },
+  ];
+
+  const message = `Halo Digital Craft, saya ingin konsultasi jasa digital.
+
+Kebutuhan utama: ${proposal.service.name}
+Industri: ${proposal.industry.label}
+Tujuan: ${proposal.goal.label}
+Arah visual: ${proposal.theme.label}
+Budget indikatif dari website: ${formatRupiah(proposal.quote)}
+
+Bisa bantu rekomendasikan paket yang paling pas dan tetap hemat?`;
+
+  return (
+    <section className="relative overflow-hidden bg-[#111827] text-white">
+      <div className="absolute inset-0 opacity-40">
+        <div className="absolute left-[-12%] top-[-30%] h-[460px] w-[460px] rounded-full border border-[#c7a66b]/25" />
+        <div className="absolute right-[-8%] bottom-[-28%] h-[520px] w-[520px] rounded-full border border-[#0f766e]/25" />
+      </div>
+
+      <div className="relative mx-auto grid max-w-7xl gap-6 px-4 py-14 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+            Contact concierge
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Jalur konsultasi dibuat lebih cepat dan rapi.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-slate-300">
+            Pengunjung tidak perlu bingung menulis pesan dari nol. Website sudah
+            menyiapkan konteks paket, estimasi, dan tujuan bisnis agar chat
+            pertama terasa profesional.
+          </p>
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <a
+              href={createWhatsAppLink(message)}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#25D366] px-5 text-sm font-black text-[#062d17] transition duration-300 hover:-translate-y-0.5 hover:brightness-105"
+            >
+              Chat +62 816-388-384
+              <MessageCircle className="h-4 w-4" aria-hidden="true" />
+            </a>
+            <button
+              type="button"
+              onClick={onOpenProposal}
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/15 px-5 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:border-[#c7a66b]"
+            >
+              Lihat proposal dulu
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+
+        <div className="premium-frame overflow-hidden rounded-md border border-[#c7a66b]/30 bg-[#080b12] shadow-[0_32px_90px_rgba(0,0,0,0.28)]">
+          <div className="grid gap-0 lg:grid-cols-[0.82fr_1fr]">
+            <div className="relative min-h-[280px] overflow-hidden">
+              <img
+                src={visualAssets.assistant}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover opacity-60"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#080b12] via-[#080b12]/45 to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 rounded-md border border-white/15 bg-[#080b12]/70 p-4 backdrop-blur">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#f5d89b]">
+                  Tujuan chat
+                </p>
+                <p className="mt-2 text-xl font-black">+62 816-388-384</p>
+                <p className="mt-1 text-xs leading-5 text-slate-300">
+                  Nomor konsultasi utama Digital Craft.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-5 sm:p-6">
+              <div className="rounded-md border border-white/10 bg-white/[0.06] p-4">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+                  Pesan otomatis
+                </p>
+                <p className="mt-3 whitespace-pre-line text-sm leading-7 text-slate-200">
+                  {message}
+                </p>
+              </div>
+
+              <div className="mt-4 grid gap-3">
+                {contactOptions.map((option) => {
+                  const Icon = option.icon;
+
+                  return (
+                    <div key={option.title} className="flex gap-3 rounded-md border border-white/10 bg-white/[0.045] p-3">
+                      <span className="grid h-10 w-10 flex-none place-items-center rounded-md bg-[#c7a66b] text-[#080b12]">
+                        <Icon className="h-4 w-4" aria-hidden="true" />
+                      </span>
+                      <div>
+                        <p className="text-sm font-black text-white">{option.title}</p>
+                        <p className="mt-1 text-xs leading-5 text-slate-300">{option.description}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -3782,7 +3915,7 @@ function StickyQuoteBar({ proposal, onOpenProposal }) {
 
 function DesktopWhatsAppBar({ proposal }) {
   const text = createWhatsAppText(proposal);
-  const href = `https://wa.me/?text=${encodeURIComponent(text)}`;
+  const href = createWhatsAppLink(text);
 
   return (
     <a
