@@ -40,6 +40,7 @@ import {
   ctaPatterns,
   offerTones,
   packageTiers,
+  premiumDeliverables,
   scopeMatrix,
   serviceCatalog,
   serviceOutcomes,
@@ -287,6 +288,8 @@ export default function PremiumStudio() {
         <CaseStudySimulator onOpenProposal={() => setProposalOpen(true)} />
         <ObjectionHandler onOpenProposal={() => setProposalOpen(true)} />
         <OfferPersonalizer onOpenProposal={() => setProposalOpen(true)} />
+        <BrandSystemPreview proposal={proposal} />
+        <LuxuryDeliverablesGallery proposal={proposal} />
         <MaturityAudit onOpenProposal={() => setProposalOpen(true)} />
         <OutcomeCalculator proposal={proposal} />
         <ROISection proposal={proposal} />
@@ -1372,6 +1375,163 @@ function OfferPersonalizer({ onOpenProposal }) {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BrandSystemPreview({ proposal }) {
+  const colors = proposal.theme.colors;
+  const sampleWords = ["Premium", "Clear", "Trusted", "Ready"];
+
+  return (
+    <section className="border-y border-[#ded8cc] bg-[#f7f4ee]">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+        <div>
+          <p className="section-kicker">Brand system preview</p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Tunjukkan bahwa visualnya punya sistem, bukan sekadar warna bagus.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-[#4b5563]">
+            Preview ini mengikuti theme aktif dari konfigurator. Calon klien bisa
+            melihat arah warna, tone, CTA, dan card style sebelum project dimulai.
+          </p>
+        </div>
+
+        <div className="premium-card overflow-hidden rounded-md">
+          <div
+            className="p-5 text-white"
+            style={{
+              background: `linear-gradient(135deg, ${colors.dark}, ${colors.secondary})`,
+            }}
+          >
+            <div className="flex items-center justify-between gap-4">
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-white/70">
+                {proposal.theme.label} system
+              </p>
+              <span
+                className="rounded-full px-3 py-1 text-xs font-black text-[#080b12]"
+                style={{ backgroundColor: colors.accent }}
+              >
+                Active theme
+              </span>
+            </div>
+            <h3 className="mt-6 max-w-xl text-4xl font-black leading-tight tracking-[-0.02em]">
+              {proposal.service.name}
+            </h3>
+            <p className="mt-3 max-w-xl text-sm leading-7 text-white/75">
+              {proposal.industry.headline}
+            </p>
+          </div>
+
+          <div className="grid gap-0 md:grid-cols-[1fr_0.9fr]">
+            <div className="p-5">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+                Palette
+              </p>
+              <div className="mt-4 grid grid-cols-4 gap-2">
+                {[colors.dark, colors.accent, colors.secondary, colors.surface].map((color) => (
+                  <div key={color} className="rounded-md border border-[#ded8cc] bg-white p-2">
+                    <div className="h-16 rounded" style={{ backgroundColor: color }} />
+                    <p className="mt-2 text-[10px] font-black uppercase text-[#6b7280]">
+                      {color}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                {sampleWords.map((word) => (
+                  <span
+                    key={word}
+                    className="rounded-full border border-[#ded8cc] bg-[#f7f4ee] px-3 py-1 text-xs font-black text-[#374151]"
+                  >
+                    {word}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="border-t border-[#ded8cc] p-5 md:border-l md:border-t-0">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+                Component style
+              </p>
+              <div className="mt-4 rounded-md border border-[#ded8cc] bg-white p-4 shadow-[0_18px_44px_rgba(17,24,39,0.08)]">
+                <p className="text-sm font-black text-[#111827]">Primary action</p>
+                <p className="mt-2 text-xs leading-5 text-[#6b7280]">
+                  CTA dibuat tegas, kontras, dan konsisten dengan visual direction.
+                </p>
+                <button
+                  type="button"
+                  className="mt-4 h-10 rounded-md px-4 text-sm font-black text-[#080b12]"
+                  style={{ backgroundColor: colors.accent }}
+                >
+                  {proposal.goal.label}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LuxuryDeliverablesGallery({ proposal }) {
+  const colors = proposal.theme.colors;
+
+  return (
+    <section className="noise-wash border-y border-[#ded8cc] bg-[#080b12] text-white">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+              Luxury deliverables
+            </p>
+            <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+              Semua output divisualkan seperti sistem premium yang siap dijual.
+            </h2>
+          </div>
+          <p className="max-w-lg text-sm leading-7 text-slate-300">
+            Gallery ini membuat deliverables terasa nyata: website, automasi, proposal,
+            dan dashboard launch tampil sebagai satu ecosystem.
+          </p>
+        </div>
+
+        <div className="grid gap-4 lg:grid-cols-4">
+          {premiumDeliverables.map((item, index) => (
+            <article
+              key={item.title}
+              className={`dark-glass group overflow-hidden rounded-md transition duration-300 hover:-translate-y-2 ${
+                index === 0 ? "lg:col-span-2" : ""
+              }`}
+            >
+              <div className="h-44 border-b border-white/10 p-4">
+                <div className="flex items-center justify-between">
+                  <span className="chrome-dots" aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                  </span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.14em] text-slate-500">
+                    {item.label}
+                  </span>
+                </div>
+                <div className="mt-6 grid grid-cols-3 gap-2">
+                  <div className="h-20 rounded" style={{ backgroundColor: colors.accent }} />
+                  <div className="h-20 rounded" style={{ backgroundColor: colors.secondary }} />
+                  <div className="h-20 rounded bg-white/20" />
+                </div>
+                <div className="mt-4 h-2 w-2/3 rounded bg-white/40" />
+                <div className="mt-2 h-2 w-1/2 rounded bg-white/20" />
+              </div>
+              <div className="p-5">
+                <h3 className="text-xl font-black">{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-300">{item.description}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>

@@ -721,3 +721,26 @@ export const ctaPatterns = [
     secondary: "Copy WhatsApp Text",
   },
 ];
+
+export const premiumDeliverables = [
+  {
+    title: "Conversion Website",
+    label: "Website",
+    description: "Hero premium, service flow, proof layer, pricing logic, dan CTA lead capture.",
+  },
+  {
+    title: "AI Chat System",
+    label: "Automation",
+    description: "Greeting, FAQ, kualifikasi lead, rekomendasi paket, dan handover ke admin.",
+  },
+  {
+    title: "Proposal Engine",
+    label: "Sales Asset",
+    description: "Draft proposal, WhatsApp opener, project brief, dan scope summary siap copy.",
+  },
+  {
+    title: "Launch Dashboard",
+    label: "Operations",
+    description: "Readiness score, roadmap, checklist aset, dan prioritas optimasi berikutnya.",
+  },
+];
