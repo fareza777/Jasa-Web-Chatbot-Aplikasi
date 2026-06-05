@@ -41,6 +41,7 @@ import {
   offerTones,
   packageTiers,
   premiumDeliverables,
+  architectureNodes,
   scopeMatrix,
   serviceCatalog,
   serviceOutcomes,
@@ -290,6 +291,7 @@ export default function PremiumStudio() {
         <OfferPersonalizer onOpenProposal={() => setProposalOpen(true)} />
         <BrandSystemPreview proposal={proposal} />
         <LuxuryDeliverablesGallery proposal={proposal} />
+        <ArchitectureMap proposal={proposal} onOpenProposal={() => setProposalOpen(true)} />
         <MaturityAudit onOpenProposal={() => setProposalOpen(true)} />
         <OutcomeCalculator proposal={proposal} />
         <ROISection proposal={proposal} />
@@ -1532,6 +1534,129 @@ function LuxuryDeliverablesGallery({ proposal }) {
               </div>
             </article>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ArchitectureMap({ proposal, onOpenProposal }) {
+  const [activeNodeId, setActiveNodeId] = useState(architectureNodes[0].id);
+  const activeNode =
+    architectureNodes.find((node) => node.id === activeNodeId) || architectureNodes[0];
+  const colors = proposal.theme.colors;
+
+  return (
+    <section className="border-y border-[#ded8cc] bg-[#f7f4ee]">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
+        <div>
+          <p className="section-kicker">System architecture</p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Visualkan jasa digital sebagai mesin, bukan pekerjaan satuan.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-[#4b5563]">
+            Map ini membantu calon klien melihat hubungan antar output: website,
+            lead capture, AI chat, proposal, dan launch dashboard bekerja sebagai
+            satu sistem.
+          </p>
+
+          <div className="mt-6 rounded-md bg-[#111827] p-5 text-white">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+              Active module
+            </p>
+            <h3 className="mt-2 text-2xl font-black">{activeNode.title}</h3>
+            <p className="mt-1 text-sm font-bold text-[#f5d89b]">{activeNode.subtitle}</p>
+            <p className="mt-4 text-sm leading-7 text-slate-300">{activeNode.description}</p>
+            <div className="mt-5 rounded-md border border-white/10 bg-white/[0.06] p-4">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500">
+                Output
+              </p>
+              <p className="mt-2 text-sm font-bold leading-6">{activeNode.output}</p>
+            </div>
+            <button
+              type="button"
+              onClick={onOpenProposal}
+              className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md px-4 text-sm font-black text-[#080b12] transition hover:-translate-y-0.5"
+              style={{ backgroundColor: colors.accent }}
+            >
+              Generate system proposal
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+
+        <div
+          className="relative overflow-hidden rounded-md border p-5 shadow-[0_24px_70px_rgba(17,24,39,0.12)]"
+          style={{
+            borderColor: `${colors.accent}55`,
+            background: `linear-gradient(135deg, ${colors.dark}, #111827)`,
+          }}
+        >
+          <div className="luxury-grid absolute inset-0 opacity-40" />
+          <div className="relative">
+            <div className="mb-5 flex items-center justify-between">
+              <span className="chrome-dots" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
+              <span className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">
+                Digital System Map
+              </span>
+            </div>
+
+            <div className="grid gap-4 lg:grid-cols-5">
+              {architectureNodes.map((node, index) => {
+                const active = activeNode.id === node.id;
+
+                return (
+                  <div key={node.id} className="relative">
+                    <button
+                      type="button"
+                      onClick={() => setActiveNodeId(node.id)}
+                      className={`group relative z-10 flex min-h-[190px] w-full flex-col rounded-md border p-4 text-left transition duration-300 hover:-translate-y-2 ${
+                        active
+                          ? "border-[#c7a66b] bg-white text-[#111827] shadow-[0_20px_50px_rgba(199,166,107,0.18)]"
+                          : "border-white/10 bg-white/[0.06] text-white hover:border-[#c7a66b]"
+                      }`}
+                    >
+                      <span
+                        className={`grid h-9 w-9 place-items-center rounded-full text-xs font-black ${
+                          active ? "text-[#080b12]" : "text-white"
+                        }`}
+                        style={{ backgroundColor: active ? colors.accent : "rgba(255,255,255,0.12)" }}
+                      >
+                        {index + 1}
+                      </span>
+                      <h3 className="mt-5 text-lg font-black">{node.title}</h3>
+                      <p className={`mt-2 text-xs font-bold leading-5 ${active ? "text-[#4b5563]" : "text-slate-400"}`}>
+                        {node.subtitle}
+                      </p>
+                      <span className="mt-auto pt-5 text-xs font-black uppercase tracking-[0.12em]">
+                        View module
+                      </span>
+                    </button>
+                    {index < architectureNodes.length - 1 && (
+                      <div className="absolute left-full top-1/2 z-0 hidden h-px w-4 bg-[#c7a66b]/60 lg:block" />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-5 grid gap-4 sm:grid-cols-3">
+              {[
+                ["Connected", "All modules share one offer logic"],
+                ["Measurable", "Readiness, ROI, and lead flow are visible"],
+                ["Reusable", "Proposal and brief can be copied instantly"],
+              ].map(([title, description]) => (
+                <div key={title} className="dark-glass rounded-md p-4">
+                  <p className="font-black text-white">{title}</p>
+                  <p className="mt-2 text-xs leading-5 text-slate-400">{description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

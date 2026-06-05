@@ -744,3 +744,46 @@ export const premiumDeliverables = [
     description: "Readiness score, roadmap, checklist aset, dan prioritas optimasi berikutnya.",
   },
 ];
+
+export const architectureNodes = [
+  {
+    id: "website",
+    title: "Website",
+    subtitle: "Premium conversion layer",
+    description:
+      "Halaman utama menjelaskan positioning, layanan, proof, pricing logic, dan CTA utama.",
+    output: "Trust, clarity, dan first impression yang kuat.",
+  },
+  {
+    id: "capture",
+    title: "Lead Capture",
+    subtitle: "Form, CTA, tracking",
+    description:
+      "Setiap CTA diarahkan ke form, WhatsApp, brief, atau proposal generator sesuai intent user.",
+    output: "Lead masuk dengan konteks lebih jelas.",
+  },
+  {
+    id: "ai-chat",
+    title: "AI Chat",
+    subtitle: "Qualification assistant",
+    description:
+      "Chatbot membantu FAQ, kualifikasi kebutuhan, rekomendasi paket, dan follow-up awal.",
+    output: "Admin menerima prospek yang lebih siap ditangani.",
+  },
+  {
+    id: "proposal",
+    title: "Proposal",
+    subtitle: "Scope and offer engine",
+    description:
+      "Proposal otomatis merangkum scope, timeline, budget indikatif, dan next step.",
+    output: "Penawaran lebih cepat dikirim dan terlihat profesional.",
+  },
+  {
+    id: "launch",
+    title: "Launch",
+    subtitle: "Readiness dashboard",
+    description:
+      "Readiness score, checklist, roadmap, dan asset handover memastikan sistem siap dipakai.",
+    output: "Project terasa lengkap sampai tahap serah terima.",
+  },
+];
