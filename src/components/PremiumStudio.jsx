@@ -37,6 +37,8 @@ import {
   industryPlaybooks,
   maturityAuditItems,
   objectionHandlers,
+  ctaPatterns,
+  offerTones,
   packageTiers,
   scopeMatrix,
   serviceCatalog,
@@ -284,6 +286,7 @@ export default function PremiumStudio() {
         <ExampleBuilds />
         <CaseStudySimulator onOpenProposal={() => setProposalOpen(true)} />
         <ObjectionHandler onOpenProposal={() => setProposalOpen(true)} />
+        <OfferPersonalizer onOpenProposal={() => setProposalOpen(true)} />
         <MaturityAudit onOpenProposal={() => setProposalOpen(true)} />
         <OutcomeCalculator proposal={proposal} />
         <ROISection proposal={proposal} />
@@ -1278,6 +1281,117 @@ function ObjectionHandler({ onOpenProposal }) {
         </div>
       </div>
     </section>
+  );
+}
+
+function OfferPersonalizer({ onOpenProposal }) {
+  const [activeToneId, setActiveToneId] = useState(offerTones[0].id);
+  const [activeCtaId, setActiveCtaId] = useState(ctaPatterns[1].id);
+  const activeTone = offerTones.find((tone) => tone.id === activeToneId) || offerTones[0];
+  const activeCta = ctaPatterns.find((cta) => cta.id === activeCtaId) || ctaPatterns[1];
+
+  return (
+    <section className="border-y border-[#ded8cc] bg-[#080b12] text-white">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.78fr_1.22fr] lg:px-8">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+            AI offer personalizer
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Ubah angle copy sesuai tipe klien yang dituju.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-slate-300">
+            Website premium harus bisa menyesuaikan cara bicara: konsultatif,
+            direct response, authority, atau productized service.
+          </p>
+
+          <div className="mt-6 space-y-5">
+            <ChoicePills
+              title="Tone penawaran"
+              items={offerTones}
+              activeId={activeToneId}
+              onSelect={setActiveToneId}
+            />
+            <ChoicePills
+              title="CTA pattern"
+              items={ctaPatterns}
+              activeId={activeCtaId}
+              onSelect={setActiveCtaId}
+            />
+          </div>
+        </div>
+
+        <div className="rounded-md border border-white/10 bg-white/[0.05] p-5">
+          <div className="rounded-md bg-[#f7f4ee] p-6 text-[#111827]">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+              Live copy preview
+            </p>
+            <h3 className="mt-4 max-w-3xl text-3xl font-black leading-tight tracking-[-0.02em] sm:text-5xl">
+              {activeTone.headline}
+            </h3>
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-[#4b5563]">
+              {activeTone.subheadline}
+            </p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <button
+                type="button"
+                onClick={onOpenProposal}
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#111827] px-4 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#1f2937]"
+              >
+                {activeCta.primary}
+                <ArrowRight className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollToSection("configurator")}
+                className="inline-flex h-11 items-center justify-center rounded-md border border-[#cfc5b8] px-4 text-sm font-black text-[#111827] transition hover:border-[#111827]"
+              >
+                {activeCta.secondary}
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            {["Headline", "Subheadline", "CTA"].map((item) => (
+              <div key={item} className="rounded-md border border-white/10 bg-[#080b12] p-4">
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-[#c7a66b]">
+                  {item}
+                </p>
+                <p className="mt-2 text-sm font-bold text-slate-300">
+                  Ready for campaign
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ChoicePills({ title, items, activeId, onSelect }) {
+  return (
+    <div>
+      <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+        {title}
+      </p>
+      <div className="flex flex-wrap gap-2">
+        {items.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => onSelect(item.id)}
+            className={`rounded-full border px-3 py-2 text-xs font-black transition duration-300 hover:-translate-y-0.5 ${
+              activeId === item.id
+                ? "border-[#c7a66b] bg-[#c7a66b] text-[#080b12]"
+                : "border-white/10 bg-white/[0.04] text-white hover:border-[#c7a66b]"
+            }`}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
+    </div>
   );
 }
 

@@ -663,3 +663,61 @@ export const objectionHandlers = [
     proof: ["AI qualification", "Lead capture", "Response system"],
   },
 ];
+
+export const offerTones = [
+  {
+    id: "premium",
+    label: "Premium consultative",
+    headline: "Bangun sistem digital yang membuat brand terlihat siap dipercaya.",
+    subheadline:
+      "Cocok untuk bisnis jasa yang ingin menaikkan perceived value, memperjelas penawaran, dan membuat calon klien lebih siap konsultasi.",
+  },
+  {
+    id: "direct",
+    label: "Direct response",
+    headline: "Ubah traffic dan chat masuk menjadi lead yang lebih siap closing.",
+    subheadline:
+      "Cocok untuk bisnis yang ingin CTA lebih tajam, alur chat lebih rapi, dan penawaran yang cepat dipahami.",
+  },
+  {
+    id: "authority",
+    label: "Authority builder",
+    headline: "Tampilkan expertise Anda seperti brand yang sudah mapan.",
+    subheadline:
+      "Cocok untuk konsultan, klinik, edukasi, dan layanan high-ticket yang perlu trust sebelum harga dibahas.",
+  },
+  {
+    id: "productized",
+    label: "Productized service",
+    headline: "Paketkan layanan digital Anda agar mudah dipilih dan dibeli.",
+    subheadline:
+      "Cocok untuk membuat scope, deliverables, timeline, dan proposal terasa jelas sejak awal.",
+  },
+];
+
+export const ctaPatterns = [
+  {
+    id: "strategy-call",
+    label: "Strategy call",
+    primary: "Request Strategy Call",
+    secondary: "Lihat rencana sistem",
+  },
+  {
+    id: "proposal",
+    label: "Proposal first",
+    primary: "Generate Proposal",
+    secondary: "Bandingkan scope",
+  },
+  {
+    id: "audit",
+    label: "Audit first",
+    primary: "Cek Kesiapan Digital",
+    secondary: "Lihat rekomendasi",
+  },
+  {
+    id: "brief",
+    label: "Brief first",
+    primary: "Isi Project Brief",
+    secondary: "Copy WhatsApp Text",
+  },
+];
