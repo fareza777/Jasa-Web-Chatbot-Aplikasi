@@ -3,9 +3,9 @@ export const serviceCatalog = [
     id: "website",
     name: "Website Conversion System",
     label: "Website",
-    headline: "Website premium yang siap menjual, bukan sekadar tampil online.",
+    headline: "Website yang langsung menjelaskan siapa Anda, apa yang ditawarkan, dan kenapa orang harus percaya.",
     description:
-      "Untuk bisnis yang butuh landing page, company profile, katalog, booking, atau website multi-halaman dengan copywriting dan struktur konversi yang matang.",
+      "Cocok untuk landing page, company profile, katalog, booking, atau website multi-halaman yang ingin terlihat rapi tanpa terasa berlebihan.",
     basePrice: 750000,
     timeline: "7-14 hari kerja",
     includes: [
@@ -63,9 +63,9 @@ export const serviceCatalog = [
     id: "chatbot",
     name: "AI WhatsApp Sales Assistant",
     label: "Chatbot AI",
-    headline: "Chatbot AI yang merespons prospek seperti sales profesional.",
+    headline: "Chatbot AI yang membantu membalas cepat, memilah calon pembeli, dan menjaga follow-up tetap jalan.",
     description:
-      "Untuk bisnis yang ingin balasan cepat, kualifikasi calon pembeli, follow-up otomatis, dan skrip chat yang rapi di WhatsApp.",
+      "Untuk bisnis yang sering kehilangan calon pelanggan karena chat telat dibalas, pertanyaan berulang, atau follow-up admin tidak konsisten.",
     basePrice: 950000,
     timeline: "5-10 hari kerja",
     includes: [
@@ -113,9 +113,9 @@ export const serviceCatalog = [
     id: "mobile-app",
     name: "Mobile App MVP",
     label: "Aplikasi",
-    headline: "Aplikasi mobile yang terasa solid untuk validasi produk dan layanan.",
+    headline: "Aplikasi ringan untuk menguji ide, merapikan layanan, atau memberi akses khusus ke pelanggan.",
     description:
-      "Untuk bisnis yang butuh aplikasi katalog, portal pelanggan, booking, komunitas, edukasi, atau MVP internal yang bisa diuji cepat.",
+      "Cocok untuk katalog, portal pelanggan, booking, komunitas, edukasi, atau alat internal yang perlu cepat dipakai tanpa scope terlalu besar.",
     basePrice: 2500000,
     timeline: "14-30 hari kerja",
     includes: [
@@ -163,9 +163,9 @@ export const serviceCatalog = [
     id: "growth-stack",
     name: "Digital Growth Stack",
     label: "Paket Combo",
-    headline: "Website, chatbot, dan aset digital yang dirancang sebagai satu mesin penjualan.",
+    headline: "Website, chatbot, dan aset penawaran yang saling nyambung dari awal sampai follow-up.",
     description:
-      "Untuk bisnis yang ingin langsung punya etalase, sistem chat, tracking lead, dan materi presentasi yang konsisten dalam satu eksekusi.",
+      "Untuk bisnis yang ingin langsung punya tampilan online, alur chat, tracking lead, dan bahan penawaran yang terasa satu brand.",
     basePrice: 3200000,
     timeline: "21-35 hari kerja",
     includes: [
@@ -203,9 +203,9 @@ export const serviceCatalog = [
     id: "digital-assistant",
     name: "OpenClaw Digital Assistant",
     label: "Asisten Digital",
-    headline: "Asisten digital siap pakai untuk membantu chat, lead, admin, dan workflow pelanggan.",
+    headline: "Asisten digital siap pakai untuk menjawab, mengarahkan, merangkum, dan membantu workflow harian.",
     description:
-      "Untuk bisnis yang ingin punya asisten digital seperti Hermes: menjawab, mengarahkan, merangkum, membantu admin, dan menjalankan workflow sesuai SOP pelanggan.",
+      "Untuk pelanggan yang ingin punya asisten seperti Hermes atau OpenClaw versi bisnisnya sendiri, disiapkan sesuai layanan, SOP, dan gaya komunikasi brand.",
     basePrice: 2900000,
     timeline: "21-40 hari kerja",
     includes: [
@@ -263,37 +263,37 @@ export const industries = [
   {
     id: "professional",
     label: "Jasa Profesional",
-    headline: "Bangun otoritas dan ubah konsultasi menjadi lead berkualitas.",
+    headline: "Bikin calon klien cepat paham layanan dan lebih yakin untuk konsultasi.",
     recommendedService: "website",
   },
   {
     id: "property",
     label: "Properti",
-    headline: "Tampilkan unit, kualifikasi prospek, dan follow-up otomatis.",
+    headline: "Tampilkan unit dengan rapi, saring prospek, lalu arahkan ke sales yang tepat.",
     recommendedService: "growth-stack",
   },
   {
     id: "clinic",
     label: "Klinik & Wellness",
-    headline: "Buat pengalaman booking terasa rapi, aman, dan terpercaya.",
+    headline: "Buat calon pasien merasa aman sebelum mereka booking atau bertanya.",
     recommendedService: "website",
   },
   {
     id: "education",
     label: "Edukasi",
-    headline: "Jual program, kelola inquiry, dan arahkan calon siswa dengan jelas.",
+    headline: "Jelaskan program, jawab pertanyaan berulang, dan arahkan calon siswa tanpa ribet.",
     recommendedService: "chatbot",
   },
   {
     id: "retail",
     label: "Produk & Retail",
-    headline: "Gabungkan katalog, chat, dan tracking lead dalam satu alur.",
+    headline: "Gabungkan katalog, chat, dan pencatatan lead dalam alur yang mudah dipakai.",
     recommendedService: "growth-stack",
   },
   {
     id: "operations",
     label: "Operasional & Admin",
-    headline: "Buat asisten digital yang membantu menjawab, merangkum, dan mengarahkan pekerjaan harian.",
+    headline: "Buat asisten digital yang membantu admin menjawab, merangkum, dan mengarahkan pekerjaan.",
     recommendedService: "digital-assistant",
   },
 ];
@@ -302,31 +302,31 @@ export const goals = [
   {
     id: "lead",
     label: "Cari leads",
-    impact: "Prioritas pada CTA, form konsultasi, dan struktur penawaran.",
+    impact: "Fokus pada CTA yang jelas, form singkat, dan penawaran yang mudah dipahami.",
     recommendedService: "website",
   },
   {
     id: "automation",
     label: "Automasi chat",
-    impact: "Prioritas pada flow percakapan, FAQ, dan follow-up.",
+    impact: "Fokus pada jawaban cepat, FAQ, dan follow-up agar chat tidak menumpuk.",
     recommendedService: "chatbot",
   },
   {
     id: "booking",
     label: "Booking",
-    impact: "Prioritas pada jadwal, form kebutuhan, dan notifikasi admin.",
+    impact: "Fokus pada jadwal, form kebutuhan, dan notifikasi yang langsung masuk ke admin.",
     recommendedService: "mobile-app",
   },
   {
     id: "authority",
     label: "Naikkan trust",
-    impact: "Prioritas pada visual premium, proof, dan proposal digital.",
+    impact: "Fokus pada visual yang meyakinkan, bukti kerja, dan proposal yang enak dibaca.",
     recommendedService: "growth-stack",
   },
   {
     id: "assistant",
     label: "Bangun asisten digital",
-    impact: "Prioritas pada knowledge base, workflow, handover, dan automasi operasional.",
+    impact: "Fokus pada knowledge base, workflow, handover manusia, dan SOP yang jelas.",
     recommendedService: "digital-assistant",
   },
 ];
@@ -335,7 +335,7 @@ export const visualThemes = [
   {
     id: "luxury",
     label: "Luxury",
-    description: "Dark editorial, gold accent, premium spacing.",
+    description: "Gelap, elegan, aksen gold, cocok untuk jasa yang ingin terlihat high-trust.",
     colors: {
       dark: "#080B12",
       accent: "#C7A66B",
@@ -346,7 +346,7 @@ export const visualThemes = [
   {
     id: "tech",
     label: "Tech",
-    description: "Clean SaaS, emerald signal, dashboard feel.",
+    description: "Bersih, modern, terasa seperti produk SaaS atau dashboard profesional.",
     colors: {
       dark: "#07131F",
       accent: "#38BDF8",
@@ -357,7 +357,7 @@ export const visualThemes = [
   {
     id: "minimal",
     label: "Minimal",
-    description: "Quiet, airy, polished, fast to scan.",
+    description: "Ringan, lapang, mudah dibaca, cocok untuk brand yang ingin terlihat tenang.",
     colors: {
       dark: "#1F2937",
       accent: "#111827",
@@ -368,7 +368,7 @@ export const visualThemes = [
   {
     id: "bold",
     label: "Bold",
-    description: "High contrast, launch energy, strong CTA.",
+    description: "Kontras, berani, cocok untuk campaign atau produk yang ingin cepat menarik perhatian.",
     colors: {
       dark: "#130A24",
       accent: "#F97316",
@@ -382,27 +382,27 @@ export const exampleBuilds = [
   {
     title: "Luxury Clinic Website",
     type: "Website",
-    description: "Homepage premium, layanan, dokter, booking CTA, dan trust section.",
+    description: "Homepage yang langsung membangun rasa aman: layanan jelas, profil dokter, CTA booking, dan trust section.",
   },
   {
     title: "Property AI Sales Assistant",
     type: "Chatbot AI",
-    description: "Kualifikasi budget, lokasi, tipe unit, dan handover prospek ke sales.",
+    description: "Chatbot yang menanyakan budget, lokasi, tipe unit, lalu meneruskan prospek yang sudah lebih siap ke sales.",
   },
   {
     title: "Mobile Booking App",
     type: "Aplikasi",
-    description: "Onboarding, katalog layanan, jadwal, booking, dan riwayat pelanggan.",
+    description: "Aplikasi simpel untuk melihat layanan, memilih jadwal, booking, dan menyimpan riwayat pelanggan.",
   },
   {
     title: "Digital Growth Stack",
     type: "Combo",
-    description: "Website, chatbot, lead capture, template proposal, dan tracking dasar.",
+    description: "Satu paket yang menyambungkan website, chatbot, lead capture, proposal, dan tracking sederhana.",
   },
   {
     title: "OpenClaw Digital Assistant",
     type: "Asisten Digital",
-    description: "Persona asisten, knowledge base, workflow routing, lead scoring, dan handover admin.",
+    description: "Asisten digital dengan persona, knowledge base, routing workflow, lead scoring, dan handover ke admin.",
   },
 ];
 

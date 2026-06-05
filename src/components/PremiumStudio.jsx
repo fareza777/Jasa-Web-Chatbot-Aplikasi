@@ -59,6 +59,12 @@ const serviceIcons = {
   "digital-assistant": Bot,
 };
 
+const visualAssets = {
+  workspace: "/images/premium-workspace.jpg",
+  devices: "/images/device-suite.jpg",
+  mobile: "/images/mobile-consultation.jpg",
+};
+
 const sectionLinks = [
   ["services", "Layanan"],
   ["configurator", "Konfigurator"],
@@ -217,7 +223,7 @@ export default function PremiumStudio() {
                 Digital Craft
               </span>
               <span className="block text-xs font-semibold text-[#6b7280]">
-                Websites, AI, Apps
+                Website, AI, Aplikasi
               </span>
             </span>
           </button>
@@ -363,15 +369,15 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
         <div className="min-w-0 max-w-[22rem] flex flex-col justify-center sm:max-w-none">
           <div className="animate-fade-up mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-[#c7a66b]/40 bg-white/10 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-[#f5d89b] backdrop-blur">
             <Sparkles className="h-4 w-4" aria-hidden="true" />
-            Premium digital service studio
+            Studio digital siap pakai untuk UMKM dan brand jasa
           </div>
           <h1 className="animate-fade-up animation-delay-100 w-full max-w-[22rem] text-[2rem] font-black leading-[1.06] tracking-[-0.02em] text-white sm:max-w-4xl sm:text-6xl lg:text-7xl">
-            Buat bisnis terlihat premium lewat website, chatbot, dan aplikasi.
+            Bikin bisnis kecil terlihat siap dipercaya sejak kunjungan pertama.
           </h1>
           <p className="animate-fade-up animation-delay-200 mt-6 w-full max-w-[22rem] text-base leading-8 text-slate-300 sm:max-w-2xl sm:text-lg">
-            Strategi, desain, copywriting, automasi, dan flow produk digabung
-            menjadi pengalaman digital yang rapi, kredibel, dan siap dipakai
-            untuk menjual jasa dengan percaya diri.
+            Website, chatbot AI, aplikasi, dan asisten digital dibuat sebagai
+            sistem yang rapi: enak dilihat, mudah dijelaskan ke pelanggan, dan
+            realistis untuk budget bisnis yang baru mulai naik kelas.
           </p>
 
           <div className="animate-fade-up animation-delay-300 mt-8 flex flex-col gap-3 sm:flex-row">
@@ -381,7 +387,7 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
               className="inline-flex h-12 items-center justify-center gap-2 rounded-md px-5 text-sm font-black text-[#080b12] transition duration-300 hover:-translate-y-0.5 hover:brightness-110"
               style={{ backgroundColor: themeColors.accent }}
             >
-              Generate proposal
+              Buat estimasi paket
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </button>
             <button
@@ -390,13 +396,13 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
               className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/20 bg-white/10 px-5 text-sm font-black text-white backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-[#c7a66b] hover:bg-white/15"
             >
               <Play className="h-4 w-4" aria-hidden="true" />
-              Lihat output
+              Lihat contoh output
             </button>
           </div>
           <div className="animate-fade-up animation-delay-500 mt-8 grid max-w-[22rem] gap-3 sm:max-w-2xl sm:grid-cols-3">
             {[
-              ["Rp750rb+", "entry realistis"],
-              ["5 jasa", "custom scope"],
+              ["Rp750rb+", "mulai ringan"],
+              ["5 jasa", "bisa dicustom"],
               ["AI-ready", "chatbot + assistant"],
             ].map(([value, label]) => (
               <div key={label} className="rounded-md border border-white/10 bg-white/[0.07] p-3 backdrop-blur">
@@ -433,7 +439,7 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
               <span />
             </span>
             <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">
-              Command Center
+              Preview Paket
             </span>
           </div>
           <div className="relative pt-16">
@@ -448,7 +454,20 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
               ))}
             </div>
 
-            <div className="rounded-md bg-[#f7f4ee] p-5 text-[#111827] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] transition duration-500">
+            <div className="overflow-hidden rounded-md bg-[#f7f4ee] text-[#111827] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] transition duration-500">
+              <div className="relative h-36 overflow-hidden">
+                <img
+                  src={visualAssets.workspace}
+                  alt="Meja kerja premium dengan laptop dan smartphone sebagai contoh visual layanan digital"
+                  className="h-full w-full object-cover"
+                  loading="eager"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#f7f4ee] via-[#f7f4ee]/20 to-transparent" />
+                <span className="absolute left-4 top-4 rounded-full bg-[#111827]/85 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#f5d89b] backdrop-blur">
+                  Real visual direction
+                </span>
+              </div>
+              <div className="p-5">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
@@ -470,6 +489,7 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
                     <span className="text-sm font-bold">{item}</span>
                   </div>
                 ))}
+              </div>
               </div>
             </div>
 
@@ -821,14 +841,14 @@ function OpenClawAssistantLab({ onSelectAssistant }) {
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
-            OpenClaw assistant service
+            Layanan asisten digital
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
-            Asisten digital seperti Hermes, dibuat siap pakai untuk pelanggan.
+            OpenClaw dibuat seperti asisten pribadi untuk bisnis pelanggan.
           </h2>
           <p className="mt-4 text-sm leading-7 text-slate-300">
-            Paket ini bukan hanya chatbot. Ini adalah assistant layer yang punya
-            persona, knowledge base, workflow, lead scoring, dan handover ke tim manusia.
+            Bukan sekadar chatbot FAQ. Pelanggan bisa punya asisten yang paham
+            layanan, SOP, gaya bicara brand, dan kapan harus menyerahkan chat ke admin manusia.
           </p>
           <button
             type="button"
@@ -884,11 +904,11 @@ function OpenClawAssistantLab({ onSelectAssistant }) {
 
             <div className="mt-4 rounded-md border border-white/10 bg-white/[0.04] p-4">
               <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
-                Delivery promise
+                Yang diterima pelanggan
               </p>
               <p className="mt-2 text-sm font-bold leading-6 text-slate-200">
-                Pelanggan mendapatkan assistant blueprint, flow skenario, knowledge base,
-                dan mode handover sehingga asisten bisa langsung diuji dan dipakai.
+                Pelanggan mendapat blueprint asisten, skenario percakapan, knowledge base,
+                dan mode handover agar bisa langsung diuji, diperbaiki, lalu dipakai.
               </p>
             </div>
           </div>
@@ -906,28 +926,32 @@ function PremiumVisualLab({ proposal }) {
       id: "landing",
       label: "Landing",
       title: "Hero penawaran",
-      copy: "Above-the-fold dibuat tegas: positioning, trust signal, CTA, dan preview harga.",
+      copy: "Bagian awal langsung menjawab: ini bisnis apa, cocok untuk siapa, dan langkah berikutnya apa.",
+      image: visualAssets.workspace,
       icon: MonitorSmartphone,
     },
     {
       id: "assistant",
       label: "Assistant",
       title: "AI concierge",
-      copy: "Asisten digital menjawab, mengarahkan, dan merangkum kebutuhan calon pelanggan.",
+      copy: "Asisten menjawab pertanyaan umum, menangkap kebutuhan, lalu mengarahkan ke admin saat perlu.",
+      image: visualAssets.mobile,
       icon: Bot,
     },
     {
       id: "dashboard",
       label: "Dashboard",
       title: "Lead cockpit",
-      copy: "Admin melihat lead, status follow-up, channel, dan next action dalam satu panel.",
+      copy: "Admin bisa melihat lead masuk, status follow-up, dan prioritas tindakan tanpa buka banyak tempat.",
+      image: visualAssets.devices,
       icon: Calculator,
     },
     {
       id: "mobile",
       label: "Mobile",
       title: "App preview",
-      copy: "Tampilan aplikasi dibuat bersih, cepat dipahami, dan siap untuk MVP pelanggan.",
+      copy: "Tampilan app dibuat sederhana dulu: cukup jelas untuk dipakai pelanggan dan cukup ringan untuk diuji.",
+      image: visualAssets.mobile,
       icon: Smartphone,
     },
   ];
@@ -941,12 +965,12 @@ function PremiumVisualLab({ proposal }) {
         <div className="relative">
           <p className="section-kicker">Premium visual lab</p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
-            Preview grafis yang bikin jasa terlihat lebih mahal.
+            Contoh visualnya dibuat terasa nyata, bukan cuma kotak-kotak dummy.
           </h2>
           <p className="mt-4 text-sm leading-7 text-[#4b5563]">
-            Calon pelanggan tidak cuma membaca daftar fitur. Mereka melihat
-            gambaran output: landing page, assistant, dashboard, dan aplikasi
-            dengan gaya visual yang konsisten.
+            Orang lebih cepat percaya saat bisa membayangkan hasil akhirnya.
+            Karena itu setiap paket ditampilkan dengan foto, mockup, dan alur
+            yang terasa seperti produk sungguhan.
           </p>
 
           <div className="mt-6 grid gap-2 sm:grid-cols-2">
@@ -999,6 +1023,14 @@ function PremiumVisualLab({ proposal }) {
 
           <div className="relative mt-5 grid gap-4 lg:grid-cols-[1fr_0.72fr]">
             <div className="rounded-md bg-[#f7f4ee] p-5 text-[#111827]">
+              <div className="mb-5 overflow-hidden rounded-md border border-[#ded8cc]">
+                <img
+                  src={active.image}
+                  alt={`Contoh foto visual untuk ${active.title}`}
+                  className="h-48 w-full object-cover transition duration-500"
+                  loading="lazy"
+                />
+              </div>
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
@@ -1100,15 +1132,15 @@ function Configurator({
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
         <div>
           <p className="section-kicker">
-            Konfigurator paket
+            Rakit paket sendiri
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
-            Buat paket terasa custom, jelas, dan bernilai tinggi.
+            Pilih kebutuhan, lihat estimasi, lalu jadikan itu bahan konsultasi.
           </h2>
           <p className="mt-4 text-sm leading-7 text-[#4b5563]">
-            Pilihan di bawah mengubah estimasi harga dan ringkasan kebutuhan.
-            Ini membuat calon pelanggan merasa website, chatbot, atau aplikasi
-            dibuat untuk masalah mereka, bukan template murahan.
+            Calon pelanggan bisa memilih jenis website, warna, tema, jumlah
+            halaman, fitur, sampai level automasi. Jadi pembicaraan tidak mulai
+            dari "berapa harga?", tapi dari "butuhnya apa?".
           </p>
 
           <div className="mt-6 grid gap-2 sm:grid-cols-2">
@@ -1262,9 +1294,9 @@ function LiveBlueprint({ service, selectedSummary, quote }) {
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
-            Live blueprint
+            Rencana kerja singkat
           </p>
-          <h3 className="mt-2 text-xl font-black">{service.label} build plan</h3>
+          <h3 className="mt-2 text-xl font-black">Rencana {service.label}</h3>
         </div>
         <Target className="h-6 w-6 text-[#c7a66b]" aria-hidden="true" />
       </div>
@@ -1279,7 +1311,7 @@ function LiveBlueprint({ service, selectedSummary, quote }) {
 
       <div className="mt-5 border-t border-white/10 pt-5">
         <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-400">
-          Selected scope
+          Pilihan aktif
         </p>
         <p className="mt-2 text-sm leading-6 text-slate-200">
           {selectedSummary.join(", ")} dengan estimasi {formatRupiah(quote)}.
@@ -1303,10 +1335,10 @@ function ProposalPreview({ proposal, onOpenProposal }) {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
-              Proposal preview
+              Preview penawaran
             </p>
             <h3 className="mt-2 text-2xl font-black text-[#111827]">
-              Draft penawaran otomatis
+              Draft penawaran yang siap dibahas
             </h3>
           </div>
           <ScrollText className="h-7 w-7 text-[#8a6d30]" aria-hidden="true" />
@@ -1315,7 +1347,7 @@ function ProposalPreview({ proposal, onOpenProposal }) {
         <div className="mt-5 grid gap-4 lg:grid-cols-[1fr_0.9fr]">
           <div className="rounded-md bg-white p-5">
             <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
-              Executive summary
+              Ringkasan
             </p>
             <p className="mt-3 text-sm leading-7 text-[#374151]">
               Untuk {proposal.industry.label}, pendekatan yang disarankan adalah
@@ -1418,17 +1450,29 @@ function OutputShowcase() {
 }
 
 function ExampleBuilds() {
+  const buildImages = [
+    visualAssets.workspace,
+    visualAssets.mobile,
+    visualAssets.devices,
+    visualAssets.workspace,
+    visualAssets.mobile,
+  ];
+
   return (
     <section className="border-t border-[#ded8cc] bg-[#f7f4ee]">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
           <div>
           <p className="section-kicker">
-            Example builds
+            Contoh produk
           </p>
-            <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
-              Contoh output yang terasa seperti brand matang.
+          <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+              Contoh produk yang bisa langsung dibayangkan calon pelanggan.
             </h2>
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-[#4b5563]">
+              Bukan hanya daftar layanan. Setiap contoh dibuat seperti gambaran
+              hasil jadi: ada foto, arah UI, fitur utama, dan konteks bisnisnya.
+            </p>
           </div>
           <BriefcaseBusiness className="hidden h-11 w-11 text-[#8a6d30] lg:block" />
         </div>
@@ -1441,8 +1485,15 @@ function ExampleBuilds() {
                 index === 0 ? "lg:col-span-2" : ""
               }`}
             >
-              <div className="h-40 bg-[#111827] p-4">
-                <div className="h-full rounded-md border border-white/10 bg-white/[0.06] p-3 transition duration-300 group-hover:scale-[1.02]">
+              <div className="relative h-44 overflow-hidden bg-[#111827]">
+                <img
+                  src={buildImages[index % buildImages.length]}
+                  alt={`Contoh visual untuk ${build.title}`}
+                  className="h-full w-full object-cover opacity-70 transition duration-500 group-hover:scale-105 group-hover:opacity-85"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#111827] via-[#111827]/35 to-transparent" />
+                <div className="absolute inset-4 rounded-md border border-white/10 bg-white/[0.06] p-3 backdrop-blur-[2px] transition duration-300 group-hover:scale-[1.02]">
                   <div className="h-2 w-1/2 rounded bg-[#c7a66b]" />
                   <div className="mt-3 h-2 w-3/4 rounded bg-white/30" />
                   <div className="mt-6 grid grid-cols-3 gap-2">
@@ -3088,7 +3139,7 @@ function PremiumFooter({ onOpenProposal }) {
                 Digital Craft
               </p>
               <p className="text-sm font-semibold text-slate-300">
-                Premium websites, AI chat systems, and mobile MVPs.
+                Website, chatbot AI, asisten digital, dan aplikasi ringan.
               </p>
             </div>
           </div>
