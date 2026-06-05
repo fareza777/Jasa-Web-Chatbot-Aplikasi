@@ -36,6 +36,7 @@ import {
   industryPlaybooks,
   maturityAuditItems,
   packageTiers,
+  scopeMatrix,
   serviceCatalog,
   serviceOutcomes,
   testimonials,
@@ -288,6 +289,7 @@ export default function PremiumStudio() {
           onOpenProposal={() => setProposalOpen(true)}
           onOpenIntake={() => setIntakeOpen(true)}
         />
+        <ScopeMatrix onOpenIntake={() => setIntakeOpen(true)} />
         <CredibilitySection />
         <AssetChecklist />
         <BeforeAfterSection onOpenProposal={() => setProposalOpen(true)} />
@@ -1573,6 +1575,102 @@ function PackageComparison({ onOpenProposal, onOpenIntake }) {
             </div>
           </article>
         ))}
+      </div>
+    </section>
+  );
+}
+
+function ScopeMatrix({ onOpenIntake }) {
+  const [activeTier, setActiveTier] = useState("scale");
+  const activeTierData =
+    packageTiers.find((tier) => tier.id === activeTier) || packageTiers[1];
+
+  return (
+    <section className="border-y border-[#ded8cc] bg-white">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="mb-8 grid gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+              Scope matrix
+            </p>
+            <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+              Jelaskan perbedaan paket tanpa membuat calon klien bingung.
+            </h2>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-3">
+            {packageTiers.map((tier) => (
+              <button
+                key={tier.id}
+                type="button"
+                onClick={() => setActiveTier(tier.id)}
+                className={`rounded-md border px-4 py-3 text-left text-sm font-black transition duration-300 hover:-translate-y-0.5 ${
+                  activeTier === tier.id
+                    ? "border-[#111827] bg-[#111827] text-white shadow-[0_14px_28px_rgba(17,24,39,0.16)]"
+                    : "border-[#ded8cc] bg-[#f7f4ee] text-[#111827] hover:border-[#111827] hover:bg-white"
+                }`}
+              >
+                {tier.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-[0.7fr_1.3fr]">
+          <aside className="rounded-md border border-[#ded8cc] bg-[#f7f4ee] p-5">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+              Active depth
+            </p>
+            <h3 className="mt-2 text-3xl font-black text-[#111827]">
+              {activeTierData.name}
+            </h3>
+            <p className="mt-3 text-sm leading-7 text-[#4b5563]">
+              {activeTierData.bestFor}
+            </p>
+            <p className="mt-6 text-2xl font-black text-[#8a6d30]">
+              {activeTierData.priceLabel}
+            </p>
+            <button
+              type="button"
+              onClick={onOpenIntake}
+              className="mt-6 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#111827] px-4 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#1f2937]"
+            >
+              Start brief
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </aside>
+
+          <div className="overflow-hidden rounded-md border border-[#ded8cc]">
+            {scopeMatrix.map((row, index) => (
+              <div
+                key={row.area}
+                className={`grid gap-0 sm:grid-cols-[180px_1fr] ${
+                  index ? "border-t border-[#ded8cc]" : ""
+                }`}
+              >
+                <div className="bg-[#111827] p-4 text-sm font-black text-[#f5d89b]">
+                  {row.area}
+                </div>
+                <div className="grid gap-3 bg-white p-4 sm:grid-cols-3">
+                  {["launch", "scale", "authority"].map((tierId) => (
+                    <div
+                      key={tierId}
+                      className={`rounded-md border p-3 text-sm font-bold leading-6 transition duration-300 ${
+                        activeTier === tierId
+                          ? "border-[#0f766e] bg-[#ecfdf5] text-[#111827]"
+                          : "border-[#eee5d8] bg-[#f7f4ee] text-[#6b7280]"
+                      }`}
+                    >
+                      <p className="mb-1 text-xs font-black uppercase tracking-[0.12em]">
+                        {tierId}
+                      </p>
+                      {row[tierId]}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

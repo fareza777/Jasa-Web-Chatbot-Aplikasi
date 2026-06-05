@@ -545,3 +545,36 @@ export const maturityAuditItems = [
     recommendation: "Tambahkan tracking dasar dan struktur lead log.",
   },
 ];
+
+export const scopeMatrix = [
+  {
+    area: "Strategy",
+    launch: "Offer angle + CTA utama",
+    scale: "Buyer journey + conversion map",
+    authority: "Positioning system + campaign direction",
+  },
+  {
+    area: "Design",
+    launch: "Premium landing direction",
+    scale: "Full interface system",
+    authority: "Multi-channel visual language",
+  },
+  {
+    area: "Automation",
+    launch: "Basic lead routing",
+    scale: "AI qualification + follow-up",
+    authority: "End-to-end growth workflow",
+  },
+  {
+    area: "Sales Assets",
+    launch: "Proposal copy starter",
+    scale: "Proposal + WhatsApp scripts",
+    authority: "Pitch deck + content system",
+  },
+  {
+    area: "Launch",
+    launch: "Responsive review",
+    scale: "Tracking + handover brief",
+    authority: "Launch support + optimization notes",
+  },
+];
