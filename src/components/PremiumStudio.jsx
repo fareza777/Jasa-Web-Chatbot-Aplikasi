@@ -341,7 +341,9 @@ export default function PremiumStudio() {
         <ScenarioSection />
         <ExecutionRoadmap />
         <ProcessSection />
+        <MaintenancePlans />
         <FAQSection />
+        <LeadCaptureSection proposal={proposal} />
         <FinalCTA onOpenProposal={() => setProposalOpen(true)} />
         <GuaranteeStrip />
         <PremiumFooter onOpenProposal={() => setProposalOpen(true)} />
@@ -3192,6 +3194,84 @@ function ProcessSection() {
   );
 }
 
+function MaintenancePlans() {
+  const plans = [
+    {
+      name: "Care Basic",
+      price: "Rp150rb/bln",
+      description: "Untuk website kecil yang hanya butuh aman, backup, dan update ringan.",
+      includes: ["Backup bulanan", "Update konten kecil", "Cek form dan CTA", "Support via chat"],
+    },
+    {
+      name: "Growth Care",
+      price: "Rp300rb/bln",
+      description: "Untuk bisnis yang mulai rutin update promo, artikel, katalog, atau campaign.",
+      includes: ["Semua Basic", "Update konten mingguan", "Optimasi CTA ringan", "Laporan performa dasar"],
+      featured: true,
+    },
+    {
+      name: "AI Care",
+      price: "Rp500rb/bln",
+      description: "Untuk chatbot atau OpenClaw yang knowledge base-nya perlu rutin dirapikan.",
+      includes: ["Update knowledge base", "Review flow chat", "Tambah FAQ baru", "Handover scenario check"],
+    },
+  ];
+
+  return (
+    <section className="border-y border-[#ded8cc] bg-[#f7f4ee]">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="mb-8 grid gap-4 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+          <div>
+            <p className="section-kicker">Maintenance</p>
+            <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+              Setelah jadi, sistemnya tetap bisa dirawat.
+            </h2>
+          </div>
+          <p className="text-sm leading-7 text-[#4b5563]">
+            Banyak klien UMKM butuh bantuan kecil setelah launch: ganti teks,
+            update promo, tambah FAQ, atau cek form. Paket bulanan dibuat murah
+            agar tetap realistis.
+          </p>
+        </div>
+
+        <div className="grid gap-4 lg:grid-cols-3">
+          {plans.map((plan) => (
+            <article
+              key={plan.name}
+              className={`rounded-md border p-6 transition duration-300 hover:-translate-y-2 hover:shadow-[0_24px_60px_rgba(17,24,39,0.12)] ${
+                plan.featured
+                  ? "border-[#111827] bg-[#111827] text-white"
+                  : "premium-card text-[#111827]"
+              }`}
+            >
+              {plan.featured && (
+                <span className="mb-5 inline-flex rounded-full bg-[#c7a66b] px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#080b12]">
+                  Paling fleksibel
+                </span>
+              )}
+              <h3 className="text-2xl font-black">{plan.name}</h3>
+              <p className={`mt-2 text-sm leading-6 ${plan.featured ? "text-slate-300" : "text-[#4b5563]"}`}>
+                {plan.description}
+              </p>
+              <p className={`mt-6 text-3xl font-black ${plan.featured ? "text-[#f5d89b]" : "text-[#8a6d30]"}`}>
+                {plan.price}
+              </p>
+              <div className="mt-6 space-y-3">
+                {plan.includes.map((item) => (
+                  <div key={item} className="flex gap-3 text-sm font-bold">
+                    <CheckCircle2 className={`mt-0.5 h-4 w-4 flex-none ${plan.featured ? "text-[#c7a66b]" : "text-[#0f766e]"}`} />
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function FAQSection() {
   const faqs = [
     [
@@ -3209,6 +3289,26 @@ function FAQSection() {
     [
       "Bisa dibuat bertahap?",
       "Bisa. Website atau chatbot bisa dimulai dulu, lalu ditambah aplikasi, konten, atau aset sales setelah validasi berjalan.",
+    ],
+    [
+      "Harga sudah termasuk domain dan hosting?",
+      "Belum selalu. Untuk menjaga harga tetap murah, domain dan hosting biasanya dipisah sesuai kebutuhan. Kalau klien sudah punya hosting, bisa dipakai. Kalau belum, bisa dibantu rekomendasi yang hemat.",
+    ],
+    [
+      "Bisa bayar DP dulu?",
+      "Bisa. Umumnya project dimulai dengan DP, lalu pelunasan setelah preview utama disetujui atau sebelum handover final. Skema bisa dibuat fleksibel sesuai scope.",
+    ],
+    [
+      "Berapa kali revisi?",
+      "Paket awal sudah termasuk revisi ringan untuk teks, warna, section, atau flow yang masih dalam scope. Revisi besar seperti ganti konsep total akan dibahas terpisah agar timeline tetap jelas.",
+    ],
+    [
+      "Apakah ada biaya bulanan?",
+      "Project utama bisa sekali bayar. Biaya bulanan hanya jika klien ingin maintenance, update konten, monitoring, atau update knowledge base chatbot/asisten.",
+    ],
+    [
+      "Apakah website bisa diurus setelah launch?",
+      "Bisa. Ada paket maintenance mulai dari update konten kecil, backup, pengecekan form, sampai update knowledge base untuk chatbot dan OpenClaw.",
     ],
   ];
 
@@ -3239,6 +3339,113 @@ function FAQSection() {
             </details>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function LeadCaptureSection({ proposal }) {
+  const [lead, setLead] = useState({
+    name: "",
+    business: "",
+    whatsapp: "",
+    need: proposal.service.label,
+    budget: formatRupiah(proposal.quote),
+  });
+
+  const leadText = `Halo, saya ingin konsultasi dengan Digital Craft.
+
+Nama: ${lead.name || "-"}
+Bisnis: ${lead.business || "-"}
+WhatsApp: ${lead.whatsapp || "-"}
+Kebutuhan: ${lead.need}
+Budget indikatif: ${lead.budget}
+Paket yang saya lihat: ${proposal.service.name}
+
+Bisa dibantu cek paket yang paling cocok?`;
+
+  const href = `https://wa.me/?text=${encodeURIComponent(leadText)}`;
+
+  function updateLead(field, value) {
+    setLead((current) => ({ ...current, [field]: value }));
+  }
+
+  return (
+    <section className="border-y border-[#ded8cc] bg-[#080b12] text-white">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+            Minta estimasi
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Isi singkat, langsung jadi pesan konsultasi.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-slate-300">
+            Form ini dibuat untuk calon klien yang ingin cepat bertanya tanpa
+            harus menyusun brief panjang. Pesannya otomatis rapi untuk WhatsApp.
+          </p>
+          <div className="mt-6 rounded-md border border-white/10 bg-white/[0.05] p-4">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+              Preview pesan
+            </p>
+            <p className="mt-3 whitespace-pre-line text-sm leading-7 text-slate-200">
+              {leadText}
+            </p>
+          </div>
+        </div>
+
+        <form
+          className="premium-frame rounded-md border border-[#c7a66b]/30 bg-[#f7f4ee] p-5 text-[#111827] shadow-[0_28px_90px_rgba(0,0,0,0.24)] sm:p-6"
+          onSubmit={(event) => event.preventDefault()}
+        >
+          <div className="grid gap-4 sm:grid-cols-2">
+            {[
+              ["name", "Nama", "Nama kamu"],
+              ["business", "Nama bisnis", "Contoh: Klinik Aesthetic"],
+              ["whatsapp", "Nomor WhatsApp", "08xx"],
+              ["budget", "Budget indikatif", "Rp750rb - Rp3jt"],
+            ].map(([field, label, placeholder]) => (
+              <label key={field} className="text-sm font-black">
+                {label}
+                <input
+                  value={lead[field]}
+                  onChange={(event) => updateLead(field, event.target.value)}
+                  placeholder={placeholder}
+                  className="mt-2 h-12 w-full rounded-md border border-[#cfc5b8] bg-white px-4 text-sm font-bold text-[#111827]"
+                />
+              </label>
+            ))}
+          </div>
+          <label className="mt-4 block text-sm font-black">
+            Kebutuhan utama
+            <select
+              value={lead.need}
+              onChange={(event) => updateLead("need", event.target.value)}
+              className="mt-2 h-12 w-full rounded-md border border-[#cfc5b8] bg-white px-4 text-sm font-bold text-[#111827]"
+            >
+              {serviceCatalog.map((service) => (
+                <option key={service.id} value={service.label}>
+                  {service.label} - mulai {formatRupiah(service.basePrice)}
+                </option>
+              ))}
+            </select>
+          </label>
+          <div className="mt-6 grid gap-3 sm:grid-cols-[1fr_auto] sm:items-center">
+            <p className="text-sm leading-6 text-[#4b5563]">
+              Tombol ini membuka WhatsApp dengan pesan otomatis. Nomor tujuan
+              bisa diganti ke nomor bisnis asli nanti.
+            </p>
+            <a
+              href={href}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#25D366] px-5 text-sm font-black text-[#062d17] transition hover:-translate-y-0.5 hover:brightness-105"
+            >
+              Kirim ke WhatsApp
+              <MessageCircle className="h-4 w-4" />
+            </a>
+          </div>
+        </form>
       </div>
     </section>
   );
