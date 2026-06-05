@@ -195,7 +195,7 @@ export default function PremiumStudio() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f7f4ee] text-[#111827]">
+    <div className="luxury-ambient min-h-screen bg-[#f7f4ee] text-[#111827]">
       <div className="fixed inset-x-0 top-0 z-50 h-1 bg-transparent">
         <div
           className="h-full bg-[#c7a66b] transition-[width] duration-150"
@@ -246,7 +246,7 @@ export default function PremiumStudio() {
         </div>
       </header>
 
-      <main id="top">
+      <main id="top" className="relative z-10">
         <Hero
           quote={quote}
           activeService={activeService}
@@ -350,12 +350,14 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
       className="noise-wash luxury-grid relative overflow-hidden border-b border-[#ded8cc] text-white"
       style={{ backgroundColor: themeColors.dark }}
     >
+      <div className="aurora-layer" aria-hidden="true" />
       <div
         className="absolute inset-0"
         style={{
           background: `radial-gradient(circle at 12% 18%, ${themeColors.accent}38, transparent 28%), radial-gradient(circle at 80% 10%, ${themeColors.secondary}30, transparent 24%), linear-gradient(180deg, rgba(255,255,255,0.04), transparent)`,
         }}
       />
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/30 to-transparent" aria-hidden="true" />
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8 lg:py-20">
         <div className="min-w-0 max-w-[22rem] flex flex-col justify-center sm:max-w-none">
           <div className="animate-fade-up mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-[#c7a66b]/40 bg-white/10 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-[#f5d89b] backdrop-blur">
@@ -390,15 +392,39 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
               Lihat output
             </button>
           </div>
+          <div className="animate-fade-up animation-delay-500 mt-8 grid max-w-[22rem] gap-3 sm:max-w-2xl sm:grid-cols-3">
+            {[
+              ["Rp750rb+", "entry realistis"],
+              ["5 jasa", "custom scope"],
+              ["AI-ready", "chatbot + assistant"],
+            ].map(([value, label]) => (
+              <div key={label} className="rounded-md border border-white/10 bg-white/[0.07] p-3 backdrop-blur">
+                <p className="text-lg font-black text-white">{value}</p>
+                <p className="mt-1 text-xs font-bold uppercase tracking-[0.12em] text-slate-400">
+                  {label}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div
-          className="premium-panel-motion relative min-h-[560px] min-w-0 max-w-[22rem] overflow-hidden rounded-md border p-4 shadow-[0_30px_90px_rgba(0,0,0,0.35)] sm:max-w-none"
+          className="premium-frame premium-panel-motion scan-surface relative min-h-[560px] min-w-0 max-w-[22rem] overflow-hidden rounded-md border p-4 shadow-[0_30px_90px_rgba(0,0,0,0.35)] sm:max-w-none"
           style={{
             backgroundColor: "#111827",
             borderColor: `${themeColors.accent}55`,
           }}
         >
+          <div
+            className="absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-30 blur-3xl"
+            style={{ backgroundColor: themeColors.accent }}
+            aria-hidden="true"
+          />
+          <div
+            className="absolute -bottom-20 left-10 h-52 w-52 rounded-full opacity-20 blur-3xl"
+            style={{ backgroundColor: themeColors.secondary }}
+            aria-hidden="true"
+          />
           <div className="absolute inset-x-0 top-0 flex h-14 items-center justify-between border-b border-white/10 bg-[#0b1220] px-4">
             <span className="chrome-dots" aria-hidden="true">
               <span />
@@ -685,6 +711,14 @@ function ChoiceGrid({ title, items, selectedId, onSelect }) {
 }
 
 function Services({ activeServiceId, onSelect }) {
+  const serviceAccents = {
+    website: "#0f766e",
+    chatbot: "#c7a66b",
+    "mobile-app": "#2563eb",
+    "growth-stack": "#111827",
+    "digital-assistant": "#14b8a6",
+  };
+
   return (
     <section id="services" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
@@ -712,25 +746,58 @@ function Services({ activeServiceId, onSelect }) {
               key={service.id}
               type="button"
               onClick={() => onSelect(service.id)}
-              className={`group flex min-h-[280px] flex-col rounded-md border p-5 text-left transition duration-300 hover:-translate-y-2 ${
+              className={`premium-frame group relative flex min-h-[320px] flex-col overflow-hidden rounded-md border p-5 text-left transition duration-300 hover:-translate-y-2 ${
                 isActive
-                  ? "border-[#111827] bg-white shadow-[0_18px_50px_rgba(17,24,39,0.12)]"
+                  ? "border-[#111827] bg-white shadow-[0_22px_60px_rgba(17,24,39,0.16)]"
                   : "premium-card hover:border-[#111827] hover:shadow-[0_18px_44px_rgba(17,24,39,0.10)]"
               }`}
             >
-              <span className="grid h-12 w-12 place-items-center rounded-md bg-[#111827] text-[#c7a66b] transition duration-300 group-hover:rotate-3 group-hover:scale-105">
-                <Icon className="h-6 w-6" aria-hidden="true" />
-              </span>
-              <p className="mt-5 text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+              <div className="absolute inset-x-0 top-0 h-1 bg-[#111827]" aria-hidden="true" />
+              <div
+                className="absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-15 blur-2xl transition duration-500 group-hover:opacity-30"
+                style={{ backgroundColor: serviceAccents[service.id] || "#c7a66b" }}
+                aria-hidden="true"
+              />
+              <div className="relative mb-5 flex items-center justify-between gap-3">
+                <span className="grid h-12 w-12 place-items-center rounded-md bg-[#111827] text-[#c7a66b] transition duration-300 group-hover:rotate-3 group-hover:scale-105">
+                  <Icon className="h-6 w-6" aria-hidden="true" />
+                </span>
+                <span className="rounded-full border border-[#ded8cc] bg-white/80 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#6b7280]">
+                  {service.timeline}
+                </span>
+              </div>
+              <div className="relative mb-4 grid grid-cols-4 gap-1.5">
+                {[0, 1, 2, 3].map((item) => (
+                  <span
+                    key={item}
+                    className="h-1.5 rounded-full transition duration-500 group-hover:scale-y-150"
+                    style={{
+                      backgroundColor:
+                        item === 0
+                          ? serviceAccents[service.id] || "#c7a66b"
+                          : item === 1
+                            ? "#c7a66b"
+                            : "#ded8cc",
+                    }}
+                    aria-hidden="true"
+                  />
+                ))}
+              </div>
+              <p className="relative text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
                 {service.label}
               </p>
-              <h3 className="mt-2 text-xl font-black leading-tight">{service.name}</h3>
-              <p className="mt-3 flex-1 text-sm leading-6 text-[#4b5563]">
+              <h3 className="relative mt-2 text-xl font-black leading-tight">{service.name}</h3>
+              <p className="relative mt-3 flex-1 text-sm leading-6 text-[#4b5563]">
                 {service.description}
               </p>
-              <span className="mt-5 text-sm font-black">
-                Mulai {formatRupiah(service.basePrice)}
-              </span>
+              <div className="relative mt-5 flex items-center justify-between gap-3 border-t border-[#ded8cc] pt-4">
+                <span className="text-sm font-black">
+                  Mulai {formatRupiah(service.basePrice)}
+                </span>
+                <span className="grid h-9 w-9 place-items-center rounded-md bg-[#111827] text-white transition duration-300 group-hover:translate-x-1">
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </span>
+              </div>
             </button>
           );
         })}
@@ -748,7 +815,8 @@ function OpenClawAssistantLab({ onSelectAssistant }) {
   ];
 
   return (
-    <section className="noise-wash border-y border-[#ded8cc] bg-[#080b12] text-white">
+    <section className="noise-wash relative overflow-hidden border-y border-[#ded8cc] bg-[#080b12] text-white">
+      <div className="aurora-layer opacity-60" aria-hidden="true" />
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
@@ -771,7 +839,7 @@ function OpenClawAssistantLab({ onSelectAssistant }) {
           </button>
         </div>
 
-        <div className="relative overflow-hidden rounded-md border border-[#c7a66b]/30 bg-[#0b1220] p-5 shadow-[0_30px_90px_rgba(0,0,0,0.35)]">
+        <div className="premium-frame scan-surface relative overflow-hidden rounded-md border border-[#c7a66b]/30 bg-[#0b1220] p-5 shadow-[0_30px_90px_rgba(0,0,0,0.35)]">
           <div className="luxury-grid absolute inset-0 opacity-30" />
           <div className="relative">
             <div className="mb-5 flex items-center justify-between">
@@ -788,7 +856,8 @@ function OpenClawAssistantLab({ onSelectAssistant }) {
             <div className="grid gap-4 lg:grid-cols-[220px_1fr]">
               <div className="grid place-items-center rounded-md border border-white/10 bg-white/[0.04] p-6">
                 <div className="relative grid h-40 w-40 place-items-center rounded-full border border-[#c7a66b]/30">
-                  <div className="absolute inset-5 rounded-full border border-[#0f766e]/40" />
+                  <div className="orbit-ring absolute inset-0 rounded-full border border-dashed border-[#c7a66b]/35" />
+                  <div className="orbit-ring absolute inset-5 rounded-full border border-dashed border-[#0f766e]/40 [animation-duration:12s]" />
                   <div className="absolute inset-10 rounded-full bg-[#c7a66b]/10 blur-xl" />
                   <div className="relative grid h-20 w-20 place-items-center rounded-full bg-[#c7a66b] text-[#080b12] shadow-[0_0_40px_rgba(199,166,107,0.35)]">
                     <Cpu className="h-9 w-9" />
@@ -801,7 +870,8 @@ function OpenClawAssistantLab({ onSelectAssistant }) {
 
               <div className="grid gap-3 sm:grid-cols-2">
                 {capabilities.map(([title, description]) => (
-                  <article key={title} className="dark-glass rounded-md p-4">
+                  <article key={title} className="dark-glass group rounded-md p-4 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.09]">
+                    <div className="mb-3 h-1.5 w-12 rounded-full bg-[#c7a66b] transition duration-300 group-hover:w-20" />
                     <p className="font-black text-white">{title}</p>
                     <p className="mt-2 text-xs leading-5 text-slate-400">
                       {description}
