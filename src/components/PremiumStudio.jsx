@@ -34,6 +34,7 @@ import {
   goals,
   industries,
   industryPlaybooks,
+  maturityAuditItems,
   packageTiers,
   serviceCatalog,
   serviceOutcomes,
@@ -278,6 +279,7 @@ export default function PremiumStudio() {
         />
         <OutputShowcase />
         <ExampleBuilds />
+        <MaturityAudit onOpenProposal={() => setProposalOpen(true)} />
         <OutcomeCalculator proposal={proposal} />
         <ROISection proposal={proposal} />
         <LaunchReadiness proposal={proposal} />
@@ -1087,6 +1089,139 @@ function ExampleBuilds() {
               </div>
             </article>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MaturityAudit({ onOpenProposal }) {
+  const [checkedItems, setCheckedItems] = useState(["mobile-polish", "clear-offer"]);
+  const score = maturityAuditItems.reduce(
+    (total, item) => (checkedItems.includes(item.id) ? total + item.weight : total),
+    0,
+  );
+  const missingItems = maturityAuditItems.filter((item) => !checkedItems.includes(item.id));
+  const topRecommendations = missingItems.slice(0, 3);
+  const status =
+    score >= 78
+      ? "Scale-ready"
+      : score >= 52
+        ? "Needs system upgrade"
+        : "High-impact rebuild";
+
+  function toggleItem(id) {
+    setCheckedItems((current) =>
+      current.includes(id)
+        ? current.filter((itemId) => itemId !== id)
+        : [...current, id],
+    );
+  }
+
+  return (
+    <section className="border-y border-[#ded8cc] bg-white">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            Digital maturity audit
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Bikin calon klien sadar gap sebelum minta harga.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-[#4b5563]">
+            Audit singkat ini mengubah website menjadi alat konsultasi. User
+            menilai kondisi bisnisnya, lalu mendapat prioritas perbaikan yang
+            masuk akal.
+          </p>
+
+          <div className="mt-6 rounded-md bg-[#111827] p-5 text-white">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+              Maturity score
+            </p>
+            <div className="mt-3 flex items-end gap-3">
+              <p className="text-6xl font-black">{score}</p>
+              <p className="pb-2 text-sm font-black uppercase tracking-[0.14em] text-slate-400">
+                / 100
+              </p>
+            </div>
+            <p className="mt-2 text-xl font-black text-[#f5d89b]">{status}</p>
+            <div className="mt-5 h-3 overflow-hidden rounded-full bg-white/10">
+              <div
+                className="h-full rounded-full bg-[#c7a66b] transition-[width] duration-500"
+                style={{ width: `${score}%` }}
+              />
+            </div>
+            <button
+              type="button"
+              onClick={onOpenProposal}
+              className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-4 text-sm font-black text-[#080b12] transition hover:bg-[#f5d89b]"
+            >
+              Generate improvement proposal
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+
+        <div className="grid gap-4">
+          <div className="grid gap-2">
+            {maturityAuditItems.map((item) => {
+              const checked = checkedItems.includes(item.id);
+
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => toggleItem(item.id)}
+                  className={`flex items-start gap-3 rounded-md border p-4 text-left transition duration-300 hover:-translate-y-0.5 ${
+                    checked
+                      ? "border-[#0f766e] bg-[#ecfdf5]"
+                      : "border-[#ded8cc] bg-[#f7f4ee] hover:border-[#111827] hover:bg-white"
+                  }`}
+                >
+                  <span
+                    className={`mt-0.5 grid h-5 w-5 flex-none place-items-center rounded border ${
+                      checked
+                        ? "border-[#0f766e] bg-[#0f766e] text-white"
+                        : "border-[#cfc5b8] bg-white"
+                    }`}
+                  >
+                    {checked && <Check className="h-3.5 w-3.5" />}
+                  </span>
+                  <span>
+                    <span className="block text-sm font-black text-[#111827]">
+                      {item.label}
+                    </span>
+                    {!checked && (
+                      <span className="mt-1 block text-xs leading-5 text-[#6b7280]">
+                        {item.recommendation}
+                      </span>
+                    )}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="rounded-md border border-[#ded8cc] bg-[#111827] p-5 text-white">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+              Priority recommendations
+            </p>
+            <div className="mt-4 space-y-3">
+              {topRecommendations.length ? (
+                topRecommendations.map((item) => (
+                  <div key={item.id} className="flex gap-3 text-sm font-bold leading-6">
+                    <Target className="mt-0.5 h-4 w-4 flex-none text-[#c7a66b]" />
+                    {item.recommendation}
+                  </div>
+                ))
+              ) : (
+                <p className="text-sm font-bold text-slate-300">
+                  Fondasi sudah kuat. Prioritas berikutnya adalah scale traffic,
+                  campaign tracking, dan optimasi conversion.
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>

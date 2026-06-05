@@ -500,3 +500,48 @@ export const guaranteeSignals = [
     description: "Output tidak berhenti di tampilan; ada brief, copy, dan arahan penggunaan.",
   },
 ];
+
+export const maturityAuditItems = [
+  {
+    id: "clear-offer",
+    label: "Penawaran utama sudah jelas dalam 5 detik",
+    weight: 16,
+    recommendation: "Perkuat headline, subheadline, dan value proposition.",
+  },
+  {
+    id: "premium-proof",
+    label: "Ada proof, proses, atau credential yang membuat brand dipercaya",
+    weight: 14,
+    recommendation: "Tambahkan trust layer: proses kerja, testimonial, atau proof of work.",
+  },
+  {
+    id: "lead-capture",
+    label: "Ada form, CTA, atau WhatsApp flow untuk menangkap lead",
+    weight: 18,
+    recommendation: "Bangun lead capture dan CTA yang konsisten di setiap section.",
+  },
+  {
+    id: "chat-system",
+    label: "Chat calon pelanggan sudah diarahkan dengan script atau automasi",
+    weight: 16,
+    recommendation: "Gunakan AI assistant untuk FAQ, kualifikasi, dan follow-up.",
+  },
+  {
+    id: "mobile-polish",
+    label: "Tampilan mobile terasa premium dan cepat dipahami",
+    weight: 14,
+    recommendation: "Prioritaskan mobile layout, spacing, dan CTA above-the-fold.",
+  },
+  {
+    id: "proposal-ready",
+    label: "Ada proposal atau brief siap kirim setelah konsultasi",
+    weight: 12,
+    recommendation: "Siapkan proposal preview dan project brief yang bisa dicopy.",
+  },
+  {
+    id: "analytics-ready",
+    label: "Lead dan campaign sudah bisa dilacak",
+    weight: 10,
+    recommendation: "Tambahkan tracking dasar dan struktur lead log.",
+  },
+];
