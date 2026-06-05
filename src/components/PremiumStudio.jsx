@@ -281,6 +281,7 @@ export default function PremiumStudio() {
             scrollToSection("configurator");
           }}
         />
+        <PremiumVisualLab proposal={proposal} />
         <Configurator
           activeService={activeService}
           activeConfig={activeConfig}
@@ -889,6 +890,190 @@ function OpenClawAssistantLab({ onSelectAssistant }) {
                 Pelanggan mendapatkan assistant blueprint, flow skenario, knowledge base,
                 dan mode handover sehingga asisten bisa langsung diuji dan dipakai.
               </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PremiumVisualLab({ proposal }) {
+  const [activeView, setActiveView] = useState("landing");
+  const themeColors = proposal.theme.colors;
+  const views = [
+    {
+      id: "landing",
+      label: "Landing",
+      title: "Hero penawaran",
+      copy: "Above-the-fold dibuat tegas: positioning, trust signal, CTA, dan preview harga.",
+      icon: MonitorSmartphone,
+    },
+    {
+      id: "assistant",
+      label: "Assistant",
+      title: "AI concierge",
+      copy: "Asisten digital menjawab, mengarahkan, dan merangkum kebutuhan calon pelanggan.",
+      icon: Bot,
+    },
+    {
+      id: "dashboard",
+      label: "Dashboard",
+      title: "Lead cockpit",
+      copy: "Admin melihat lead, status follow-up, channel, dan next action dalam satu panel.",
+      icon: Calculator,
+    },
+    {
+      id: "mobile",
+      label: "Mobile",
+      title: "App preview",
+      copy: "Tampilan aplikasi dibuat bersih, cepat dipahami, dan siap untuk MVP pelanggan.",
+      icon: Smartphone,
+    },
+  ];
+  const active = views.find((view) => view.id === activeView) || views[0];
+  const ActiveIcon = active.icon;
+
+  return (
+    <section className="relative overflow-hidden border-y border-[#ded8cc] bg-[#f7f4ee]">
+      <div className="absolute inset-0 luxury-grid opacity-45" aria-hidden="true" />
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.78fr_1.22fr] lg:px-8">
+        <div className="relative">
+          <p className="section-kicker">Premium visual lab</p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Preview grafis yang bikin jasa terlihat lebih mahal.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-[#4b5563]">
+            Calon pelanggan tidak cuma membaca daftar fitur. Mereka melihat
+            gambaran output: landing page, assistant, dashboard, dan aplikasi
+            dengan gaya visual yang konsisten.
+          </p>
+
+          <div className="mt-6 grid gap-2 sm:grid-cols-2">
+            {views.map((view) => {
+              const Icon = view.icon;
+              const selected = view.id === activeView;
+
+              return (
+                <button
+                  key={view.id}
+                  type="button"
+                  onClick={() => setActiveView(view.id)}
+                  className={`group rounded-md border p-4 text-left transition duration-300 hover:-translate-y-0.5 ${
+                    selected
+                      ? "border-[#111827] bg-[#111827] text-white shadow-[0_18px_40px_rgba(17,24,39,0.16)]"
+                      : "border-[#ded8cc] bg-white/80 hover:border-[#111827]"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span
+                      className={`grid h-10 w-10 place-items-center rounded-md transition duration-300 group-hover:rotate-3 ${
+                        selected ? "bg-[#c7a66b] text-[#080b12]" : "bg-[#111827] text-[#c7a66b]"
+                      }`}
+                    >
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <span className="text-sm font-black">{view.label}</span>
+                  </div>
+                  <p className={`mt-3 text-xs leading-5 ${selected ? "text-slate-300" : "text-[#6b7280]"}`}>
+                    {view.copy}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="premium-frame scan-surface relative overflow-hidden rounded-md border border-[#111827]/20 bg-[#080b12] p-4 text-white shadow-[0_30px_90px_rgba(17,24,39,0.24)]">
+          <div className="aurora-layer opacity-50" aria-hidden="true" />
+          <div className="relative flex items-center justify-between border-b border-white/10 pb-4">
+            <span className="chrome-dots" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </span>
+            <span className="rounded-full border border-[#c7a66b]/25 bg-[#c7a66b]/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#f5d89b]">
+              {proposal.theme.label}
+            </span>
+          </div>
+
+          <div className="relative mt-5 grid gap-4 lg:grid-cols-[1fr_0.72fr]">
+            <div className="rounded-md bg-[#f7f4ee] p-5 text-[#111827]">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+                    {active.title}
+                  </p>
+                  <h3 className="mt-2 text-2xl font-black leading-tight">
+                    {proposal.service.name}
+                  </h3>
+                </div>
+                <span
+                  className="grid h-11 w-11 place-items-center rounded-md text-[#080b12]"
+                  style={{ backgroundColor: themeColors.accent }}
+                >
+                  <ActiveIcon className="h-5 w-5" aria-hidden="true" />
+                </span>
+              </div>
+
+              <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                {["Trust", "Offer", "CTA"].map((item, index) => (
+                  <div key={item} className="rounded-md border border-[#ded8cc] bg-white p-3">
+                    <div
+                      className="mb-3 h-1.5 rounded-full"
+                      style={{
+                        width: `${index === 0 ? 80 : index === 1 ? 60 : 44}%`,
+                        backgroundColor: index === 1 ? themeColors.secondary : themeColors.accent,
+                      }}
+                    />
+                    <p className="text-xs font-black uppercase tracking-[0.12em] text-[#6b7280]">
+                      {item}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-5 rounded-md border border-[#ded8cc] bg-[#111827] p-4 text-white">
+                <p className="text-sm font-black">{active.copy}</p>
+                <div className="mt-4 grid grid-cols-4 gap-2">
+                  {[70, 52, 86, 44].map((width, index) => (
+                    <span
+                      key={width}
+                      className="h-2 rounded-full bg-white/30"
+                      style={{
+                        width: `${width}%`,
+                        backgroundColor: index === 2 ? themeColors.accent : undefined,
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="grid gap-4">
+              <div className="dark-glass rounded-md p-4">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+                  Live components
+                </p>
+                <div className="mt-4 space-y-3">
+                  {proposal.service.includes.slice(0, 3).map((item) => (
+                    <div key={item} className="flex items-center gap-3 rounded-md bg-white/[0.07] p-3">
+                      <Check className="h-4 w-4 flex-none text-[#67e8d3]" aria-hidden="true" />
+                      <span className="text-xs font-bold leading-5 text-slate-200">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="rounded-md border border-[#c7a66b]/20 bg-[#c7a66b]/10 p-4">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#f5d89b]">
+                  Selected package
+                </p>
+                <p className="mt-2 text-2xl font-black">{formatRupiah(proposal.quote)}</p>
+                <p className="mt-2 text-xs leading-5 text-slate-300">
+                  Estimasi mengikuti pilihan paket aktif dan bisa langsung
+                  dipakai untuk membuka diskusi scope.
+                </p>
+              </div>
             </div>
           </div>
         </div>
