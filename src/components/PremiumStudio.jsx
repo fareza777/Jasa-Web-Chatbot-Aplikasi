@@ -63,6 +63,19 @@ const visualAssets = {
   workspace: "/images/premium-workspace.jpg",
   devices: "/images/device-suite.jpg",
   mobile: "/images/mobile-consultation.jpg",
+  website: "/images/website-workspace.jpg",
+  app: "/images/app-devices.jpg",
+  assistant: "/images/assistant-mobile.jpg",
+  clinic: "/images/clinic-consultation.jpg",
+  property: "/images/property-agent.jpg",
+};
+
+const serviceImages = {
+  website: visualAssets.website,
+  chatbot: visualAssets.assistant,
+  "mobile-app": visualAssets.app,
+  "growth-stack": visualAssets.devices,
+  "digital-assistant": visualAssets.assistant,
 };
 
 const sectionLinks = [
@@ -288,6 +301,7 @@ export default function PremiumStudio() {
           }}
         />
         <PremiumVisualLab proposal={proposal} />
+        <ClientDeliverableWall proposal={proposal} />
         <Configurator
           activeService={activeService}
           activeConfig={activeConfig}
@@ -767,13 +781,26 @@ function Services({ activeServiceId, onSelect }) {
               key={service.id}
               type="button"
               onClick={() => onSelect(service.id)}
-              className={`premium-frame group relative flex min-h-[320px] flex-col overflow-hidden rounded-md border p-5 text-left transition duration-300 hover:-translate-y-2 ${
+              className={`premium-frame group relative flex min-h-[380px] flex-col overflow-hidden rounded-md border text-left transition duration-300 hover:-translate-y-2 ${
                 isActive
                   ? "border-[#111827] bg-white shadow-[0_22px_60px_rgba(17,24,39,0.16)]"
                   : "premium-card hover:border-[#111827] hover:shadow-[0_18px_44px_rgba(17,24,39,0.10)]"
               }`}
             >
               <div className="absolute inset-x-0 top-0 h-1 bg-[#111827]" aria-hidden="true" />
+              <div className="relative h-36 overflow-hidden bg-[#111827]">
+                <img
+                  src={serviceImages[service.id] || visualAssets.workspace}
+                  alt={`Foto konteks layanan ${service.label}`}
+                  className="h-full w-full object-cover opacity-78 transition duration-500 group-hover:scale-105 group-hover:opacity-90"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#111827]/70 via-transparent to-transparent" />
+                <span className="absolute bottom-3 left-4 rounded-full border border-white/15 bg-black/35 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-white backdrop-blur">
+                  {service.label}
+                </span>
+              </div>
+              <div className="relative flex flex-1 flex-col p-5">
               <div
                 className="absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-15 blur-2xl transition duration-500 group-hover:opacity-30"
                 style={{ backgroundColor: serviceAccents[service.id] || "#c7a66b" }}
@@ -818,6 +845,7 @@ function Services({ activeServiceId, onSelect }) {
                 <span className="grid h-9 w-9 place-items-center rounded-md bg-[#111827] text-white transition duration-300 group-hover:translate-x-1">
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </span>
+              </div>
               </div>
             </button>
           );
@@ -924,7 +952,7 @@ function PremiumVisualLab({ proposal }) {
   const views = [
     {
       id: "landing",
-      label: "Landing",
+      label: "Landing page",
       title: "Hero penawaran",
       copy: "Bagian awal langsung menjawab: ini bisnis apa, cocok untuk siapa, dan langkah berikutnya apa.",
       image: visualAssets.workspace,
@@ -933,7 +961,7 @@ function PremiumVisualLab({ proposal }) {
     {
       id: "assistant",
       label: "Assistant",
-      title: "AI concierge",
+      title: "Asisten AI",
       copy: "Asisten menjawab pertanyaan umum, menangkap kebutuhan, lalu mengarahkan ke admin saat perlu.",
       image: visualAssets.mobile,
       icon: Bot,
@@ -941,15 +969,15 @@ function PremiumVisualLab({ proposal }) {
     {
       id: "dashboard",
       label: "Dashboard",
-      title: "Lead cockpit",
+      title: "Panel leads",
       copy: "Admin bisa melihat lead masuk, status follow-up, dan prioritas tindakan tanpa buka banyak tempat.",
       image: visualAssets.devices,
       icon: Calculator,
     },
     {
       id: "mobile",
-      label: "Mobile",
-      title: "App preview",
+      label: "Aplikasi",
+      title: "Preview app",
       copy: "Tampilan app dibuat sederhana dulu: cukup jelas untuk dipakai pelanggan dan cukup ringan untuk diuji.",
       image: visualAssets.mobile,
       icon: Smartphone,
@@ -965,7 +993,7 @@ function PremiumVisualLab({ proposal }) {
         <div className="relative">
           <p className="section-kicker">Premium visual lab</p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
-            Contoh visualnya dibuat terasa nyata, bukan cuma kotak-kotak dummy.
+            Contoh visualnya dibuat terasa nyata, bukan cuma kotak placeholder.
           </h2>
           <p className="mt-4 text-sm leading-7 text-[#4b5563]">
             Orang lebih cepat percaya saat bisa membayangkan hasil akhirnya.
@@ -1049,7 +1077,7 @@ function PremiumVisualLab({ proposal }) {
               </div>
 
               <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                {["Trust", "Offer", "CTA"].map((item, index) => (
+                {["Kepercayaan", "Penawaran", "CTA"].map((item, index) => (
                   <div key={item} className="rounded-md border border-[#ded8cc] bg-white p-3">
                     <div
                       className="mb-3 h-1.5 rounded-full"
@@ -1085,7 +1113,7 @@ function PremiumVisualLab({ proposal }) {
             <div className="grid gap-4">
               <div className="dark-glass rounded-md p-4">
                 <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
-                  Live components
+                  Komponen aktif
                 </p>
                 <div className="mt-4 space-y-3">
                   {proposal.service.includes.slice(0, 3).map((item) => (
@@ -1098,7 +1126,7 @@ function PremiumVisualLab({ proposal }) {
               </div>
               <div className="rounded-md border border-[#c7a66b]/20 bg-[#c7a66b]/10 p-4">
                 <p className="text-xs font-black uppercase tracking-[0.16em] text-[#f5d89b]">
-                  Selected package
+                  Paket terpilih
                 </p>
                 <p className="mt-2 text-2xl font-black">{formatRupiah(proposal.quote)}</p>
                 <p className="mt-2 text-xs leading-5 text-slate-300">
@@ -1108,6 +1136,85 @@ function PremiumVisualLab({ proposal }) {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ClientDeliverableWall({ proposal }) {
+  const deliverables = [
+    {
+      title: "Visual yang cocok dengan bisnis",
+      description:
+        "Foto, layout, warna, dan komponen UI dipilih agar sesuai dengan industri pelanggan, bukan asal terlihat ramai.",
+      image: proposal.industry.id === "clinic" ? visualAssets.clinic : proposal.industry.id === "property" ? visualAssets.property : visualAssets.workspace,
+    },
+    {
+      title: "Alur yang bisa langsung dipakai",
+      description:
+        "CTA, form, chat, booking, dan handover dibuat mengikuti cara pelanggan menerima leads sehari-hari.",
+      image: visualAssets.assistant,
+    },
+    {
+      title: "Bahan jualan yang lebih siap",
+      description:
+        "Paket tidak berhenti di tampilan. Ada ringkasan penawaran, estimasi, dan poin follow-up untuk membuka percakapan.",
+      image: visualAssets.devices,
+    },
+  ];
+
+  return (
+    <section className="border-b border-[#ded8cc] bg-white">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="mb-8 grid gap-4 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+          <div>
+            <p className="section-kicker">Output pelanggan</p>
+            <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+              Yang dijual bukan cuma halaman, tapi paket siap pakai.
+            </h2>
+          </div>
+          <p className="text-sm leading-7 text-[#4b5563]">
+            Flow ini dibuat supaya calon pelanggan merasa hasilnya jelas:
+            visualnya ada, fiturnya kelihatan, dan manfaatnya tidak perlu
+            ditebak-tebak.
+          </p>
+        </div>
+
+        <div className="grid gap-4 lg:grid-cols-3">
+          {deliverables.map((item, index) => (
+            <article
+              key={item.title}
+              className={`premium-card group overflow-hidden rounded-md transition duration-300 hover:-translate-y-2 hover:shadow-[0_24px_60px_rgba(17,24,39,0.12)] ${
+                index === 0 ? "lg:col-span-1" : ""
+              }`}
+            >
+              <div className="relative h-52 overflow-hidden bg-[#111827]">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#111827]/75 via-[#111827]/10 to-transparent" />
+                <span className="absolute bottom-4 left-4 rounded-full bg-white/90 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#111827]">
+                  0{index + 1}
+                </span>
+              </div>
+              <div className="p-5">
+                <h3 className="text-xl font-black text-[#111827]">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-[#4b5563]">{item.description}</p>
+                <div className="mt-5 grid gap-2">
+                  {proposal.service.includes.slice(0, 2).map((include) => (
+                    <div key={include} className="flex items-center gap-2 text-xs font-bold text-[#374151]">
+                      <CheckCircle2 className="h-4 w-4 flex-none text-[#0f766e]" aria-hidden="true" />
+                      {include}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -1451,11 +1558,11 @@ function OutputShowcase() {
 
 function ExampleBuilds() {
   const buildImages = [
-    visualAssets.workspace,
-    visualAssets.mobile,
+    visualAssets.clinic,
+    visualAssets.property,
+    visualAssets.app,
     visualAssets.devices,
-    visualAssets.workspace,
-    visualAssets.mobile,
+    visualAssets.assistant,
   ];
 
   return (
@@ -1711,14 +1818,14 @@ function OfferPersonalizer({ onOpenProposal }) {
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.78fr_1.22fr] lg:px-8">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
-            AI offer personalizer
+            AI copy personalizer
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
             Ubah angle copy sesuai tipe klien yang dituju.
           </h2>
           <p className="mt-4 text-sm leading-7 text-slate-300">
             Website premium harus bisa menyesuaikan cara bicara: konsultatif,
-            direct response, authority, atau productized service.
+            langsung ke penawaran, membangun otoritas, atau menjual paket siap pakai.
           </p>
 
           <div className="mt-6 space-y-5">
@@ -1729,7 +1836,7 @@ function OfferPersonalizer({ onOpenProposal }) {
               onSelect={setActiveToneId}
             />
             <ChoicePills
-              title="CTA pattern"
+              title="Pola CTA"
               items={ctaPatterns}
               activeId={activeCtaId}
               onSelect={setActiveCtaId}
@@ -1740,7 +1847,7 @@ function OfferPersonalizer({ onOpenProposal }) {
         <div className="rounded-md border border-white/10 bg-white/[0.05] p-5">
           <div className="rounded-md bg-[#f7f4ee] p-6 text-[#111827]">
             <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
-              Live copy preview
+              Preview copy
             </p>
             <h3 className="mt-4 max-w-3xl text-3xl font-black leading-tight tracking-[-0.02em] sm:text-5xl">
               {activeTone.headline}
@@ -2048,9 +2155,9 @@ function ArchitectureMap({ proposal, onOpenProposal }) {
 
             <div className="mt-5 grid gap-4 sm:grid-cols-3">
               {[
-                ["Connected", "All modules share one offer logic"],
-                ["Measurable", "Readiness, ROI, and lead flow are visible"],
-                ["Reusable", "Proposal and brief can be copied instantly"],
+                ["Terhubung", "Semua modul mengikuti logika penawaran yang sama"],
+                ["Terukur", "Readiness, ROI, dan alur lead terlihat jelas"],
+                ["Bisa dipakai ulang", "Proposal dan brief bisa langsung disalin"],
               ].map(([title, description]) => (
                 <div key={title} className="dark-glass rounded-md p-4">
                   <p className="font-black text-white">{title}</p>
@@ -3144,8 +3251,8 @@ function PremiumFooter({ onOpenProposal }) {
             </div>
           </div>
           <p className="mt-6 max-w-2xl text-sm leading-7 text-slate-400">
-            Built for businesses that want to look credible, explain offers clearly,
-            and turn digital presence into a more structured sales system.
+            Dibuat untuk bisnis yang ingin terlihat kredibel, menjelaskan layanan
+            dengan lebih jelas, dan punya alur penjualan digital yang lebih rapi.
           </p>
         </div>
         <div className="grid content-start gap-3 sm:min-w-[260px]">
@@ -3154,7 +3261,7 @@ function PremiumFooter({ onOpenProposal }) {
             onClick={onOpenProposal}
             className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-5 text-sm font-black text-[#080b12] transition hover:bg-[#f5d89b]"
           >
-            Generate proposal
+            Buat proposal
             <ArrowRight className="h-4 w-4" />
           </button>
           <button
@@ -3162,7 +3269,7 @@ function PremiumFooter({ onOpenProposal }) {
             onClick={() => scrollToSection("configurator")}
             className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/15 px-5 text-sm font-black text-white transition hover:border-[#c7a66b]"
           >
-            Edit package
+            Edit paket
           </button>
         </div>
       </div>
