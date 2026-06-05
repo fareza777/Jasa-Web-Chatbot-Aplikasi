@@ -233,7 +233,7 @@ export default function PremiumStudio() {
             </span>
             <span>
               <span className="block text-sm font-black uppercase tracking-[0.18em]">
-                OpenClaw Digital
+                Digital Craft
               </span>
               <span className="block text-xs font-semibold text-[#6b7280]">
                 Website, AI, Aplikasi
@@ -3362,7 +3362,7 @@ function PremiumFooter({ onOpenProposal }) {
             </span>
             <div>
               <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
-                OpenClaw Digital
+                Digital Craft
               </p>
               <p className="text-sm font-semibold text-slate-300">
                 Website, chatbot AI, asisten digital, dan aplikasi ringan.
