@@ -377,3 +377,126 @@ export const testimonials = [
     role: "Retail & service",
   },
 ];
+
+export const packageTiers = [
+  {
+    id: "launch",
+    name: "Launch",
+    priceLabel: "Mulai Rp1,8jt",
+    bestFor: "Bisnis yang butuh presence premium cepat.",
+    includes: [
+      "Website atau chatbot scope kecil",
+      "Copywriting utama",
+      "CTA konsultasi",
+      "Review responsif",
+    ],
+  },
+  {
+    id: "scale",
+    name: "Scale",
+    priceLabel: "Mulai Rp4,8jt",
+    bestFor: "Bisnis yang ingin sistem lead lebih lengkap.",
+    includes: [
+      "Website multi-section",
+      "AI chat flow atau app MVP ringan",
+      "Proposal preview",
+      "Lead capture workflow",
+    ],
+    featured: true,
+  },
+  {
+    id: "authority",
+    name: "Authority",
+    priceLabel: "Mulai Rp8jt+",
+    bestFor: "Brand yang ingin terlihat mapan dan siap scale.",
+    includes: [
+      "Growth stack lengkap",
+      "Website + chatbot + aset sales",
+      "Premium visual direction",
+      "Launch support dan handover",
+    ],
+  },
+];
+
+export const industryPlaybooks = {
+  professional: {
+    title: "Professional Services Playbook",
+    focus: "Membuat calon klien percaya sebelum masuk sesi konsultasi.",
+    moves: [
+      "Tampilkan masalah yang biasa dialami klien",
+      "Pisahkan layanan berdasarkan outcome",
+      "Gunakan CTA konsultasi dengan pertanyaan awal",
+      "Tambahkan proof berupa proses, credential, dan hasil kerja",
+    ],
+  },
+  property: {
+    title: "Property Lead Playbook",
+    focus: "Memilah prospek berdasarkan lokasi, budget, dan intent beli.",
+    moves: [
+      "Buat katalog unit atau tipe properti yang mudah discan",
+      "Tambahkan chatbot kualifikasi budget dan lokasi",
+      "Routing prospek panas ke sales lebih cepat",
+      "Follow-up otomatis untuk prospek yang belum siap",
+    ],
+  },
+  clinic: {
+    title: "Clinic Trust Playbook",
+    focus: "Meningkatkan rasa aman, profesional, dan mudah booking.",
+    moves: [
+      "Tampilkan layanan dengan benefit yang jelas",
+      "Sorot dokter, fasilitas, dan proses treatment",
+      "Buat CTA booking yang tidak terasa agresif",
+      "Gunakan FAQ untuk mengurangi keraguan awal",
+    ],
+  },
+  education: {
+    title: "Education Enrollment Playbook",
+    focus: "Mengubah rasa ingin tahu menjadi inquiry program.",
+    moves: [
+      "Tampilkan roadmap belajar dan outcome peserta",
+      "Pisahkan program berdasarkan level atau tujuan",
+      "Gunakan chatbot untuk rekomendasi program",
+      "Buat follow-up untuk calon siswa yang belum mendaftar",
+    ],
+  },
+  retail: {
+    title: "Retail Growth Playbook",
+    focus: "Menggabungkan katalog, promo, dan chat menjadi alur order.",
+    moves: [
+      "Buat katalog produk yang cepat dipahami",
+      "Tampilkan best seller dan alasan membeli",
+      "Gunakan chat untuk rekomendasi produk",
+      "Tambahkan tracking lead untuk campaign",
+    ],
+  },
+};
+
+export const assetChecklist = [
+  "Brand direction dan tone komunikasi",
+  "Headline utama dan offer angle",
+  "CTA konsultasi atau order",
+  "FAQ dan objection handling",
+  "Lead capture form atau chat flow",
+  "Proposal atau brief siap copy",
+  "Responsive layout desktop/mobile",
+  "Launch checklist dan handover notes",
+];
+
+export const guaranteeSignals = [
+  {
+    title: "Scope clarity",
+    description: "Setiap paket punya batasan, deliverables, dan next step yang eksplisit.",
+  },
+  {
+    title: "Review checkpoint",
+    description: "Pengerjaan dipecah ke tahap strategy, design, build, dan handover.",
+  },
+  {
+    title: "Conversion-minded",
+    description: "Setiap section diarahkan untuk menjelaskan value dan mendorong tindakan.",
+  },
+  {
+    title: "Handover-ready",
+    description: "Output tidak berhenti di tampilan; ada brief, copy, dan arahan penggunaan.",
+  },
+];

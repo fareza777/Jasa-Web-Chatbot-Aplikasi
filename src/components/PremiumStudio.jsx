@@ -19,6 +19,7 @@ import {
   ShieldCheck,
   Smartphone,
   Sparkles,
+  TimerReset,
   Target,
   TrendingUp,
   X,
@@ -28,8 +29,12 @@ import { useEffect, useMemo, useState } from "react";
 import {
   exampleBuilds,
   credibilitySignals,
+  assetChecklist,
+  guaranteeSignals,
   goals,
   industries,
+  industryPlaybooks,
+  packageTiers,
   serviceCatalog,
   serviceOutcomes,
   testimonials,
@@ -76,6 +81,7 @@ export default function PremiumStudio() {
   const [selectedGoalId, setSelectedGoalId] = useState(goals[0].id);
   const [selectedThemeId, setSelectedThemeId] = useState(visualThemes[0].id);
   const [proposalOpen, setProposalOpen] = useState(false);
+  const [intakeOpen, setIntakeOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [configs, setConfigs] = useState(() =>
     Object.fromEntries(
@@ -273,12 +279,22 @@ export default function PremiumStudio() {
         <OutputShowcase />
         <ExampleBuilds />
         <OutcomeCalculator proposal={proposal} />
+        <ROISection proposal={proposal} />
+        <LaunchReadiness proposal={proposal} />
+        <IndustryPlaybook proposal={proposal} />
+        <PackageComparison
+          onOpenProposal={() => setProposalOpen(true)}
+          onOpenIntake={() => setIntakeOpen(true)}
+        />
         <CredibilitySection />
+        <AssetChecklist />
         <BeforeAfterSection onOpenProposal={() => setProposalOpen(true)} />
         <ScenarioSection />
+        <ExecutionRoadmap />
         <ProcessSection />
         <FAQSection />
         <FinalCTA onOpenProposal={() => setProposalOpen(true)} />
+        <GuaranteeStrip />
         <PremiumFooter onOpenProposal={() => setProposalOpen(true)} />
       </main>
       <StickyQuoteBar
@@ -286,7 +302,17 @@ export default function PremiumStudio() {
         onOpenProposal={() => setProposalOpen(true)}
       />
       {proposalOpen && (
-        <ProposalModal proposal={proposal} onClose={() => setProposalOpen(false)} />
+        <ProposalModal
+          proposal={proposal}
+          onClose={() => setProposalOpen(false)}
+          onOpenIntake={() => {
+            setProposalOpen(false);
+            setIntakeOpen(true);
+          }}
+        />
+      )}
+      {intakeOpen && (
+        <IntakeModal proposal={proposal} onClose={() => setIntakeOpen(false)} />
       )}
     </div>
   );
@@ -1141,6 +1167,282 @@ function OutcomeCalculator({ proposal }) {
   );
 }
 
+function ROISection({ proposal }) {
+  const [monthlyLeads, setMonthlyLeads] = useState(40);
+  const [conversionRate, setConversionRate] = useState(12);
+  const [dealValue, setDealValue] = useState(1500000);
+
+  const estimatedClients = Math.round(monthlyLeads * (conversionRate / 100));
+  const monthlyValue = estimatedClients * dealValue;
+  const paybackMonths = monthlyValue
+    ? Math.max(1, Math.ceil(proposal.quote / monthlyValue))
+    : 0;
+
+  return (
+    <section className="border-y border-[#ded8cc] bg-[#080b12] text-white">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+            ROI estimator
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Buat harga terasa masuk akal dengan simulasi nilai lead.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-slate-300">
+            Estimator ini membantu calon klien melihat investasi sebagai sistem
+            penjualan. Angka bisa disesuaikan sesuai bisnis mereka.
+          </p>
+        </div>
+
+        <div className="rounded-md border border-white/10 bg-white/[0.05] p-5">
+          <div className="grid gap-5 sm:grid-cols-3">
+            <NumberControl
+              label="Lead per bulan"
+              value={monthlyLeads}
+              min={5}
+              max={300}
+              step={5}
+              onChange={setMonthlyLeads}
+            />
+            <NumberControl
+              label="Conversion rate"
+              value={conversionRate}
+              min={1}
+              max={60}
+              step={1}
+              suffix="%"
+              onChange={setConversionRate}
+            />
+            <NumberControl
+              label="Deal value"
+              value={dealValue}
+              min={250000}
+              max={25000000}
+              step={250000}
+              formatter={formatRupiah}
+              onChange={setDealValue}
+            />
+          </div>
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            {[
+              ["Klien/bulan", estimatedClients],
+              ["Value/bulan", formatRupiah(monthlyValue)],
+              ["Payback", `${paybackMonths} bulan`],
+            ].map(([label, value]) => (
+              <div key={label} className="rounded-md bg-[#080b12] p-4">
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500">
+                  {label}
+                </p>
+                <p className="mt-2 text-2xl font-black text-[#f5d89b]">{value}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-5 text-xs leading-5 text-slate-400">
+            Simulasi ini bukan garansi hasil. Tujuannya memberi konteks bisnis
+            agar keputusan paket lebih rasional.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LaunchReadiness({ proposal }) {
+  const checklistScore = Math.min(96, 58 + proposal.selectedSummary.length * 5);
+  const automationScore =
+    proposal.service.id === "chatbot" || proposal.service.id === "growth-stack" ? 90 : 68;
+  const visualScore =
+    proposal.theme.id === "luxury" || proposal.theme.id === "tech" ? 92 : 84;
+  const total = Math.round((checklistScore + automationScore + visualScore) / 3);
+
+  const scores = [
+    ["Offer clarity", checklistScore],
+    ["Automation readiness", automationScore],
+    ["Visual authority", visualScore],
+  ];
+
+  return (
+    <section className="bg-[#f7f4ee]">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            Launch readiness
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Ukur seberapa siap sistem ini untuk diluncurkan.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-[#4b5563]">
+            Score ini membantu calon klien melihat gap yang perlu dibereskan
+            sebelum website, chatbot, atau app benar-benar dipakai menjual.
+          </p>
+        </div>
+
+        <div className="rounded-md border border-[#ded8cc] bg-white p-5">
+          <div className="grid gap-5 sm:grid-cols-[180px_1fr] sm:items-center">
+            <div className="grid aspect-square place-items-center rounded-full border-[14px] border-[#c7a66b] bg-[#111827] text-center text-white">
+              <div>
+                <p className="text-5xl font-black">{total}</p>
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#f5d89b]">
+                  Ready
+                </p>
+              </div>
+            </div>
+            <div className="space-y-4">
+              {scores.map(([label, value]) => (
+                <div key={label}>
+                  <div className="mb-2 flex justify-between text-sm font-black">
+                    <span>{label}</span>
+                    <span className="text-[#0f766e]">{value}%</span>
+                  </div>
+                  <div className="h-3 overflow-hidden rounded-full bg-[#f1eadf]">
+                    <div className="h-full rounded-full bg-[#111827]" style={{ width: `${value}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function IndustryPlaybook({ proposal }) {
+  const playbook = industryPlaybooks[proposal.industry.id] || industryPlaybooks.professional;
+
+  return (
+    <section className="border-y border-[#ded8cc] bg-white">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            Industry playbook
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            {playbook.title}
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-[#4b5563]">{playbook.focus}</p>
+        </div>
+
+        <div className="grid gap-3">
+          {playbook.moves.map((move, index) => (
+            <article
+              key={move}
+              className="flex gap-4 rounded-md border border-[#ded8cc] bg-[#f7f4ee] p-4 transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-[0_16px_34px_rgba(17,24,39,0.10)]"
+            >
+              <span className="grid h-10 w-10 flex-none place-items-center rounded-md bg-[#111827] text-sm font-black text-[#c7a66b]">
+                {index + 1}
+              </span>
+              <p className="text-sm font-bold leading-6 text-[#374151]">{move}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function NumberControl({
+  label,
+  value,
+  min,
+  max,
+  step,
+  suffix = "",
+  formatter,
+  onChange,
+}) {
+  return (
+    <label className="block">
+      <span className="text-sm font-black text-white">{label}</span>
+      <span className="mt-2 block rounded-md border border-white/10 bg-[#080b12] p-3">
+        <span className="block text-lg font-black text-[#c7a66b]">
+          {formatter ? formatter(value) : `${value}${suffix}`}
+        </span>
+        <input
+          type="range"
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          onChange={(event) => onChange(Number(event.target.value))}
+          className="mt-3 w-full accent-[#c7a66b]"
+        />
+      </span>
+    </label>
+  );
+}
+
+function PackageComparison({ onOpenProposal, onOpenIntake }) {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+      <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            Package levels
+          </p>
+          <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Pilih kedalaman eksekusi sesuai tahap bisnis.
+          </h2>
+        </div>
+        <p className="max-w-lg text-sm leading-7 text-[#4b5563]">
+          Level paket membantu calon klien memahami perbedaan antara launch cepat,
+          sistem yang siap scale, dan brand authority yang lebih lengkap.
+        </p>
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-3">
+        {packageTiers.map((tier) => (
+          <article
+            key={tier.id}
+            className={`relative rounded-md border p-6 transition duration-300 hover:-translate-y-2 hover:shadow-[0_24px_60px_rgba(17,24,39,0.13)] ${
+              tier.featured
+                ? "border-[#111827] bg-[#111827] text-white"
+                : "border-[#ded8cc] bg-white text-[#111827]"
+            }`}
+          >
+            {tier.featured && (
+              <span className="absolute right-4 top-4 rounded-full bg-[#c7a66b] px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#080b12]">
+                Recommended
+              </span>
+            )}
+            <h3 className="text-2xl font-black">{tier.name}</h3>
+            <p className={`mt-2 text-sm leading-6 ${tier.featured ? "text-slate-300" : "text-[#4b5563]"}`}>
+              {tier.bestFor}
+            </p>
+            <p className={`mt-6 text-3xl font-black ${tier.featured ? "text-[#f5d89b]" : "text-[#8a6d30]"}`}>
+              {tier.priceLabel}
+            </p>
+            <div className="mt-6 space-y-3">
+              {tier.includes.map((item) => (
+                <div key={item} className="flex gap-3 text-sm font-bold">
+                  <CheckCircle2 className={`mt-0.5 h-4 w-4 flex-none ${tier.featured ? "text-[#c7a66b]" : "text-[#0f766e]"}`} />
+                  {item}
+                </div>
+              ))}
+            </div>
+            <div className="mt-8 grid gap-2">
+              <button
+                type="button"
+                onClick={tier.featured ? onOpenIntake : onOpenProposal}
+                className={`inline-flex h-11 items-center justify-center gap-2 rounded-md px-4 text-sm font-black transition hover:-translate-y-0.5 ${
+                  tier.featured
+                    ? "bg-[#c7a66b] text-[#080b12] hover:bg-[#f5d89b]"
+                    : "bg-[#111827] text-white hover:bg-[#1f2937]"
+                }`}
+              >
+                {tier.featured ? "Start brief" : "Generate proposal"}
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function CredibilitySection() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
@@ -1183,6 +1485,38 @@ function CredibilitySection() {
             </div>
           </article>
         ))}
+      </div>
+    </section>
+  );
+}
+
+function AssetChecklist() {
+  return (
+    <section className="border-y border-[#ded8cc] bg-[#f7f4ee]">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+              Asset checklist
+            </p>
+            <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+              Semua aset penting dibuat terlihat lengkap.
+            </h2>
+          </div>
+          <p className="max-w-lg text-sm leading-7 text-[#4b5563]">
+            Checklist ini memberi rasa aman bahwa project bukan hanya desain,
+            tapi juga materi penjualan dan handover.
+          </p>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {assetChecklist.map((item) => (
+            <div key={item} className="flex gap-3 rounded-md border border-[#ded8cc] bg-white p-4">
+              <CheckCircle2 className="mt-0.5 h-5 w-5 flex-none text-[#0f766e]" />
+              <p className="text-sm font-bold leading-6 text-[#374151]">{item}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -1335,6 +1669,67 @@ function ScenarioSection() {
   );
 }
 
+function ExecutionRoadmap() {
+  const roadmap = [
+    {
+      week: "Day 1-2",
+      title: "Strategy sprint",
+      detail: "Audit positioning, target buyer, offer angle, CTA, dan struktur scope.",
+    },
+    {
+      week: "Day 3-6",
+      title: "Design system",
+      detail: "Bangun visual direction, layout utama, interaction pattern, dan copy flow.",
+    },
+    {
+      week: "Day 7-14",
+      title: "Build & automation",
+      detail: "Implementasi website, chatbot flow, app screen, atau asset stack sesuai paket.",
+    },
+    {
+      week: "Launch",
+      title: "Review & handover",
+      detail: "Testing responsif, perapihan konten, proposal final, dan brief serah terima.",
+    },
+  ];
+
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+      <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            Execution roadmap
+          </p>
+          <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Alur eksekusi terlihat jelas sebelum deal.
+          </h2>
+        </div>
+        <TimerReset className="hidden h-11 w-11 text-[#8a6d30] lg:block" />
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-4">
+        {roadmap.map((item, index) => (
+          <article
+            key={item.title}
+            className="group relative rounded-md border border-[#ded8cc] bg-white p-5 transition duration-300 hover:-translate-y-2 hover:shadow-[0_22px_50px_rgba(17,24,39,0.12)]"
+          >
+            <div className="mb-6 flex items-center justify-between">
+              <span className="rounded-full bg-[#f7f4ee] px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-[#8a6d30]">
+                {item.week}
+              </span>
+              <span className="text-4xl font-black text-[#e5ddcf]">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+            </div>
+            <h3 className="text-xl font-black text-[#111827]">{item.title}</h3>
+            <p className="mt-3 text-sm leading-7 text-[#4b5563]">{item.detail}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function ProcessSection() {
   const steps = [
     ["Discovery", "Bedah tujuan bisnis, target audience, positioning, dan prioritas fitur."],
@@ -1463,6 +1858,21 @@ function FinalCTA({ onOpenProposal }) {
   );
 }
 
+function GuaranteeStrip() {
+  return (
+    <section className="border-t border-white/10 bg-[#0b1220] text-white">
+      <div className="mx-auto grid max-w-7xl gap-4 px-4 py-8 sm:px-6 lg:grid-cols-4 lg:px-8">
+        {guaranteeSignals.map((signal) => (
+          <div key={signal.title} className="border-l border-white/10 pl-4">
+            <p className="font-black text-[#f5d89b]">{signal.title}</p>
+            <p className="mt-2 text-sm leading-6 text-slate-400">{signal.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function StickyQuoteBar({ proposal, onOpenProposal }) {
   return (
     <div className="fixed bottom-3 left-3 right-3 z-40 max-w-[calc(100vw-1.5rem)] rounded-md border border-[#c7a66b]/30 bg-[#080b12]/95 p-3 text-white shadow-[0_22px_60px_rgba(0,0,0,0.32)] backdrop-blur lg:hidden">
@@ -1533,8 +1943,9 @@ function PremiumFooter({ onOpenProposal }) {
   );
 }
 
-function ProposalModal({ proposal, onClose }) {
+function ProposalModal({ proposal, onClose, onOpenIntake }) {
   const proposalText = createProposalText(proposal);
+  const whatsAppText = createWhatsAppText(proposal);
 
   async function copyProposal() {
     try {
@@ -1601,6 +2012,137 @@ function ProposalModal({ proposal, onClose }) {
               <Copy className="h-4 w-4" />
               Copy proposal
             </button>
+            <button
+              type="button"
+              onClick={onOpenIntake}
+              className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md border border-white/15 px-4 text-sm font-black text-white transition hover:border-[#c7a66b]"
+            >
+              Isi project brief
+              <ArrowRight className="h-4 w-4" />
+            </button>
+            <div className="mt-5 rounded-md border border-white/10 bg-white/[0.06] p-4">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+                WhatsApp opener
+              </p>
+              <p className="mt-3 text-sm leading-6 text-slate-200">
+                {whatsAppText}
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function IntakeModal({ proposal, onClose }) {
+  const [form, setForm] = useState({
+    businessName: "",
+    industry: proposal.industry.label,
+    mainGoal: proposal.goal.label,
+    budget: formatRupiah(proposal.quote),
+    timeline: proposal.service.timeline,
+    notes: "",
+  });
+
+  const briefText = createBriefText(proposal, form);
+  const whatsAppBrief = createWhatsAppBrief(proposal, form);
+
+  function updateField(field, value) {
+    setForm((current) => ({ ...current, [field]: value }));
+  }
+
+  async function copyBrief() {
+    try {
+      await navigator.clipboard.writeText(briefText);
+    } catch {
+      // Clipboard can fail in restricted browser contexts; the text remains selectable.
+    }
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 bg-[#080b12]/80 px-4 py-5 backdrop-blur">
+      <div className="mx-auto flex max-h-full max-w-5xl flex-col overflow-hidden rounded-md border border-[#c7a66b]/30 bg-[#f7f4ee] shadow-[0_30px_100px_rgba(0,0,0,0.45)]">
+        <header className="flex items-start justify-between gap-4 border-b border-[#ded8cc] p-5">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+              Project intake
+            </p>
+            <h2 className="mt-2 text-2xl font-black text-[#111827]">
+              Brief awal siap kirim
+            </h2>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="grid h-10 w-10 place-items-center rounded-md bg-white text-[#111827] transition hover:bg-[#111827] hover:text-white"
+            aria-label="Tutup brief"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </header>
+
+        <div className="grid min-h-0 flex-1 overflow-auto lg:grid-cols-[0.85fr_1.15fr]">
+          <form className="space-y-4 p-5" onSubmit={(event) => event.preventDefault()}>
+            {[
+              ["businessName", "Nama bisnis", "Contoh: Klinik Aesthetic Jakarta"],
+              ["industry", "Industri", ""],
+              ["mainGoal", "Tujuan utama", ""],
+              ["budget", "Budget indikatif", ""],
+              ["timeline", "Target timeline", ""],
+            ].map(([field, label, placeholder]) => (
+              <label key={field} className="block text-sm font-black text-[#111827]">
+                {label}
+                <input
+                  value={form[field]}
+                  onChange={(event) => updateField(field, event.target.value)}
+                  placeholder={placeholder}
+                  className="mt-2 h-11 w-full rounded-md border border-[#cfc5b8] bg-white px-3 text-sm font-bold"
+                />
+              </label>
+            ))}
+
+            <label className="block text-sm font-black text-[#111827]">
+              Catatan kebutuhan
+              <textarea
+                value={form.notes}
+                onChange={(event) => updateField("notes", event.target.value)}
+                rows="5"
+                placeholder="Tulis kendala utama, referensi, fitur wajib, atau target audience."
+                className="mt-2 w-full resize-y rounded-md border border-[#cfc5b8] bg-white px-3 py-3 text-sm"
+              />
+            </label>
+          </form>
+
+          <aside className="border-t border-[#ded8cc] bg-[#111827] p-5 text-white lg:border-l lg:border-t-0">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+              Generated brief
+            </p>
+            <pre className="mt-4 max-h-[520px] overflow-auto whitespace-pre-wrap rounded-md border border-white/10 bg-white/[0.06] p-4 text-sm leading-7 text-slate-200">
+              {briefText}
+            </pre>
+            <button
+              type="button"
+              onClick={copyBrief}
+              className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-4 text-sm font-black text-[#080b12] transition hover:bg-[#f5d89b]"
+            >
+              <Copy className="h-4 w-4" />
+              Copy brief
+            </button>
+            <button
+              type="button"
+              onClick={async () => {
+                try {
+                  await navigator.clipboard.writeText(whatsAppBrief);
+                } catch {
+                  // Clipboard can fail in restricted browser contexts.
+                }
+              }}
+              className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md border border-white/15 px-4 text-sm font-black text-white transition hover:border-[#c7a66b]"
+            >
+              <MessageCircle className="h-4 w-4" />
+              Copy WhatsApp text
+            </button>
           </aside>
         </div>
       </div>
@@ -1646,4 +2188,60 @@ Next Step:
 2. Finalisasi scope dan prioritas fitur.
 3. Mulai blueprint, desain, dan implementasi.
 4. Testing responsif dan serah terima aset.`;
+}
+
+function createBriefText(proposal, form) {
+  return `PROJECT BRIEF
+
+Nama Bisnis:
+${form.businessName || "-"}
+
+Industri:
+${form.industry}
+
+Tujuan Utama:
+${form.mainGoal}
+
+Paket yang Dipilih:
+${proposal.service.name}
+
+Arah Visual:
+${proposal.theme.label} - ${proposal.theme.description}
+
+Budget Indikatif:
+${form.budget}
+
+Target Timeline:
+${form.timeline}
+
+Scope Awal:
+${proposal.service.includes.map((item) => `- ${item}`).join("\n")}
+
+Konfigurasi:
+${proposal.selectedSummary.map((item) => `- ${item}`).join("\n")}
+
+Catatan:
+${form.notes || "-"}
+
+Next Step:
+Saya ingin validasi scope, estimasi final, dan rencana pengerjaan berdasarkan brief ini.`;
+}
+
+function createWhatsAppText(proposal) {
+  return `Halo, saya ingin konsultasi ${proposal.service.name} untuk ${proposal.industry.label}. Fokus utama saya: ${proposal.goal.label}. Estimasi paket yang saya lihat ${formatRupiah(proposal.quote)} dengan style ${proposal.theme.label}. Bisa dibantu validasi scope dan next step?`;
+}
+
+function createWhatsAppBrief(proposal, form) {
+  return `Halo, saya ingin mulai brief project.
+
+Nama bisnis: ${form.businessName || "-"}
+Industri: ${form.industry}
+Tujuan: ${form.mainGoal}
+Paket: ${proposal.service.name}
+Style: ${proposal.theme.label}
+Budget indikatif: ${form.budget}
+Timeline: ${form.timeline}
+Catatan: ${form.notes || "-"}
+
+Bisa dibantu validasi scope dan estimasi final?`;
 }
