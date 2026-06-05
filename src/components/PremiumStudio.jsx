@@ -28,6 +28,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import {
   exampleBuilds,
+  caseStudySimulations,
   credibilitySignals,
   assetChecklist,
   guaranteeSignals,
@@ -280,6 +281,7 @@ export default function PremiumStudio() {
         />
         <OutputShowcase />
         <ExampleBuilds />
+        <CaseStudySimulator onOpenProposal={() => setProposalOpen(true)} />
         <MaturityAudit onOpenProposal={() => setProposalOpen(true)} />
         <OutcomeCalculator proposal={proposal} />
         <ROISection proposal={proposal} />
@@ -1091,6 +1093,103 @@ function ExampleBuilds() {
               </div>
             </article>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CaseStudySimulator({ onOpenProposal }) {
+  const [activeCaseId, setActiveCaseId] = useState(caseStudySimulations[0].id);
+  const activeCase =
+    caseStudySimulations.find((item) => item.id === activeCaseId) ||
+    caseStudySimulations[0];
+
+  return (
+    <section className="border-y border-[#ded8cc] bg-[#080b12] text-white">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:px-8">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+            Case study simulator
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
+            Tunjukkan bagaimana sistem bekerja di skenario nyata.
+          </h2>
+          <p className="mt-4 text-sm leading-7 text-slate-300">
+            Section ini membantu calon klien membayangkan kondisi bisnis mereka
+            sendiri, lalu melihat stack digital yang masuk akal untuk masalah itu.
+          </p>
+
+          <div className="mt-6 grid gap-2">
+            {caseStudySimulations.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setActiveCaseId(item.id)}
+                className={`rounded-md border px-4 py-3 text-left text-sm font-black transition duration-300 hover:-translate-y-0.5 ${
+                  activeCase.id === item.id
+                    ? "border-[#c7a66b] bg-[#c7a66b] text-[#080b12]"
+                    : "border-white/10 bg-white/[0.04] text-white hover:border-[#c7a66b]"
+                }`}
+              >
+                {item.industry}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-md border border-white/10 bg-white/[0.05] p-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+                {activeCase.industry}
+              </p>
+              <h3 className="mt-2 text-3xl font-black leading-tight">
+                {activeCase.title}
+              </h3>
+            </div>
+            <button
+              type="button"
+              onClick={onOpenProposal}
+              className="inline-flex h-11 flex-none items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-4 text-sm font-black text-[#080b12] transition hover:bg-[#f5d89b]"
+            >
+              Generate proposal
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            {[
+              ["Problem", activeCase.problem],
+              ["Solution", activeCase.solution],
+              ["Outcome", activeCase.outcome],
+            ].map(([label, text]) => (
+              <article key={label} className="rounded-md border border-white/10 bg-[#080b12] p-4">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+                  {label}
+                </p>
+                <p className="mt-3 text-sm font-bold leading-7 text-slate-200">
+                  {text}
+                </p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-6">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-500">
+              Recommended stack
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {activeCase.stack.map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-[#c7a66b]/30 bg-[#c7a66b]/10 px-3 py-1 text-xs font-black text-[#f5d89b]"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

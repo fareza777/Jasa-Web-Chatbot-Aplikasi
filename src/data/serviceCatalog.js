@@ -578,3 +578,50 @@ export const scopeMatrix = [
     authority: "Launch support + optimization notes",
   },
 ];
+
+export const caseStudySimulations = [
+  {
+    id: "clinic-growth",
+    title: "Klinik ingin terlihat premium dan meningkatkan booking",
+    industry: "Klinik & Wellness",
+    problem:
+      "Calon pasien sering bertanya hal dasar berulang, sementara halaman layanan belum cukup meyakinkan.",
+    solution:
+      "Website trust-first dengan struktur layanan, FAQ treatment, CTA booking, dan chatbot untuk pertanyaan awal.",
+    stack: ["Website Conversion", "AI FAQ Assistant", "Booking CTA", "Trust Layer"],
+    outcome: "Inquiry lebih terarah dan admin menerima calon pasien dengan konteks lebih jelas.",
+  },
+  {
+    id: "property-leads",
+    title: "Tim properti butuh memilah prospek lebih cepat",
+    industry: "Properti",
+    problem:
+      "Banyak chat masuk tanpa budget, lokasi, atau tipe unit yang jelas sehingga sales membuang waktu.",
+    solution:
+      "AI qualification flow untuk budget, lokasi, tipe unit, dan timeline beli, ditambah landing page katalog unit.",
+    stack: ["Property Landing Page", "AI Lead Qualification", "Sales Routing", "Lead Log"],
+    outcome: "Prospek panas lebih cepat teridentifikasi dan follow-up jadi lebih konsisten.",
+  },
+  {
+    id: "course-launch",
+    title: "Program edukasi ingin launch cohort baru",
+    industry: "Edukasi",
+    problem:
+      "Calon siswa belum paham perbedaan program, benefit, dan jalur belajar yang cocok.",
+    solution:
+      "Landing page program dengan roadmap belajar, rekomendasi program lewat chatbot, dan proposal ringkas.",
+    stack: ["Course Landing Page", "Program Recommender", "WhatsApp Follow-up", "FAQ Layer"],
+    outcome: "Inquiry lebih berkualitas karena calon siswa sudah memahami pilihan sebelum konsultasi.",
+  },
+  {
+    id: "service-authority",
+    title: "Bisnis jasa profesional ingin naik kelas",
+    industry: "Jasa Profesional",
+    problem:
+      "Penawaran masih terlihat generik, sehingga sulit membedakan diri dari kompetitor harga murah.",
+    solution:
+      "Positioning premium, proposal generator, credibility layer, dan conversion-focused service page.",
+    stack: ["Authority Website", "Proposal Generator", "Credibility System", "Scope Matrix"],
+    outcome: "Value jasa lebih mudah dijelaskan dan proses konsultasi terasa lebih profesional.",
+  },
+];
