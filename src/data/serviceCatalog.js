@@ -333,14 +333,14 @@ export const goals = [
 
 export const visualThemes = [
   {
-    id: "luxury",
-    label: "Luxury",
-    description: "Gelap, elegan, aksen gold, cocok untuk jasa yang ingin terlihat high-trust.",
+    id: "signature",
+    label: "Signature",
+    description: "Gelap, presisi, aksen cobalt, cocok untuk jasa yang ingin terlihat high-trust.",
     colors: {
       dark: "#080B12",
-      accent: "#C7A66B",
-      secondary: "#0F766E",
-      surface: "#F7F4EE",
+      accent: "#2563EB",
+      secondary: "#93C5FD",
+      surface: "#F6F8FB",
     },
   },
   {
@@ -360,20 +360,20 @@ export const visualThemes = [
     description: "Ringan, lapang, mudah dibaca, cocok untuk brand yang ingin terlihat tenang.",
     colors: {
       dark: "#1F2937",
-      accent: "#111827",
-      secondary: "#6B7280",
-      surface: "#FAFAF8",
+      accent: "#2563EB",
+      secondary: "#64748B",
+      surface: "#F8FAFC",
     },
   },
   {
-    id: "bold",
-    label: "Bold",
-    description: "Kontras, berani, cocok untuk campaign atau produk yang ingin cepat menarik perhatian.",
+    id: "launch",
+    label: "Launch",
+    description: "Kontras dan cepat terbaca, cocok untuk campaign atau produk yang ingin segera diuji pasar.",
     colors: {
-      dark: "#130A24",
-      accent: "#F97316",
-      secondary: "#7C3AED",
-      surface: "#FFF7ED",
+      dark: "#07131F",
+      accent: "#2563EB",
+      secondary: "#60A5FA",
+      surface: "#EFF6FF",
     },
   },
 ];

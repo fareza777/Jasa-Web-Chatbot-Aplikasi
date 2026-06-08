@@ -202,7 +202,7 @@ export default function PremiumStudio() {
       let score = service.id === activeService.id ? 2 : 0;
       if (service.id === selectedIndustry.recommendedService) score += 3;
       if (service.id === selectedGoal.recommendedService) score += 4;
-      if (service.id === "growth-stack" && selectedTheme.id === "luxury") score += 1;
+      if (service.id === "growth-stack" && selectedTheme.id === "signature") score += 1;
       return { service, score };
     });
 
@@ -220,25 +220,25 @@ export default function PremiumStudio() {
   };
 
   return (
-    <div className="luxury-ambient min-h-screen bg-[#f7f4ee] text-[#111827]">
+    <div className="luxury-ambient min-h-screen bg-[#f6f8fb] text-[#111827]">
       <div className="fixed inset-x-0 top-0 z-50 h-1 bg-transparent">
         <div
-          className="h-full bg-[#c7a66b] transition-[width] duration-150"
+          className="h-full bg-[#2563eb] transition-[width] duration-150"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
-      <header className="sticky top-0 z-40 border-b border-[#ded8cc] bg-[#f7f4ee]/95 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-40 border-b border-[#d8e1ea] bg-[#f6f8fb]/90 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <button
             type="button"
             onClick={() => scrollToSection("top")}
             className="group flex items-center gap-3 text-left"
           >
-            <span className="grid h-10 w-10 place-items-center rounded-md bg-[#111827] text-[#c7a66b] transition duration-300 group-hover:-translate-y-0.5 group-hover:rotate-3">
+            <span className="grid h-10 w-10 place-items-center rounded-md bg-[#111827] text-white transition duration-300 group-hover:-translate-y-0.5 group-hover:rotate-3">
               <Code2 className="h-5 w-5" aria-hidden="true" />
             </span>
             <span>
-              <span className="block text-sm font-black uppercase tracking-[0.18em]">
+              <span className="block text-sm font-black tracking-tight">
                 Digital Craft
               </span>
               <span className="block text-xs font-semibold text-[#6b7280]">
@@ -263,7 +263,7 @@ export default function PremiumStudio() {
           <button
             type="button"
             onClick={() => setProposalOpen(true)}
-            className="hidden h-10 flex-none items-center gap-2 rounded-md bg-[#111827] px-4 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#1f2937] hover:shadow-[0_14px_30px_rgba(17,24,39,0.18)] sm:inline-flex"
+            className="hidden h-10 flex-none items-center gap-2 rounded-md bg-[#2563eb] px-4 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#1d4ed8] hover:shadow-[0_14px_30px_rgba(37,99,235,0.22)] sm:inline-flex"
           >
             Cek Paket
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -387,7 +387,7 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
 
   return (
     <section
-      className="noise-wash luxury-grid relative overflow-hidden border-b border-[#ded8cc] text-white"
+      className="noise-wash luxury-grid relative min-h-[100dvh] overflow-hidden border-b border-[#d8e1ea] text-white"
       style={{ backgroundColor: themeColors.dark }}
     >
       <div className="aurora-layer" aria-hidden="true" />
@@ -398,26 +398,24 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
         }}
       />
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/30 to-transparent" aria-hidden="true" />
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:px-8 lg:py-20">
-        <div className="min-w-0 max-w-[22rem] flex flex-col justify-center sm:max-w-none">
-          <div className="animate-fade-up mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-[#c7a66b]/40 bg-white/10 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-[#f5d89b] backdrop-blur">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:min-h-[calc(100dvh-4rem)] lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:px-8 lg:py-14">
+        <div className="flex min-w-0 flex-col justify-center">
+          <div className="animate-fade-up mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/14 bg-white/10 px-3 py-1 text-xs font-black text-[#dbeafe] backdrop-blur">
             <Sparkles className="h-4 w-4" aria-hidden="true" />
-            Studio digital siap pakai untuk UMKM dan brand jasa
+            Studio digital untuk bisnis jasa
           </div>
-          <h1 className="animate-fade-up animation-delay-100 w-full max-w-[22rem] text-[2rem] font-black leading-[1.06] tracking-[-0.02em] text-white sm:max-w-4xl sm:text-6xl lg:text-7xl">
-            Bikin bisnis kecil terlihat siap dipercaya sejak kunjungan pertama.
+          <h1 className="animate-fade-up animation-delay-100 max-w-4xl text-[2.65rem] font-black leading-[0.98] tracking-tight text-white sm:text-6xl lg:text-7xl">
+            Website dan AI assistant yang membuat bisnis terlihat siap dipercaya.
           </h1>
-          <p className="animate-fade-up animation-delay-200 mt-6 w-full max-w-[22rem] text-base leading-8 text-slate-300 sm:max-w-2xl sm:text-lg">
-            Website, chatbot AI, aplikasi, dan asisten digital dibuat sebagai
-            sistem yang rapi: enak dilihat, mudah dijelaskan ke pelanggan, dan
-            realistis untuk budget bisnis yang baru mulai naik kelas.
+          <p className="animate-fade-up animation-delay-200 mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
+            Paket website, chatbot, aplikasi, dan alur konsultasi yang rapi untuk bisnis yang mulai naik kelas.
           </p>
 
           <div className="animate-fade-up animation-delay-300 mt-8 flex flex-col gap-3 sm:flex-row">
             <button
               type="button"
               onClick={onOpenProposal}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-md px-5 text-sm font-black text-[#080b12] transition duration-300 hover:-translate-y-0.5 hover:brightness-110"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-md px-5 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:brightness-110"
               style={{ backgroundColor: themeColors.accent }}
             >
               Buat estimasi paket
@@ -426,19 +424,19 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
             <button
               type="button"
               onClick={() => scrollToSection("work")}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/20 bg-white/10 px-5 text-sm font-black text-white backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-[#c7a66b] hover:bg-white/15"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/20 bg-white/10 px-5 text-sm font-black text-white backdrop-blur transition duration-300 hover:-translate-y-0.5 hover:border-[#2563eb] hover:bg-white/15"
             >
               <Play className="h-4 w-4" aria-hidden="true" />
               Lihat contoh output
             </button>
           </div>
-          <div className="animate-fade-up animation-delay-500 mt-8 grid max-w-[22rem] gap-3 sm:max-w-2xl sm:grid-cols-3">
+          <div className="animate-fade-up animation-delay-500 mt-8 grid gap-3 sm:max-w-2xl sm:grid-cols-3">
             {[
               ["Rp750rb+", "mulai ringan"],
               ["5 jasa", "bisa dicustom"],
               ["AI-ready", "chatbot + assistant"],
             ].map(([value, label]) => (
-              <div key={label} className="rounded-md border border-white/10 bg-white/[0.07] p-3 backdrop-blur">
+              <div key={label} className="rounded-md border border-white/10 bg-white/[0.07] p-3 backdrop-blur transition duration-300 hover:-translate-y-1 hover:bg-white/[0.1]">
                 <p className="text-lg font-black text-white">{value}</p>
                 <p className="mt-1 text-xs font-bold uppercase tracking-[0.12em] text-slate-400">
                   {label}
@@ -449,7 +447,7 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
         </div>
 
         <div
-          className="premium-frame premium-panel-motion scan-surface relative min-h-[560px] min-w-0 max-w-[22rem] overflow-hidden rounded-md border p-4 shadow-[0_30px_90px_rgba(0,0,0,0.35)] sm:max-w-none"
+          className="premium-frame premium-panel-motion scan-surface relative min-h-[520px] min-w-0 overflow-hidden rounded-md border p-4 shadow-[0_30px_90px_rgba(0,0,0,0.35)]"
           style={{
             backgroundColor: "#111827",
             borderColor: `${themeColors.accent}55`,
@@ -487,7 +485,7 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
               ))}
             </div>
 
-            <div className="overflow-hidden rounded-md bg-[#f7f4ee] text-[#111827] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] transition duration-500">
+            <div className="overflow-hidden rounded-md bg-[#f6f8fb] text-[#111827] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] transition duration-500">
               <div className="relative h-36 overflow-hidden">
                 <img
                   src={visualAssets.workspace}
@@ -495,15 +493,15 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
                   className="h-full w-full object-cover"
                   loading="eager"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#f7f4ee] via-[#f7f4ee]/20 to-transparent" />
-                <span className="absolute left-4 top-4 rounded-full bg-[#111827]/85 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#f5d89b] backdrop-blur">
-                  Real visual direction
+                <div className="absolute inset-0 bg-gradient-to-t from-[#f6f8fb] via-[#f6f8fb]/20 to-transparent" />
+                <span className="absolute left-4 top-4 rounded-full bg-[#111827]/85 px-3 py-1 text-[10px] font-black text-[#dbeafe] backdrop-blur">
+                  Visual preview
                 </span>
               </div>
               <div className="p-5">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-[#1d4ed8]">
                     Active build
                   </p>
                   <h2 className="mt-2 text-2xl font-black leading-tight">
@@ -518,7 +516,7 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
               <div className="mt-6 space-y-3">
                 {activeService.includes.slice(0, 4).map((item) => (
                   <div key={item} className="flex items-center gap-3 rounded-md bg-white p-3 transition duration-300 hover:translate-x-1">
-                    <CheckCircle2 className="h-5 w-5 flex-none text-[#0f766e]" aria-hidden="true" />
+                    <CheckCircle2 className="h-5 w-5 flex-none text-[#2563eb]" aria-hidden="true" />
                     <span className="text-sm font-bold">{item}</span>
                   </div>
                 ))}
@@ -528,7 +526,7 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
 
             <div className="mt-4 grid gap-4 sm:grid-cols-[1fr_0.72fr]">
               <div className="dark-glass rounded-md p-4">
-                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#c7a66b]">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#2563eb]">
                   Build preview
                 </p>
                 <div className="animate-progress-grow mt-4 h-3 w-3/4 rounded bg-white/80" />
@@ -547,8 +545,8 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
               </div>
               <AIConversationCard />
             </div>
-            <div className="mt-4 rounded-md border border-[#c7a66b]/20 bg-[#0b1220] p-4 shadow-[inset_0_1px_0_rgba(199,166,107,0.12)]">
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#c7a66b]">
+            <div className="mt-4 rounded-md border border-[#2563eb]/20 bg-[#0b1220] p-4 shadow-[inset_0_1px_0_rgba(37,99,235,0.12)]">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#2563eb]">
                 Recommended strategy
               </p>
               <p className="mt-2 text-sm font-bold leading-6 text-white">
@@ -568,11 +566,11 @@ function Hero({ quote, activeService, proposal, onOpenProposal }) {
 function AIConversationCard() {
   return (
     <div className="relative overflow-hidden rounded-md border border-white/10 bg-white/[0.06] p-4">
-      <div className="absolute right-3 top-3 h-16 w-16 rounded-full border border-[#c7a66b]/20" />
+      <div className="absolute right-3 top-3 h-16 w-16 rounded-full border border-[#2563eb]/20" />
       <div className="relative">
         <div className="mb-4 flex items-center justify-between gap-3">
-          <MessageCircle className="h-6 w-6 text-[#c7a66b]" aria-hidden="true" />
-          <span className="rounded-full bg-[#0f766e]/20 px-2 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-[#67e8d3]">
+          <MessageCircle className="h-6 w-6 text-[#2563eb]" aria-hidden="true" />
+          <span className="rounded-full bg-[#2563eb]/20 px-2 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-[#bfdbfe]">
             Live AI
           </span>
         </div>
@@ -583,8 +581,8 @@ function AIConversationCard() {
               Saya bantu pilih paket paling tepat untuk bisnis Anda.
             </p>
           </div>
-          <div className="ml-auto max-w-[82%] rounded-md rounded-tr-none bg-[#c7a66b] px-3 py-2">
-            <p className="text-xs font-black leading-5 text-[#080b12]">
+          <div className="ml-auto max-w-[82%] rounded-md rounded-tr-none bg-[#2563eb] px-3 py-2">
+            <p className="text-xs font-black leading-5 text-white">
               Butuh leads dan tampil premium.
             </p>
           </div>
@@ -601,7 +599,7 @@ function AIConversationCard() {
 
 function TrustBand() {
   return (
-    <section className="border-b border-[#ded8cc] bg-[#111827] text-white">
+    <section className="border-b border-[#d8e1ea] bg-[#111827] text-white">
       <div className="mx-auto grid max-w-7xl gap-4 px-4 py-6 sm:px-6 md:grid-cols-4 lg:px-8">
         {[
           ["Strategy first", "Setiap halaman punya tujuan bisnis"],
@@ -621,7 +619,7 @@ function TrustBand() {
                     : ""
             }`}
           >
-            <p className="font-black transition duration-300 group-hover:text-[#c7a66b]">{title}</p>
+            <p className="font-black transition duration-300 group-hover:text-[#2563eb]">{title}</p>
             <p className="mt-1 text-sm text-slate-300">{description}</p>
           </div>
         ))}
@@ -638,18 +636,18 @@ function ExecutiveMetrics() {
   ];
 
   return (
-    <section className="border-b border-[#ded8cc] bg-[#f7f4ee]">
+    <section className="border-b border-[#d8e1ea] bg-[#f6f8fb]">
       <div className="mx-auto grid max-w-7xl gap-4 px-4 py-8 sm:px-6 lg:grid-cols-3 lg:px-8">
         {metrics.map(([number, title, description]) => (
           <article
             key={title}
-            className="group rounded-md border border-[#ded8cc] bg-white p-5 transition duration-300 hover:-translate-y-1 hover:border-[#111827] hover:shadow-[0_18px_40px_rgba(17,24,39,0.10)]"
+            className="group rounded-md border border-[#d8e1ea] bg-white p-5 transition duration-300 hover:-translate-y-1 hover:border-[#111827] hover:shadow-[0_18px_40px_rgba(17,24,39,0.10)]"
           >
             <div className="mb-5 flex items-center justify-between">
-              <span className="text-xs font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+              <span className="text-xs font-black uppercase tracking-[0.18em] text-[#1d4ed8]">
                 {number}
               </span>
-              <TrendingUp className="h-5 w-5 text-[#0f766e] transition duration-300 group-hover:rotate-6" />
+              <TrendingUp className="h-5 w-5 text-[#2563eb] transition duration-300 group-hover:rotate-6" />
             </div>
             <h3 className="text-lg font-black text-[#111827]">{title}</h3>
             <p className="mt-2 text-sm leading-6 text-[#4b5563]">{description}</p>
@@ -671,7 +669,7 @@ function SmartBuilder({
   onUseRecommendation,
 }) {
   return (
-    <section className="border-b border-[#ded8cc] bg-[#f7f4ee]">
+    <section className="border-b border-[#d8e1ea] bg-[#f6f8fb]">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
         <div>
           <p className="section-kicker">
@@ -709,7 +707,7 @@ function SmartBuilder({
           <div className="rounded-md border border-[#111827] bg-[#111827] p-5 text-white">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]">
                   Rekomendasi sistem
                 </p>
                 <h3 className="mt-2 text-2xl font-black">
@@ -722,7 +720,7 @@ function SmartBuilder({
               <button
                 type="button"
                 onClick={onUseRecommendation}
-                className="inline-flex h-11 flex-none items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-4 text-sm font-black text-[#080b12] transition duration-300 hover:-translate-y-0.5 hover:bg-[#f5d89b]"
+                className="inline-flex h-11 flex-none items-center justify-center gap-2 rounded-md bg-[#2563eb] px-4 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#1d4ed8]"
               >
                 Gunakan
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -738,7 +736,7 @@ function SmartBuilder({
 function ChoiceGrid({ title, items, selectedId, onSelect }) {
   return (
     <div>
-      <h3 className="mb-3 text-sm font-black uppercase tracking-[0.14em] text-[#8a6d30]">
+      <h3 className="mb-3 text-sm font-black uppercase tracking-[0.14em] text-[#1d4ed8]">
         {title}
       </h3>
       <div className="grid gap-2 sm:grid-cols-2">
@@ -766,8 +764,8 @@ function ChoiceGrid({ title, items, selectedId, onSelect }) {
 
 function Services({ activeServiceId, onSelect }) {
   const serviceAccents = {
-    website: "#0f766e",
-    chatbot: "#c7a66b",
+    website: "#2563eb",
+    chatbot: "#2563eb",
     "mobile-app": "#2563eb",
     "growth-stack": "#111827",
     "digital-assistant": "#14b8a6",
@@ -822,14 +820,14 @@ function Services({ activeServiceId, onSelect }) {
               <div className="relative flex flex-1 flex-col p-5">
               <div
                 className="absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-15 blur-2xl transition duration-500 group-hover:opacity-30"
-                style={{ backgroundColor: serviceAccents[service.id] || "#c7a66b" }}
+                style={{ backgroundColor: serviceAccents[service.id] || "#2563eb" }}
                 aria-hidden="true"
               />
               <div className="relative mb-5 flex items-center justify-between gap-3">
-                <span className="grid h-12 w-12 place-items-center rounded-md bg-[#111827] text-[#c7a66b] transition duration-300 group-hover:rotate-3 group-hover:scale-105">
+                <span className="grid h-12 w-12 place-items-center rounded-md bg-[#111827] text-[#2563eb] transition duration-300 group-hover:rotate-3 group-hover:scale-105">
                   <Icon className="h-6 w-6" aria-hidden="true" />
                 </span>
-                <span className="rounded-full border border-[#ded8cc] bg-white/80 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#6b7280]">
+                <span className="rounded-full border border-[#d8e1ea] bg-white/80 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#6b7280]">
                   {service.timeline}
                 </span>
               </div>
@@ -841,23 +839,23 @@ function Services({ activeServiceId, onSelect }) {
                     style={{
                       backgroundColor:
                         item === 0
-                          ? serviceAccents[service.id] || "#c7a66b"
+                          ? serviceAccents[service.id] || "#2563eb"
                           : item === 1
-                            ? "#c7a66b"
-                            : "#ded8cc",
+                            ? "#2563eb"
+                            : "#d8e1ea",
                     }}
                     aria-hidden="true"
                   />
                 ))}
               </div>
-              <p className="relative text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+              <p className="relative text-xs font-black uppercase tracking-[0.16em] text-[#1d4ed8]">
                 {service.label}
               </p>
               <h3 className="relative mt-2 text-xl font-black leading-tight">{service.name}</h3>
               <p className="relative mt-3 flex-1 text-sm leading-6 text-[#4b5563]">
                 {service.description}
               </p>
-              <div className="relative mt-5 flex items-center justify-between gap-3 border-t border-[#ded8cc] pt-4">
+              <div className="relative mt-5 flex items-center justify-between gap-3 border-t border-[#d8e1ea] pt-4">
                 <span className="text-sm font-black">
                   Mulai {formatRupiah(service.basePrice)}
                 </span>
@@ -883,11 +881,11 @@ function OpenClawAssistantLab({ onSelectAssistant }) {
   ];
 
   return (
-    <section className="noise-wash relative overflow-hidden border-y border-[#ded8cc] bg-[#080b12] text-white">
+    <section className="noise-wash relative overflow-hidden border-y border-[#d8e1ea] bg-[#080b12] text-white">
       <div className="aurora-layer opacity-60" aria-hidden="true" />
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#2563eb]">
             Layanan asisten digital
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -900,14 +898,14 @@ function OpenClawAssistantLab({ onSelectAssistant }) {
           <button
             type="button"
             onClick={onSelectAssistant}
-            className="mt-6 inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-5 text-sm font-black text-[#080b12] transition hover:-translate-y-0.5 hover:bg-[#f5d89b]"
+            className="mt-6 inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#2563eb] px-5 text-sm font-black text-white transition hover:-translate-y-0.5 hover:bg-[#1d4ed8]"
           >
             Rancang asisten digital
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>
 
-        <div className="premium-frame scan-surface relative overflow-hidden rounded-md border border-[#c7a66b]/30 bg-[#0b1220] p-5 shadow-[0_30px_90px_rgba(0,0,0,0.35)]">
+        <div className="premium-frame scan-surface relative overflow-hidden rounded-md border border-[#2563eb]/30 bg-[#0b1220] p-5 shadow-[0_30px_90px_rgba(0,0,0,0.35)]">
           <div className="luxury-grid absolute inset-0 opacity-30" />
           <div className="relative">
             <div className="mb-5 flex items-center justify-between">
@@ -916,22 +914,22 @@ function OpenClawAssistantLab({ onSelectAssistant }) {
                 <span />
                 <span />
               </span>
-              <span className="rounded-full border border-[#c7a66b]/20 bg-[#c7a66b]/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#f5d89b]">
+              <span className="rounded-full border border-[#2563eb]/20 bg-[#2563eb]/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#dbeafe]">
                 Assistant Lab
               </span>
             </div>
 
             <div className="grid gap-4 lg:grid-cols-[220px_1fr]">
               <div className="grid place-items-center rounded-md border border-white/10 bg-white/[0.04] p-6">
-                <div className="relative grid h-40 w-40 place-items-center rounded-full border border-[#c7a66b]/30">
-                  <div className="orbit-ring absolute inset-0 rounded-full border border-dashed border-[#c7a66b]/35" />
-                  <div className="orbit-ring absolute inset-5 rounded-full border border-dashed border-[#0f766e]/40 [animation-duration:12s]" />
-                  <div className="absolute inset-10 rounded-full bg-[#c7a66b]/10 blur-xl" />
-                  <div className="relative grid h-20 w-20 place-items-center rounded-full bg-[#c7a66b] text-[#080b12] shadow-[0_0_40px_rgba(199,166,107,0.35)]">
+                <div className="relative grid h-40 w-40 place-items-center rounded-full border border-[#2563eb]/30">
+                  <div className="orbit-ring absolute inset-0 rounded-full border border-dashed border-[#2563eb]/35" />
+                  <div className="orbit-ring absolute inset-5 rounded-full border border-dashed border-[#2563eb]/40 [animation-duration:12s]" />
+                  <div className="absolute inset-10 rounded-full bg-[#2563eb]/10 blur-xl" />
+                  <div className="relative grid h-20 w-20 place-items-center rounded-full bg-[#2563eb] text-white shadow-[0_0_40px_rgba(37,99,235,0.35)]">
                     <Cpu className="h-9 w-9" />
                   </div>
                 </div>
-                <p className="mt-5 text-center text-sm font-black text-[#f5d89b]">
+                <p className="mt-5 text-center text-sm font-black text-[#dbeafe]">
                   OpenClaw Core
                 </p>
               </div>
@@ -939,7 +937,7 @@ function OpenClawAssistantLab({ onSelectAssistant }) {
               <div className="grid gap-3 sm:grid-cols-2">
                 {capabilities.map(([title, description]) => (
                   <article key={title} className="dark-glass group rounded-md p-4 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.09]">
-                    <div className="mb-3 h-1.5 w-12 rounded-full bg-[#c7a66b] transition duration-300 group-hover:w-20" />
+                    <div className="mb-3 h-1.5 w-12 rounded-full bg-[#2563eb] transition duration-300 group-hover:w-20" />
                     <p className="font-black text-white">{title}</p>
                     <p className="mt-2 text-xs leading-5 text-slate-400">
                       {description}
@@ -950,7 +948,7 @@ function OpenClawAssistantLab({ onSelectAssistant }) {
             </div>
 
             <div className="mt-4 rounded-md border border-white/10 bg-white/[0.04] p-4">
-              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]">
                 Yang diterima pelanggan
               </p>
               <p className="mt-2 text-sm font-bold leading-6 text-slate-200">
@@ -1006,7 +1004,7 @@ function PremiumVisualLab({ proposal }) {
   const ActiveIcon = active.icon;
 
   return (
-    <section className="relative overflow-hidden border-y border-[#ded8cc] bg-[#f7f4ee]">
+    <section className="relative overflow-hidden border-y border-[#d8e1ea] bg-[#f6f8fb]">
       <div className="absolute inset-0 luxury-grid opacity-45" aria-hidden="true" />
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.78fr_1.22fr] lg:px-8">
         <div className="relative">
@@ -1033,13 +1031,13 @@ function PremiumVisualLab({ proposal }) {
                   className={`group rounded-md border p-4 text-left transition duration-300 hover:-translate-y-0.5 ${
                     selected
                       ? "border-[#111827] bg-[#111827] text-white shadow-[0_18px_40px_rgba(17,24,39,0.16)]"
-                      : "border-[#ded8cc] bg-white/80 hover:border-[#111827]"
+                      : "border-[#d8e1ea] bg-white/80 hover:border-[#111827]"
                   }`}
                 >
                   <div className="flex items-center gap-3">
                     <span
                       className={`grid h-10 w-10 place-items-center rounded-md transition duration-300 group-hover:rotate-3 ${
-                        selected ? "bg-[#c7a66b] text-[#080b12]" : "bg-[#111827] text-[#c7a66b]"
+                        selected ? "bg-[#2563eb] text-white" : "bg-[#111827] text-[#2563eb]"
                       }`}
                     >
                       <Icon className="h-5 w-5" aria-hidden="true" />
@@ -1063,14 +1061,14 @@ function PremiumVisualLab({ proposal }) {
               <span />
               <span />
             </span>
-            <span className="rounded-full border border-[#c7a66b]/25 bg-[#c7a66b]/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#f5d89b]">
+            <span className="rounded-full border border-[#2563eb]/25 bg-[#2563eb]/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#dbeafe]">
               {proposal.theme.label}
             </span>
           </div>
 
           <div className="relative mt-5 grid gap-4 lg:grid-cols-[1fr_0.72fr]">
-            <div className="rounded-md bg-[#f7f4ee] p-5 text-[#111827]">
-              <div className="mb-5 overflow-hidden rounded-md border border-[#ded8cc]">
+            <div className="rounded-md bg-[#f6f8fb] p-5 text-[#111827]">
+              <div className="mb-5 overflow-hidden rounded-md border border-[#d8e1ea]">
                 <img
                   src={active.image}
                   alt={`Contoh foto visual untuk ${active.title}`}
@@ -1080,7 +1078,7 @@ function PremiumVisualLab({ proposal }) {
               </div>
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-[#1d4ed8]">
                     {active.title}
                   </p>
                   <h3 className="mt-2 text-2xl font-black leading-tight">
@@ -1088,7 +1086,7 @@ function PremiumVisualLab({ proposal }) {
                   </h3>
                 </div>
                 <span
-                  className="grid h-11 w-11 place-items-center rounded-md text-[#080b12]"
+                  className="grid h-11 w-11 place-items-center rounded-md text-white"
                   style={{ backgroundColor: themeColors.accent }}
                 >
                   <ActiveIcon className="h-5 w-5" aria-hidden="true" />
@@ -1097,7 +1095,7 @@ function PremiumVisualLab({ proposal }) {
 
               <div className="mt-6 grid gap-3 sm:grid-cols-3">
                 {["Kepercayaan", "Penawaran", "CTA"].map((item, index) => (
-                  <div key={item} className="rounded-md border border-[#ded8cc] bg-white p-3">
+                  <div key={item} className="rounded-md border border-[#d8e1ea] bg-white p-3">
                     <div
                       className="mb-3 h-1.5 rounded-full"
                       style={{
@@ -1112,7 +1110,7 @@ function PremiumVisualLab({ proposal }) {
                 ))}
               </div>
 
-              <div className="mt-5 rounded-md border border-[#ded8cc] bg-[#111827] p-4 text-white">
+              <div className="mt-5 rounded-md border border-[#d8e1ea] bg-[#111827] p-4 text-white">
                 <p className="text-sm font-black">{active.copy}</p>
                 <div className="mt-4 grid grid-cols-4 gap-2">
                   {[70, 52, 86, 44].map((width, index) => (
@@ -1131,20 +1129,20 @@ function PremiumVisualLab({ proposal }) {
 
             <div className="grid gap-4">
               <div className="dark-glass rounded-md p-4">
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]">
                   Komponen aktif
                 </p>
                 <div className="mt-4 space-y-3">
                   {proposal.service.includes.slice(0, 3).map((item) => (
                     <div key={item} className="flex items-center gap-3 rounded-md bg-white/[0.07] p-3">
-                      <Check className="h-4 w-4 flex-none text-[#67e8d3]" aria-hidden="true" />
+                      <Check className="h-4 w-4 flex-none text-[#bfdbfe]" aria-hidden="true" />
                       <span className="text-xs font-bold leading-5 text-slate-200">{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="rounded-md border border-[#c7a66b]/20 bg-[#c7a66b]/10 p-4">
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#f5d89b]">
+              <div className="rounded-md border border-[#2563eb]/20 bg-[#2563eb]/10 p-4">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#dbeafe]">
                   Paket terpilih
                 </p>
                 <p className="mt-2 text-2xl font-black">{formatRupiah(proposal.quote)}</p>
@@ -1184,7 +1182,7 @@ function ClientDeliverableWall({ proposal }) {
   ];
 
   return (
-    <section className="border-b border-[#ded8cc] bg-white">
+    <section className="border-b border-[#d8e1ea] bg-white">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-8 grid gap-4 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
           <div>
@@ -1226,7 +1224,7 @@ function ClientDeliverableWall({ proposal }) {
                 <div className="mt-5 grid gap-2">
                   {proposal.service.includes.slice(0, 2).map((include) => (
                     <div key={include} className="flex items-center gap-2 text-xs font-bold text-[#374151]">
-                      <CheckCircle2 className="h-4 w-4 flex-none text-[#0f766e]" aria-hidden="true" />
+                      <CheckCircle2 className="h-4 w-4 flex-none text-[#2563eb]" aria-hidden="true" />
                       {include}
                     </div>
                   ))}
@@ -1244,12 +1242,12 @@ function QuickPackagePicker({ onOpenProposal, onOpenIntake }) {
   const packageImages = [visualAssets.website, visualAssets.devices, visualAssets.assistant];
 
   return (
-    <section className="relative overflow-hidden border-b border-[#ded8cc] bg-[#080b12] text-white">
+    <section className="relative overflow-hidden border-b border-[#d8e1ea] bg-[#080b12] text-white">
       <div className="aurora-layer opacity-50" aria-hidden="true" />
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-8 grid gap-4 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#2563eb]">
               Paket cepat
             </p>
             <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -1269,7 +1267,7 @@ function QuickPackagePicker({ onOpenProposal, onOpenIntake }) {
               key={tier.id}
               className={`premium-frame group overflow-hidden rounded-md border transition duration-300 hover:-translate-y-2 ${
                 tier.featured
-                  ? "border-[#c7a66b]/45 bg-white text-[#111827] shadow-[0_28px_70px_rgba(199,166,107,0.18)]"
+                  ? "border-[#2563eb]/45 bg-white text-[#111827] shadow-[0_28px_70px_rgba(37,99,235,0.18)]"
                   : "border-white/10 bg-white/[0.06] text-white"
               }`}
             >
@@ -1282,7 +1280,7 @@ function QuickPackagePicker({ onOpenProposal, onOpenIntake }) {
                 />
                 <div className={`absolute inset-0 bg-gradient-to-t ${tier.featured ? "from-white" : "from-[#080b12]"} via-transparent to-transparent`} />
                 {tier.featured && (
-                  <span className="absolute right-4 top-4 rounded-full bg-[#c7a66b] px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#080b12]">
+                  <span className="absolute right-4 top-4 rounded-full bg-[#2563eb] px-3 py-1 text-xs font-black text-white">
                     Paling aman
                   </span>
                 )}
@@ -1292,13 +1290,13 @@ function QuickPackagePicker({ onOpenProposal, onOpenIntake }) {
                 <p className={`mt-2 text-sm leading-6 ${tier.featured ? "text-[#4b5563]" : "text-slate-300"}`}>
                   {tier.bestFor}
                 </p>
-                <p className={`mt-5 text-3xl font-black ${tier.featured ? "text-[#8a6d30]" : "text-[#f5d89b]"}`}>
+                <p className={`mt-5 text-3xl font-black ${tier.featured ? "text-[#1d4ed8]" : "text-[#dbeafe]"}`}>
                   {tier.priceLabel}
                 </p>
                 <div className="mt-6 space-y-3">
                   {tier.includes.map((item) => (
                     <div key={item} className="flex gap-3 text-sm font-bold">
-                      <CheckCircle2 className={`mt-0.5 h-4 w-4 flex-none ${tier.featured ? "text-[#0f766e]" : "text-[#c7a66b]"}`} />
+                      <CheckCircle2 className={`mt-0.5 h-4 w-4 flex-none ${tier.featured ? "text-[#2563eb]" : "text-[#2563eb]"}`} />
                       {item}
                     </div>
                   ))}
@@ -1309,7 +1307,7 @@ function QuickPackagePicker({ onOpenProposal, onOpenIntake }) {
                   className={`mt-8 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md px-4 text-sm font-black transition hover:-translate-y-0.5 ${
                     tier.featured
                       ? "bg-[#111827] text-white hover:bg-[#1f2937]"
-                      : "bg-[#c7a66b] text-[#080b12] hover:bg-[#f5d89b]"
+                      : "bg-[#2563eb] text-white hover:bg-[#1d4ed8]"
                   }`}
                 >
                   {tier.featured ? "Mulai brief" : "Cek estimasi"}
@@ -1338,7 +1336,7 @@ function Configurator({
   const ActiveIcon = serviceIcons[activeService.id] || Sparkles;
 
   return (
-    <section id="configurator" className="border-y border-[#ded8cc] bg-white">
+    <section id="configurator" className="border-y border-[#d8e1ea] bg-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
         <div>
           <p className="section-kicker">
@@ -1362,7 +1360,7 @@ function Configurator({
                 className={`rounded-md border px-4 py-3 text-left text-sm font-black transition duration-300 hover:-translate-y-0.5 ${
                   service.id === activeService.id
                     ? "border-[#111827] bg-[#111827] text-white shadow-[0_14px_28px_rgba(17,24,39,0.16)]"
-                    : "border-[#ded8cc] bg-[#fbfaf7] hover:border-[#111827] hover:bg-white"
+                    : "border-[#d8e1ea] bg-[#f8fafc] hover:border-[#111827] hover:bg-white"
                 }`}
               >
                 {service.label}
@@ -1371,13 +1369,13 @@ function Configurator({
           </div>
 
           <div key={activeService.id} className="animate-fade-up mt-8 rounded-md bg-[#111827] p-6 text-white">
-            <ActiveIcon className="h-8 w-8 text-[#c7a66b] transition duration-500" aria-hidden="true" />
+            <ActiveIcon className="h-8 w-8 text-[#2563eb] transition duration-500" aria-hidden="true" />
             <h3 className="mt-4 text-2xl font-black">{activeService.name}</h3>
             <p className="mt-3 text-sm leading-6 text-slate-300">{activeService.headline}</p>
             <div className="mt-6 grid gap-3">
               {activeService.includes.map((item) => (
                 <div key={item} className="flex gap-3 text-sm font-bold">
-                  <Check className="mt-0.5 h-4 w-4 flex-none text-[#c7a66b]" aria-hidden="true" />
+                  <Check className="mt-0.5 h-4 w-4 flex-none text-[#2563eb]" aria-hidden="true" />
                   {item}
                 </div>
               ))}
@@ -1397,7 +1395,7 @@ function Configurator({
                     <select
                       value={activeConfig[option.id]}
                       onChange={(event) => onSelect(option, event.target.value)}
-                      className="h-12 w-full appearance-none rounded-md border border-[#cfc5b8] bg-white px-4 pr-10 text-sm font-bold text-[#111827]"
+                      className="h-12 w-full appearance-none rounded-md border border-[#cbd8e6] bg-white px-4 pr-10 text-sm font-bold text-[#111827]"
                     >
                       {option.choices.map((choice) => (
                         <option key={choice.value} value={choice.value}>
@@ -1419,12 +1417,12 @@ function Configurator({
                           onClick={() => onToggle(option, choice.value)}
                           className={`flex items-center justify-between gap-3 rounded-md border p-3 text-left text-sm transition duration-300 hover:-translate-y-0.5 ${
                             checked
-                              ? "border-[#0f766e] bg-[#ecfdf5] shadow-[0_12px_24px_rgba(15,118,110,0.10)]"
-                              : "border-[#ded8cc] bg-white hover:border-[#111827] hover:shadow-[0_10px_22px_rgba(17,24,39,0.08)]"
+                              ? "border-[#2563eb] bg-[#eff6ff] shadow-[0_12px_24px_rgba(15,118,110,0.10)]"
+                              : "border-[#d8e1ea] bg-white hover:border-[#111827] hover:shadow-[0_10px_22px_rgba(17,24,39,0.08)]"
                           }`}
                         >
                           <span className="font-bold">{choice.label}</span>
-                          <span className="flex-none text-xs font-black text-[#8a6d30]">
+                          <span className="flex-none text-xs font-black text-[#1d4ed8]">
                             +{formatRupiah(choice.price)}
                           </span>
                         </button>
@@ -1439,7 +1437,7 @@ function Configurator({
           <div className="animate-glow-pulse mt-8 rounded-md bg-white p-5 shadow-[0_18px_50px_rgba(17,24,39,0.08)]">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#1d4ed8]">
                   Estimasi investasi
                 </p>
                 <p className="mt-2 text-3xl font-black text-[#111827]">
@@ -1452,21 +1450,21 @@ function Configurator({
               <button
                 type="button"
                 onClick={onOpenProposal}
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#0f766e] px-4 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#115e59] hover:shadow-[0_16px_30px_rgba(15,118,110,0.25)]"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[#2563eb] px-4 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#1d4ed8] hover:shadow-[0_16px_30px_rgba(15,118,110,0.25)]"
               >
                 Buat proposal
                 <MessageCircle className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>
 
-            <div className="mt-5 border-t border-[#eee5d8] pt-5">
+            <div className="mt-5 border-t border-[#e6edf5] pt-5">
               <p className="text-sm font-black text-[#111827]">Ringkasan pilihan</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {selectedSummary.length ? (
                   selectedSummary.map((item) => (
                     <span
                       key={item}
-                      className="rounded-full bg-[#f7f4ee] px-3 py-1 text-xs font-bold text-[#374151]"
+                      className="rounded-full bg-[#f6f8fb] px-3 py-1 text-xs font-bold text-[#374151]"
                     >
                       {item}
                     </span>
@@ -1503,12 +1501,12 @@ function LiveBlueprint({ service, selectedSummary, quote }) {
     <div className="mt-4 rounded-md border border-[#111827]/10 bg-[#111827] p-5 text-white">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]">
             Rencana kerja singkat
           </p>
           <h3 className="mt-2 text-xl font-black">Rencana {service.label}</h3>
         </div>
-        <Target className="h-6 w-6 text-[#c7a66b]" aria-hidden="true" />
+        <Target className="h-6 w-6 text-[#2563eb]" aria-hidden="true" />
       </div>
 
       <div className="mt-5 grid gap-3 sm:grid-cols-2">
@@ -1541,22 +1539,22 @@ function ProposalPreview({ proposal, onOpenProposal }) {
 
   return (
     <div className="lg:col-span-2">
-      <div className="rounded-md border border-[#ded8cc] bg-[#f7f4ee] p-5 sm:p-6">
+      <div className="rounded-md border border-[#d8e1ea] bg-[#f6f8fb] p-5 sm:p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#1d4ed8]">
               Preview penawaran
             </p>
             <h3 className="mt-2 text-2xl font-black text-[#111827]">
               Draft penawaran yang siap dibahas
             </h3>
           </div>
-          <ScrollText className="h-7 w-7 text-[#8a6d30]" aria-hidden="true" />
+          <ScrollText className="h-7 w-7 text-[#1d4ed8]" aria-hidden="true" />
         </div>
 
         <div className="mt-5 grid gap-4 lg:grid-cols-[1fr_0.9fr]">
           <div className="rounded-md bg-white p-5">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#1d4ed8]">
               Ringkasan
             </p>
             <p className="mt-3 text-sm leading-7 text-[#374151]">
@@ -1568,7 +1566,7 @@ function ProposalPreview({ proposal, onOpenProposal }) {
             <div className="mt-5 grid gap-2">
               {deliverables.map((item) => (
                 <div key={item} className="flex gap-3 text-sm font-bold text-[#111827]">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[#0f766e]" />
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[#2563eb]" />
                   {item}
                 </div>
               ))}
@@ -1576,7 +1574,7 @@ function ProposalPreview({ proposal, onOpenProposal }) {
           </div>
 
           <div className="rounded-md bg-[#111827] p-5 text-white">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]">
               Investment & next step
             </p>
             <p className="mt-3 text-3xl font-black">{formatRupiah(proposal.quote)}</p>
@@ -1592,7 +1590,7 @@ function ProposalPreview({ proposal, onOpenProposal }) {
             <button
               type="button"
               onClick={onOpenProposal}
-              className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-4 text-sm font-black text-[#080b12] transition duration-300 hover:-translate-y-0.5 hover:bg-[#f5d89b]"
+              className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#2563eb] px-4 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#1d4ed8]"
             >
               Buka proposal lengkap
               <ArrowRight className="h-4 w-4" />
@@ -1618,7 +1616,7 @@ function OutputShowcase() {
           <div className="mt-6 space-y-3">
             {serviceOutcomes.map((outcome) => (
               <div key={outcome} className="flex gap-3 text-sm font-bold text-[#374151]">
-                <ShieldCheck className="mt-0.5 h-5 w-5 flex-none text-[#0f766e]" aria-hidden="true" />
+                <ShieldCheck className="mt-0.5 h-5 w-5 flex-none text-[#2563eb]" aria-hidden="true" />
                 {outcome}
               </div>
             ))}
@@ -1669,7 +1667,7 @@ function ExampleBuilds() {
   ];
 
   return (
-    <section className="border-t border-[#ded8cc] bg-[#f7f4ee]">
+    <section className="border-t border-[#d8e1ea] bg-[#f6f8fb]">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
           <div>
@@ -1684,7 +1682,7 @@ function ExampleBuilds() {
               hasil jadi: ada foto, arah UI, fitur utama, dan konteks bisnisnya.
             </p>
           </div>
-          <BriefcaseBusiness className="hidden h-11 w-11 text-[#8a6d30] lg:block" />
+          <BriefcaseBusiness className="hidden h-11 w-11 text-[#1d4ed8] lg:block" />
         </div>
 
         <div className="grid gap-4 lg:grid-cols-4">
@@ -1704,17 +1702,17 @@ function ExampleBuilds() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#111827] via-[#111827]/35 to-transparent" />
                 <div className="absolute inset-4 rounded-md border border-white/10 bg-white/[0.06] p-3 backdrop-blur-[2px] transition duration-300 group-hover:scale-[1.02]">
-                  <div className="h-2 w-1/2 rounded bg-[#c7a66b]" />
+                  <div className="h-2 w-1/2 rounded bg-[#2563eb]" />
                   <div className="mt-3 h-2 w-3/4 rounded bg-white/30" />
                   <div className="mt-6 grid grid-cols-3 gap-2">
                     <div className="h-16 rounded bg-white/20" />
-                    <div className="h-16 rounded bg-[#0f766e]" />
-                    <div className="h-16 rounded bg-[#c7a66b]" />
+                    <div className="h-16 rounded bg-[#2563eb]" />
+                    <div className="h-16 rounded bg-[#2563eb]" />
                   </div>
                 </div>
               </div>
               <div className="p-5">
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#1d4ed8]">
                   {build.type}
                 </p>
                 <h3 className="mt-2 text-xl font-black">{build.title}</h3>
@@ -1824,19 +1822,19 @@ function PremiumPortfolioGrid() {
               <div className="p-5">
                 <div className="flex items-start justify-between gap-4">
                   <h3 className="text-xl font-black text-[#111827]">{project.title}</h3>
-                  <span className="flex-none rounded-full bg-[#f7f4ee] px-3 py-1 text-xs font-black text-[#8a6d30]">
+                  <span className="flex-none rounded-full bg-[#f6f8fb] px-3 py-1 text-xs font-black text-[#1d4ed8]">
                     {project.price}
                   </span>
                 </div>
                 <div className="mt-4 grid gap-3">
-                  <div className="rounded-md bg-[#f7f4ee] p-3">
-                    <p className="text-xs font-black uppercase tracking-[0.14em] text-[#8a6d30]">
+                  <div className="rounded-md bg-[#f6f8fb] p-3">
+                    <p className="text-xs font-black uppercase tracking-[0.14em] text-[#1d4ed8]">
                       Masalah
                     </p>
                     <p className="mt-1 text-sm leading-6 text-[#4b5563]">{project.problem}</p>
                   </div>
                   <div className="rounded-md bg-[#111827] p-3 text-white">
-                    <p className="text-xs font-black uppercase tracking-[0.14em] text-[#c7a66b]">
+                    <p className="text-xs font-black uppercase tracking-[0.14em] text-[#2563eb]">
                       Solusi
                     </p>
                     <p className="mt-1 text-sm leading-6 text-slate-300">{project.solution}</p>
@@ -1877,10 +1875,10 @@ function InteractiveChatDemo({ proposal }) {
   const activeScenario = scenarios.find((scenario) => scenario.id === activeScenarioId) || scenarios[0];
 
   return (
-    <section className="border-y border-[#ded8cc] bg-[#080b12] text-white">
+    <section className="border-y border-[#d8e1ea] bg-[#080b12] text-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#2563eb]">
             Live chatbot demo
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -1899,8 +1897,8 @@ function InteractiveChatDemo({ proposal }) {
                 onClick={() => setActiveScenarioId(scenario.id)}
                 className={`rounded-full border px-4 py-2 text-sm font-black transition duration-300 hover:-translate-y-0.5 ${
                   activeScenarioId === scenario.id
-                    ? "border-[#c7a66b] bg-[#c7a66b] text-[#080b12]"
-                    : "border-white/15 bg-white/[0.06] text-white hover:border-[#c7a66b]"
+                    ? "border-[#2563eb] bg-[#2563eb] text-white"
+                    : "border-white/15 bg-white/[0.06] text-white hover:border-[#2563eb]"
                 }`}
               >
                 {scenario.label}
@@ -1909,10 +1907,10 @@ function InteractiveChatDemo({ proposal }) {
           </div>
         </div>
 
-        <div className="premium-frame rounded-md border border-[#c7a66b]/30 bg-[#f7f4ee] p-4 text-[#111827] shadow-[0_30px_90px_rgba(0,0,0,0.28)] sm:p-6">
+        <div className="premium-frame rounded-md border border-[#2563eb]/30 bg-[#f6f8fb] p-4 text-[#111827] shadow-[0_30px_90px_rgba(0,0,0,0.28)] sm:p-6">
           <div className="mb-4 flex items-center justify-between gap-4 rounded-md bg-[#111827] p-3 text-white">
             <div className="flex items-center gap-3">
-              <span className="grid h-10 w-10 place-items-center rounded-md bg-[#25D366] text-[#062d17]">
+              <span className="grid h-10 w-10 place-items-center rounded-md bg-[#22c55e] text-[#062d17]">
                 <Bot className="h-5 w-5" aria-hidden="true" />
               </span>
               <div>
@@ -1920,25 +1918,25 @@ function InteractiveChatDemo({ proposal }) {
                 <p className="text-xs font-semibold text-slate-300">Online · siap bantu pilih paket</p>
               </div>
             </div>
-            <span className="hidden rounded-full bg-[#0f766e] px-3 py-1 text-xs font-black text-white sm:inline-flex">
+            <span className="hidden rounded-full bg-[#2563eb] px-3 py-1 text-xs font-black text-white sm:inline-flex">
               Demo
             </span>
           </div>
 
           <div className="space-y-4">
-            <div className="ml-auto max-w-[86%] rounded-md rounded-tr-none bg-[#0f766e] p-4 text-white shadow-[0_14px_34px_rgba(15,118,110,0.20)]">
+            <div className="ml-auto max-w-[86%] rounded-md rounded-tr-none bg-[#2563eb] p-4 text-white shadow-[0_14px_34px_rgba(15,118,110,0.20)]">
               <p className="text-sm leading-6">{activeScenario.user}</p>
             </div>
-            <div className="max-w-[90%] rounded-md rounded-tl-none border border-[#ded8cc] bg-white p-4 shadow-[0_14px_34px_rgba(17,24,39,0.08)]">
-              <p className="text-xs font-black uppercase tracking-[0.14em] text-[#8a6d30]">
+            <div className="max-w-[90%] rounded-md rounded-tl-none border border-[#d8e1ea] bg-white p-4 shadow-[0_14px_34px_rgba(17,24,39,0.08)]">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-[#1d4ed8]">
                 Jawaban bot
               </p>
               <p className="mt-2 text-sm leading-7 text-[#374151]">{activeScenario.bot}</p>
             </div>
-            <div className="grid gap-3 rounded-md border border-[#ded8cc] bg-white p-4 sm:grid-cols-3">
+            <div className="grid gap-3 rounded-md border border-[#d8e1ea] bg-white p-4 sm:grid-cols-3">
               {["Kualifikasi lead", "Rekomendasi paket", "Handover admin"].map((item) => (
                 <div key={item} className="flex items-center gap-2 text-xs font-black text-[#111827]">
-                  <CheckCircle2 className="h-4 w-4 text-[#0f766e]" aria-hidden="true" />
+                  <CheckCircle2 className="h-4 w-4 text-[#2563eb]" aria-hidden="true" />
                   {item}
                 </div>
               ))}
@@ -1957,10 +1955,10 @@ function CaseStudySimulator({ onOpenProposal }) {
     caseStudySimulations[0];
 
   return (
-    <section className="border-y border-[#ded8cc] bg-[#080b12] text-white">
+    <section className="border-y border-[#d8e1ea] bg-[#080b12] text-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.72fr_1.28fr] lg:px-8">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#2563eb]">
             Case study simulator
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -1979,8 +1977,8 @@ function CaseStudySimulator({ onOpenProposal }) {
                 onClick={() => setActiveCaseId(item.id)}
                 className={`rounded-md border px-4 py-3 text-left text-sm font-black transition duration-300 hover:-translate-y-0.5 ${
                   activeCase.id === item.id
-                    ? "border-[#c7a66b] bg-[#c7a66b] text-[#080b12]"
-                    : "border-white/10 bg-white/[0.04] text-white hover:border-[#c7a66b]"
+                    ? "border-[#2563eb] bg-[#2563eb] text-white"
+                    : "border-white/10 bg-white/[0.04] text-white hover:border-[#2563eb]"
                 }`}
               >
                 {item.industry}
@@ -1992,7 +1990,7 @@ function CaseStudySimulator({ onOpenProposal }) {
         <div className="rounded-md border border-white/10 bg-white/[0.05] p-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]">
                 {activeCase.industry}
               </p>
               <h3 className="mt-2 text-3xl font-black leading-tight">
@@ -2002,7 +2000,7 @@ function CaseStudySimulator({ onOpenProposal }) {
             <button
               type="button"
               onClick={onOpenProposal}
-              className="inline-flex h-11 flex-none items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-4 text-sm font-black text-[#080b12] transition hover:bg-[#f5d89b]"
+              className="inline-flex h-11 flex-none items-center justify-center gap-2 rounded-md bg-[#2563eb] px-4 text-sm font-black text-white transition hover:bg-[#1d4ed8]"
             >
               Buat proposal
               <ArrowRight className="h-4 w-4" />
@@ -2016,7 +2014,7 @@ function CaseStudySimulator({ onOpenProposal }) {
               ["Outcome", activeCase.outcome],
             ].map(([label, text]) => (
               <article key={label} className="rounded-md border border-white/10 bg-[#080b12] p-4">
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]">
                   {label}
                 </p>
                 <p className="mt-3 text-sm font-bold leading-7 text-slate-200">
@@ -2034,7 +2032,7 @@ function CaseStudySimulator({ onOpenProposal }) {
               {activeCase.stack.map((item) => (
                 <span
                   key={item}
-                  className="rounded-full border border-[#c7a66b]/30 bg-[#c7a66b]/10 px-3 py-1 text-xs font-black text-[#f5d89b]"
+                  className="rounded-full border border-[#2563eb]/30 bg-[#2563eb]/10 px-3 py-1 text-xs font-black text-[#dbeafe]"
                 >
                   {item}
                 </span>
@@ -2054,10 +2052,10 @@ function ObjectionHandler({ onOpenProposal }) {
     objectionHandlers[0];
 
   return (
-    <section className="border-y border-[#ded8cc] bg-[#f7f4ee]">
+    <section className="border-y border-[#d8e1ea] bg-[#f6f8fb]">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#1d4ed8]">
             Objection handler
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -2077,7 +2075,7 @@ function ObjectionHandler({ onOpenProposal }) {
                 className={`rounded-md border px-4 py-3 text-left text-sm font-black transition duration-300 hover:-translate-y-0.5 ${
                   activeObjection.id === item.id
                     ? "border-[#111827] bg-[#111827] text-white"
-                    : "border-[#ded8cc] bg-white text-[#111827] hover:border-[#111827]"
+                    : "border-[#d8e1ea] bg-white text-[#111827] hover:border-[#111827]"
                 }`}
               >
                 {item.concern}
@@ -2086,9 +2084,9 @@ function ObjectionHandler({ onOpenProposal }) {
           </div>
         </div>
 
-        <div className="rounded-md border border-[#ded8cc] bg-white p-5 shadow-[0_18px_44px_rgba(17,24,39,0.08)]">
+        <div className="rounded-md border border-[#d8e1ea] bg-white p-5 shadow-[0_18px_44px_rgba(17,24,39,0.08)]">
           <div className="rounded-md bg-[#111827] p-5 text-white">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]">
               Concern
             </p>
             <h3 className="mt-2 text-2xl font-black leading-tight">
@@ -2100,16 +2098,16 @@ function ObjectionHandler({ onOpenProposal }) {
           </div>
 
           <div className="mt-5">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#1d4ed8]">
               Supporting proof
             </p>
             <div className="mt-3 grid gap-3 sm:grid-cols-3">
               {activeObjection.proof.map((item) => (
                 <div
                   key={item}
-                  className="rounded-md border border-[#ded8cc] bg-[#f7f4ee] p-4"
+                  className="rounded-md border border-[#d8e1ea] bg-[#f6f8fb] p-4"
                 >
-                  <CheckCircle2 className="h-5 w-5 text-[#0f766e]" />
+                  <CheckCircle2 className="h-5 w-5 text-[#2563eb]" />
                   <p className="mt-3 text-sm font-black text-[#111827]">{item}</p>
                 </div>
               ))}
@@ -2137,10 +2135,10 @@ function OfferPersonalizer({ onOpenProposal }) {
   const activeCta = ctaPatterns.find((cta) => cta.id === activeCtaId) || ctaPatterns[1];
 
   return (
-    <section className="border-y border-[#ded8cc] bg-[#080b12] text-white">
+    <section className="border-y border-[#d8e1ea] bg-[#080b12] text-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.78fr_1.22fr] lg:px-8">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#2563eb]">
             AI copy personalizer
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -2168,8 +2166,8 @@ function OfferPersonalizer({ onOpenProposal }) {
         </div>
 
         <div className="rounded-md border border-white/10 bg-white/[0.05] p-5">
-          <div className="rounded-md bg-[#f7f4ee] p-6 text-[#111827]">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+          <div className="rounded-md bg-[#f6f8fb] p-6 text-[#111827]">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#1d4ed8]">
               Preview copy
             </p>
             <h3 className="mt-4 max-w-3xl text-3xl font-black leading-tight tracking-[-0.02em] sm:text-5xl">
@@ -2190,7 +2188,7 @@ function OfferPersonalizer({ onOpenProposal }) {
               <button
                 type="button"
                 onClick={() => scrollToSection("configurator")}
-                className="inline-flex h-11 items-center justify-center rounded-md border border-[#cfc5b8] px-4 text-sm font-black text-[#111827] transition hover:border-[#111827]"
+                className="inline-flex h-11 items-center justify-center rounded-md border border-[#cbd8e6] px-4 text-sm font-black text-[#111827] transition hover:border-[#111827]"
               >
                 {activeCta.secondary}
               </button>
@@ -2200,7 +2198,7 @@ function OfferPersonalizer({ onOpenProposal }) {
           <div className="mt-4 grid gap-3 sm:grid-cols-3">
             {["Headline", "Subheadline", "CTA"].map((item) => (
               <div key={item} className="rounded-md border border-white/10 bg-[#080b12] p-4">
-                <p className="text-xs font-black uppercase tracking-[0.14em] text-[#c7a66b]">
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-[#2563eb]">
                   {item}
                 </p>
                 <p className="mt-2 text-sm font-bold text-slate-300">
@@ -2220,7 +2218,7 @@ function BrandSystemPreview({ proposal }) {
   const sampleWords = ["Premium", "Clear", "Trusted", "Ready"];
 
   return (
-    <section className="border-y border-[#ded8cc] bg-[#f7f4ee]">
+    <section className="border-y border-[#d8e1ea] bg-[#f6f8fb]">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
         <div>
           <p className="section-kicker">Brand system preview</p>
@@ -2245,7 +2243,7 @@ function BrandSystemPreview({ proposal }) {
                 {proposal.theme.label} system
               </p>
               <span
-                className="rounded-full px-3 py-1 text-xs font-black text-[#080b12]"
+                className="rounded-full px-3 py-1 text-xs font-black text-white"
                 style={{ backgroundColor: colors.accent }}
               >
                 Active theme
@@ -2261,12 +2259,12 @@ function BrandSystemPreview({ proposal }) {
 
           <div className="grid gap-0 md:grid-cols-[1fr_0.9fr]">
             <div className="p-5">
-              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#1d4ed8]">
                 Palette
               </p>
               <div className="mt-4 grid grid-cols-4 gap-2">
                 {[colors.dark, colors.accent, colors.secondary, colors.surface].map((color) => (
-                  <div key={color} className="rounded-md border border-[#ded8cc] bg-white p-2">
+                  <div key={color} className="rounded-md border border-[#d8e1ea] bg-white p-2">
                     <div className="h-16 rounded" style={{ backgroundColor: color }} />
                     <p className="mt-2 text-[10px] font-black uppercase text-[#6b7280]">
                       {color}
@@ -2279,7 +2277,7 @@ function BrandSystemPreview({ proposal }) {
                 {sampleWords.map((word) => (
                   <span
                     key={word}
-                    className="rounded-full border border-[#ded8cc] bg-[#f7f4ee] px-3 py-1 text-xs font-black text-[#374151]"
+                    className="rounded-full border border-[#d8e1ea] bg-[#f6f8fb] px-3 py-1 text-xs font-black text-[#374151]"
                   >
                     {word}
                   </span>
@@ -2287,18 +2285,18 @@ function BrandSystemPreview({ proposal }) {
               </div>
             </div>
 
-            <div className="border-t border-[#ded8cc] p-5 md:border-l md:border-t-0">
-              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+            <div className="border-t border-[#d8e1ea] p-5 md:border-l md:border-t-0">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#1d4ed8]">
                 Component style
               </p>
-              <div className="mt-4 rounded-md border border-[#ded8cc] bg-white p-4 shadow-[0_18px_44px_rgba(17,24,39,0.08)]">
+              <div className="mt-4 rounded-md border border-[#d8e1ea] bg-white p-4 shadow-[0_18px_44px_rgba(17,24,39,0.08)]">
                 <p className="text-sm font-black text-[#111827]">Primary action</p>
                 <p className="mt-2 text-xs leading-5 text-[#6b7280]">
                   CTA dibuat tegas, kontras, dan konsisten dengan visual direction.
                 </p>
                 <button
                   type="button"
-                  className="mt-4 h-10 rounded-md px-4 text-sm font-black text-[#080b12]"
+                  className="mt-4 h-10 rounded-md px-4 text-sm font-black text-white"
                   style={{ backgroundColor: colors.accent }}
                 >
                   {proposal.goal.label}
@@ -2316,11 +2314,11 @@ function LuxuryDeliverablesGallery({ proposal }) {
   const colors = proposal.theme.colors;
 
   return (
-    <section className="noise-wash border-y border-[#ded8cc] bg-[#080b12] text-white">
+    <section className="noise-wash border-y border-[#d8e1ea] bg-[#080b12] text-white">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#2563eb]">
               Luxury deliverables
             </p>
             <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -2379,7 +2377,7 @@ function ArchitectureMap({ proposal, onOpenProposal }) {
   const colors = proposal.theme.colors;
 
   return (
-    <section className="border-y border-[#ded8cc] bg-[#f7f4ee]">
+    <section className="border-y border-[#d8e1ea] bg-[#f6f8fb]">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
         <div>
           <p className="section-kicker">System architecture</p>
@@ -2393,11 +2391,11 @@ function ArchitectureMap({ proposal, onOpenProposal }) {
           </p>
 
           <div className="mt-6 rounded-md bg-[#111827] p-5 text-white">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]">
               Active module
             </p>
             <h3 className="mt-2 text-2xl font-black">{activeNode.title}</h3>
-            <p className="mt-1 text-sm font-bold text-[#f5d89b]">{activeNode.subtitle}</p>
+            <p className="mt-1 text-sm font-bold text-[#dbeafe]">{activeNode.subtitle}</p>
             <p className="mt-4 text-sm leading-7 text-slate-300">{activeNode.description}</p>
             <div className="mt-5 rounded-md border border-white/10 bg-white/[0.06] p-4">
               <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500">
@@ -2408,7 +2406,7 @@ function ArchitectureMap({ proposal, onOpenProposal }) {
             <button
               type="button"
               onClick={onOpenProposal}
-              className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md px-4 text-sm font-black text-[#080b12] transition hover:-translate-y-0.5"
+              className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md px-4 text-sm font-black text-white transition hover:-translate-y-0.5"
               style={{ backgroundColor: colors.accent }}
             >
               Generate system proposal
@@ -2448,13 +2446,13 @@ function ArchitectureMap({ proposal, onOpenProposal }) {
                       onClick={() => setActiveNodeId(node.id)}
                       className={`group relative z-10 flex min-h-[190px] w-full flex-col rounded-md border p-4 text-left transition duration-300 hover:-translate-y-2 ${
                         active
-                          ? "border-[#c7a66b] bg-white text-[#111827] shadow-[0_20px_50px_rgba(199,166,107,0.18)]"
-                          : "border-white/10 bg-white/[0.06] text-white hover:border-[#c7a66b]"
+                          ? "border-[#2563eb] bg-white text-[#111827] shadow-[0_20px_50px_rgba(37,99,235,0.18)]"
+                          : "border-white/10 bg-white/[0.06] text-white hover:border-[#2563eb]"
                       }`}
                     >
                       <span
                         className={`grid h-9 w-9 place-items-center rounded-full text-xs font-black ${
-                          active ? "text-[#080b12]" : "text-white"
+                          active ? "text-white" : "text-white"
                         }`}
                         style={{ backgroundColor: active ? colors.accent : "rgba(255,255,255,0.12)" }}
                       >
@@ -2469,7 +2467,7 @@ function ArchitectureMap({ proposal, onOpenProposal }) {
                       </span>
                     </button>
                     {index < architectureNodes.length - 1 && (
-                      <div className="absolute left-full top-1/2 z-0 hidden h-px w-4 bg-[#c7a66b]/60 xl:block" />
+                      <div className="absolute left-full top-1/2 z-0 hidden h-px w-4 bg-[#2563eb]/60 xl:block" />
                     )}
                   </div>
                 );
@@ -2498,7 +2496,7 @@ function ArchitectureMap({ proposal, onOpenProposal }) {
 function ChoicePills({ title, items, activeId, onSelect }) {
   return (
     <div>
-      <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+      <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]">
         {title}
       </p>
       <div className="flex flex-wrap gap-2">
@@ -2509,8 +2507,8 @@ function ChoicePills({ title, items, activeId, onSelect }) {
             onClick={() => onSelect(item.id)}
             className={`rounded-full border px-3 py-2 text-xs font-black transition duration-300 hover:-translate-y-0.5 ${
               activeId === item.id
-                ? "border-[#c7a66b] bg-[#c7a66b] text-[#080b12]"
-                : "border-white/10 bg-white/[0.04] text-white hover:border-[#c7a66b]"
+                ? "border-[#2563eb] bg-[#2563eb] text-white"
+                : "border-white/10 bg-white/[0.04] text-white hover:border-[#2563eb]"
             }`}
           >
             {item.label}
@@ -2545,10 +2543,10 @@ function MaturityAudit({ onOpenProposal }) {
   }
 
   return (
-    <section className="border-y border-[#ded8cc] bg-white">
+    <section className="border-y border-[#d8e1ea] bg-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:px-8">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#1d4ed8]">
             Digital maturity audit
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -2561,7 +2559,7 @@ function MaturityAudit({ onOpenProposal }) {
           </p>
 
           <div className="mt-6 rounded-md bg-[#111827] p-5 text-white">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]">
               Maturity score
             </p>
             <div className="mt-3 flex items-end gap-3">
@@ -2570,17 +2568,17 @@ function MaturityAudit({ onOpenProposal }) {
                 / 100
               </p>
             </div>
-            <p className="mt-2 text-xl font-black text-[#f5d89b]">{status}</p>
+            <p className="mt-2 text-xl font-black text-[#dbeafe]">{status}</p>
             <div className="mt-5 h-3 overflow-hidden rounded-full bg-white/10">
               <div
-                className="h-full rounded-full bg-[#c7a66b] transition-[width] duration-500"
+                className="h-full rounded-full bg-[#2563eb] transition-[width] duration-500"
                 style={{ width: `${score}%` }}
               />
             </div>
             <button
               type="button"
               onClick={onOpenProposal}
-              className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-4 text-sm font-black text-[#080b12] transition hover:bg-[#f5d89b]"
+              className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#2563eb] px-4 text-sm font-black text-white transition hover:bg-[#1d4ed8]"
             >
               Generate improvement proposal
               <ArrowRight className="h-4 w-4" />
@@ -2600,15 +2598,15 @@ function MaturityAudit({ onOpenProposal }) {
                   onClick={() => toggleItem(item.id)}
                   className={`flex items-start gap-3 rounded-md border p-4 text-left transition duration-300 hover:-translate-y-0.5 ${
                     checked
-                      ? "border-[#0f766e] bg-[#ecfdf5]"
-                      : "border-[#ded8cc] bg-[#f7f4ee] hover:border-[#111827] hover:bg-white"
+                      ? "border-[#2563eb] bg-[#eff6ff]"
+                      : "border-[#d8e1ea] bg-[#f6f8fb] hover:border-[#111827] hover:bg-white"
                   }`}
                 >
                   <span
                     className={`mt-0.5 grid h-5 w-5 flex-none place-items-center rounded border ${
                       checked
-                        ? "border-[#0f766e] bg-[#0f766e] text-white"
-                        : "border-[#cfc5b8] bg-white"
+                        ? "border-[#2563eb] bg-[#2563eb] text-white"
+                        : "border-[#cbd8e6] bg-white"
                     }`}
                   >
                     {checked && <Check className="h-3.5 w-3.5" />}
@@ -2628,15 +2626,15 @@ function MaturityAudit({ onOpenProposal }) {
             })}
           </div>
 
-          <div className="rounded-md border border-[#ded8cc] bg-[#111827] p-5 text-white">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+          <div className="rounded-md border border-[#d8e1ea] bg-[#111827] p-5 text-white">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]">
               Priority recommendations
             </p>
             <div className="mt-4 space-y-3">
               {topRecommendations.length ? (
                 topRecommendations.map((item) => (
                   <div key={item.id} className="flex gap-3 text-sm font-bold leading-6">
-                    <Target className="mt-0.5 h-4 w-4 flex-none text-[#c7a66b]" />
+                    <Target className="mt-0.5 h-4 w-4 flex-none text-[#2563eb]" />
                     {item.recommendation}
                   </div>
                 ))
@@ -2670,10 +2668,10 @@ function OutcomeCalculator({ proposal }) {
   ];
 
   return (
-    <section className="border-y border-[#ded8cc] bg-white">
+    <section className="border-y border-[#d8e1ea] bg-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
         <div>
-          <div className="mb-4 inline-grid h-12 w-12 place-items-center rounded-md bg-[#111827] text-[#c7a66b]">
+          <div className="mb-4 inline-grid h-12 w-12 place-items-center rounded-md bg-[#111827] text-[#2563eb]">
             <Calculator className="h-6 w-6" aria-hidden="true" />
           </div>
           <p className="section-kicker">
@@ -2691,7 +2689,7 @@ function OutcomeCalculator({ proposal }) {
         <div className="premium-card rounded-md p-5">
           <div className="mb-5 flex items-center justify-between gap-4">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#1d4ed8]">
                 Active scenario
               </p>
               <h3 className="mt-1 text-xl font-black text-[#111827]">
@@ -2711,11 +2709,11 @@ function OutcomeCalculator({ proposal }) {
                     <p className="text-sm font-black text-[#111827]">{label}</p>
                     <p className="text-xs text-[#6b7280]">{description}</p>
                   </div>
-                  <p className="text-lg font-black text-[#0f766e]">{score}%</p>
+                  <p className="text-lg font-black text-[#2563eb]">{score}%</p>
                 </div>
                 <div className="h-3 overflow-hidden rounded-full bg-white">
                   <div
-                    className="h-full rounded-full bg-[#0f766e] transition-[width] duration-700"
+                    className="h-full rounded-full bg-[#2563eb] transition-[width] duration-700"
                     style={{ width: `${score}%` }}
                   />
                 </div>
@@ -2740,10 +2738,10 @@ function ROISection({ proposal }) {
     : 0;
 
   return (
-    <section className="border-y border-[#ded8cc] bg-[#080b12] text-white">
+    <section className="border-y border-[#d8e1ea] bg-[#080b12] text-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#2563eb]">
             ROI estimator
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -2795,7 +2793,7 @@ function ROISection({ proposal }) {
                 <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500">
                   {label}
                 </p>
-                <p className="mt-2 text-2xl font-black text-[#f5d89b]">{value}</p>
+                <p className="mt-2 text-2xl font-black text-[#dbeafe]">{value}</p>
               </div>
             ))}
           </div>
@@ -2835,7 +2833,7 @@ function AffordablePremiumSection() {
   ];
 
   return (
-    <section className="border-y border-[#ded8cc] bg-[#f7f4ee]">
+    <section className="border-y border-[#d8e1ea] bg-[#f6f8fb]">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
           <div>
@@ -2854,9 +2852,9 @@ function AffordablePremiumSection() {
             {principles.map((item) => (
               <article
                 key={item.title}
-                className="group rounded-md border border-[#ded8cc] bg-white p-5 transition duration-300 hover:-translate-y-2 hover:border-[#111827] hover:shadow-[0_22px_54px_rgba(17,24,39,0.12)]"
+                className="group rounded-md border border-[#d8e1ea] bg-white p-5 transition duration-300 hover:-translate-y-2 hover:border-[#111827] hover:shadow-[0_22px_54px_rgba(17,24,39,0.12)]"
               >
-                <span className="inline-flex rounded-full bg-[#111827] px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#f5d89b]">
+                <span className="inline-flex rounded-full bg-[#111827] px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#dbeafe]">
                   {item.metric}
                 </span>
                 <h3 className="mt-5 text-xl font-black text-[#111827]">{item.title}</h3>
@@ -2868,7 +2866,7 @@ function AffordablePremiumSection() {
 
         <div className="mt-6 grid gap-4 rounded-md border border-[#111827] bg-[#111827] p-5 text-white lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]">
               Cara menjelaskan ke calon klien
             </p>
             <p className="mt-3 text-2xl font-black">
@@ -2878,7 +2876,7 @@ function AffordablePremiumSection() {
           <div className="grid gap-3 sm:grid-cols-3">
             {["Lebih cepat launch", "Budget lebih ringan", "Tetap bisa scale"].map((item) => (
               <div key={item} className="rounded-md border border-white/10 bg-white/[0.06] p-4 text-sm font-black">
-                <CheckCircle2 className="mb-3 h-5 w-5 text-[#c7a66b]" aria-hidden="true" />
+                <CheckCircle2 className="mb-3 h-5 w-5 text-[#2563eb]" aria-hidden="true" />
                 {item}
               </div>
             ))}
@@ -2894,7 +2892,7 @@ function LaunchReadiness({ proposal }) {
   const automationScore =
     proposal.service.id === "chatbot" || proposal.service.id === "growth-stack" ? 90 : 68;
   const visualScore =
-    proposal.theme.id === "luxury" || proposal.theme.id === "tech" ? 92 : 84;
+    proposal.theme.id === "signature" || proposal.theme.id === "tech" ? 92 : 84;
   const total = Math.round((checklistScore + automationScore + visualScore) / 3);
 
   const scores = [
@@ -2904,10 +2902,10 @@ function LaunchReadiness({ proposal }) {
   ];
 
   return (
-    <section className="bg-[#f7f4ee]">
+    <section className="bg-[#f6f8fb]">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#1d4ed8]">
             Launch readiness
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -2919,12 +2917,12 @@ function LaunchReadiness({ proposal }) {
           </p>
         </div>
 
-        <div className="rounded-md border border-[#ded8cc] bg-white p-5">
+        <div className="rounded-md border border-[#d8e1ea] bg-white p-5">
           <div className="grid gap-5 sm:grid-cols-[180px_1fr] sm:items-center">
-            <div className="grid aspect-square place-items-center rounded-full border-[14px] border-[#c7a66b] bg-[#111827] text-center text-white">
+            <div className="grid aspect-square place-items-center rounded-full border-[14px] border-[#2563eb] bg-[#111827] text-center text-white">
               <div>
                 <p className="text-5xl font-black">{total}</p>
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#f5d89b]">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#dbeafe]">
                   Ready
                 </p>
               </div>
@@ -2934,7 +2932,7 @@ function LaunchReadiness({ proposal }) {
                 <div key={label}>
                   <div className="mb-2 flex justify-between text-sm font-black">
                     <span>{label}</span>
-                    <span className="text-[#0f766e]">{value}%</span>
+                    <span className="text-[#2563eb]">{value}%</span>
                   </div>
                   <div className="h-3 overflow-hidden rounded-full bg-[#f1eadf]">
                     <div className="h-full rounded-full bg-[#111827]" style={{ width: `${value}%` }} />
@@ -2953,10 +2951,10 @@ function IndustryPlaybook({ proposal }) {
   const playbook = industryPlaybooks[proposal.industry.id] || industryPlaybooks.professional;
 
   return (
-    <section className="border-y border-[#ded8cc] bg-white">
+    <section className="border-y border-[#d8e1ea] bg-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#1d4ed8]">
             Industry playbook
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -2969,9 +2967,9 @@ function IndustryPlaybook({ proposal }) {
           {playbook.moves.map((move, index) => (
             <article
               key={move}
-              className="flex gap-4 rounded-md border border-[#ded8cc] bg-[#f7f4ee] p-4 transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-[0_16px_34px_rgba(17,24,39,0.10)]"
+              className="flex gap-4 rounded-md border border-[#d8e1ea] bg-[#f6f8fb] p-4 transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-[0_16px_34px_rgba(17,24,39,0.10)]"
             >
-              <span className="grid h-10 w-10 flex-none place-items-center rounded-md bg-[#111827] text-sm font-black text-[#c7a66b]">
+              <span className="grid h-10 w-10 flex-none place-items-center rounded-md bg-[#111827] text-sm font-black text-[#2563eb]">
                 {index + 1}
               </span>
               <p className="text-sm font-bold leading-6 text-[#374151]">{move}</p>
@@ -2997,7 +2995,7 @@ function NumberControl({
     <label className="block">
       <span className="text-sm font-black text-white">{label}</span>
       <span className="mt-2 block rounded-md border border-white/10 bg-[#080b12] p-3">
-        <span className="block text-lg font-black text-[#c7a66b]">
+        <span className="block text-lg font-black text-[#2563eb]">
           {formatter ? formatter(value) : `${value}${suffix}`}
         </span>
         <input
@@ -3007,7 +3005,7 @@ function NumberControl({
           step={step}
           value={value}
           onChange={(event) => onChange(Number(event.target.value))}
-          className="mt-3 w-full accent-[#c7a66b]"
+          className="mt-3 w-full accent-[#2563eb]"
         />
       </span>
     </label>
@@ -3043,7 +3041,7 @@ function PackageComparison({ onOpenProposal, onOpenIntake }) {
             }`}
           >
             {tier.featured && (
-              <span className="absolute right-4 top-4 rounded-full bg-[#c7a66b] px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#080b12]">
+              <span className="absolute right-4 top-4 rounded-full bg-[#2563eb] px-3 py-1 text-xs font-black text-white">
                 Recommended
               </span>
             )}
@@ -3051,13 +3049,13 @@ function PackageComparison({ onOpenProposal, onOpenIntake }) {
             <p className={`mt-2 text-sm leading-6 ${tier.featured ? "text-slate-300" : "text-[#4b5563]"}`}>
               {tier.bestFor}
             </p>
-            <p className={`mt-6 text-3xl font-black ${tier.featured ? "text-[#f5d89b]" : "text-[#8a6d30]"}`}>
+            <p className={`mt-6 text-3xl font-black ${tier.featured ? "text-[#dbeafe]" : "text-[#1d4ed8]"}`}>
               {tier.priceLabel}
             </p>
             <div className="mt-6 space-y-3">
               {tier.includes.map((item) => (
                 <div key={item} className="flex gap-3 text-sm font-bold">
-                  <CheckCircle2 className={`mt-0.5 h-4 w-4 flex-none ${tier.featured ? "text-[#c7a66b]" : "text-[#0f766e]"}`} />
+                  <CheckCircle2 className={`mt-0.5 h-4 w-4 flex-none ${tier.featured ? "text-[#2563eb]" : "text-[#2563eb]"}`} />
                   {item}
                 </div>
               ))}
@@ -3068,7 +3066,7 @@ function PackageComparison({ onOpenProposal, onOpenIntake }) {
                 onClick={tier.featured ? onOpenIntake : onOpenProposal}
                 className={`inline-flex h-11 items-center justify-center gap-2 rounded-md px-4 text-sm font-black transition hover:-translate-y-0.5 ${
                   tier.featured
-                    ? "bg-[#c7a66b] text-[#080b12] hover:bg-[#f5d89b]"
+                    ? "bg-[#2563eb] text-white hover:bg-[#1d4ed8]"
                     : "bg-[#111827] text-white hover:bg-[#1f2937]"
                 }`}
               >
@@ -3089,11 +3087,11 @@ function ScopeMatrix({ onOpenIntake }) {
     packageTiers.find((tier) => tier.id === activeTier) || packageTiers[1];
 
   return (
-    <section className="border-y border-[#ded8cc] bg-white">
+    <section className="border-y border-[#d8e1ea] bg-white">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-8 grid gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#1d4ed8]">
               Scope matrix
             </p>
             <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -3109,7 +3107,7 @@ function ScopeMatrix({ onOpenIntake }) {
                 className={`rounded-md border px-4 py-3 text-left text-sm font-black transition duration-300 hover:-translate-y-0.5 ${
                   activeTier === tier.id
                     ? "border-[#111827] bg-[#111827] text-white shadow-[0_14px_28px_rgba(17,24,39,0.16)]"
-                    : "border-[#ded8cc] bg-[#f7f4ee] text-[#111827] hover:border-[#111827] hover:bg-white"
+                    : "border-[#d8e1ea] bg-[#f6f8fb] text-[#111827] hover:border-[#111827] hover:bg-white"
                 }`}
               >
                 {tier.name}
@@ -3119,8 +3117,8 @@ function ScopeMatrix({ onOpenIntake }) {
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[0.7fr_1.3fr]">
-          <aside className="rounded-md border border-[#ded8cc] bg-[#f7f4ee] p-5">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#8a6d30]">
+          <aside className="rounded-md border border-[#d8e1ea] bg-[#f6f8fb] p-5">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#1d4ed8]">
               Active depth
             </p>
             <h3 className="mt-2 text-3xl font-black text-[#111827]">
@@ -3129,7 +3127,7 @@ function ScopeMatrix({ onOpenIntake }) {
             <p className="mt-3 text-sm leading-7 text-[#4b5563]">
               {activeTierData.bestFor}
             </p>
-            <p className="mt-6 text-2xl font-black text-[#8a6d30]">
+            <p className="mt-6 text-2xl font-black text-[#1d4ed8]">
               {activeTierData.priceLabel}
             </p>
             <button
@@ -3142,15 +3140,15 @@ function ScopeMatrix({ onOpenIntake }) {
             </button>
           </aside>
 
-          <div className="overflow-hidden rounded-md border border-[#ded8cc]">
+          <div className="overflow-hidden rounded-md border border-[#d8e1ea]">
             {scopeMatrix.map((row, index) => (
               <div
                 key={row.area}
                 className={`grid gap-0 sm:grid-cols-[180px_1fr] ${
-                  index ? "border-t border-[#ded8cc]" : ""
+                  index ? "border-t border-[#d8e1ea]" : ""
                 }`}
               >
-                <div className="bg-[#111827] p-4 text-sm font-black text-[#f5d89b]">
+                <div className="bg-[#111827] p-4 text-sm font-black text-[#dbeafe]">
                   {row.area}
                 </div>
                 <div className="grid gap-3 bg-white p-4 sm:grid-cols-3">
@@ -3159,8 +3157,8 @@ function ScopeMatrix({ onOpenIntake }) {
                       key={tierId}
                       className={`rounded-md border p-3 text-sm font-bold leading-6 transition duration-300 ${
                         activeTier === tierId
-                          ? "border-[#0f766e] bg-[#ecfdf5] text-[#111827]"
-                          : "border-[#eee5d8] bg-[#f7f4ee] text-[#6b7280]"
+                          ? "border-[#2563eb] bg-[#eff6ff] text-[#111827]"
+                          : "border-[#e6edf5] bg-[#f6f8fb] text-[#6b7280]"
                       }`}
                     >
                       <p className="mb-1 text-xs font-black uppercase tracking-[0.12em]">
@@ -3184,7 +3182,7 @@ function CredibilitySection() {
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="mb-8 grid gap-4 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#1d4ed8]">
             Credibility layer
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -3193,7 +3191,7 @@ function CredibilitySection() {
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
           {credibilitySignals.map((signal) => (
-            <article key={signal.title} className="rounded-md border border-[#ded8cc] bg-white p-4">
+            <article key={signal.title} className="rounded-md border border-[#d8e1ea] bg-white p-4">
               <h3 className="font-black text-[#111827]">{signal.title}</h3>
               <p className="mt-2 text-sm leading-6 text-[#4b5563]">
                 {signal.description}
@@ -3207,15 +3205,15 @@ function CredibilitySection() {
         {testimonials.map((testimonial) => (
           <article
             key={testimonial.name}
-            className="rounded-md border border-[#ded8cc] bg-[#111827] p-5 text-white"
+            className="rounded-md border border-[#d8e1ea] bg-[#111827] p-5 text-white"
           >
-            <Quote className="h-6 w-6 text-[#c7a66b]" aria-hidden="true" />
+            <Quote className="h-6 w-6 text-[#2563eb]" aria-hidden="true" />
             <p className="mt-5 text-sm font-bold leading-7 text-slate-200">
               "{testimonial.quote}"
             </p>
             <div className="mt-6 border-t border-white/10 pt-4">
               <p className="font-black">{testimonial.name}</p>
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#c7a66b]">
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#2563eb]">
                 {testimonial.role}
               </p>
             </div>
@@ -3228,11 +3226,11 @@ function CredibilitySection() {
 
 function AssetChecklist() {
   return (
-    <section className="border-y border-[#ded8cc] bg-[#f7f4ee]">
+    <section className="border-y border-[#d8e1ea] bg-[#f6f8fb]">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#1d4ed8]">
               Asset checklist
             </p>
             <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -3247,8 +3245,8 @@ function AssetChecklist() {
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {assetChecklist.map((item) => (
-            <div key={item} className="flex gap-3 rounded-md border border-[#ded8cc] bg-white p-4">
-              <CheckCircle2 className="mt-0.5 h-5 w-5 flex-none text-[#0f766e]" />
+            <div key={item} className="flex gap-3 rounded-md border border-[#d8e1ea] bg-white p-4">
+              <CheckCircle2 className="mt-0.5 h-5 w-5 flex-none text-[#2563eb]" />
               <p className="text-sm font-bold leading-6 text-[#374151]">{item}</p>
             </div>
           ))}
@@ -3279,10 +3277,10 @@ function BeforeAfterSection({ onOpenProposal }) {
   ];
 
   return (
-    <section className="border-y border-[#ded8cc] bg-[#080b12] text-white">
+    <section className="border-y border-[#d8e1ea] bg-[#080b12] text-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#2563eb]">
             Sebelum / Sesudah
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -3295,7 +3293,7 @@ function BeforeAfterSection({ onOpenProposal }) {
           <button
             type="button"
             onClick={onOpenProposal}
-            className="mt-6 inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-5 text-sm font-black text-[#080b12] transition duration-300 hover:-translate-y-0.5 hover:bg-[#f5d89b]"
+            className="mt-6 inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#2563eb] px-5 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#1d4ed8]"
           >
             Cek paket yang cocok
             <ArrowRight className="h-4 w-4" />
@@ -3316,10 +3314,10 @@ function BeforeAfterSection({ onOpenProposal }) {
                   {before}
                 </p>
               </div>
-              <div className="hidden items-center justify-center text-[#c7a66b] sm:flex">
+              <div className="hidden items-center justify-center text-[#2563eb] sm:flex">
                 <ArrowRight className="h-5 w-5" />
               </div>
-              <div className="rounded-md bg-[#c7a66b] p-4 text-[#080b12]">
+              <div className="rounded-md bg-[#2563eb] p-4 text-white">
                 <p className="text-xs font-black uppercase tracking-[0.14em]">
                   Sesudah
                 </p>
@@ -3359,11 +3357,11 @@ function ScenarioSection() {
   ];
 
   return (
-    <section id="proof" className="border-y border-[#ded8cc] bg-white">
+    <section id="proof" className="border-y border-[#d8e1ea] bg-white">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-8 grid gap-4 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#1d4ed8]">
               Skenario hasil
             </p>
             <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -3380,15 +3378,15 @@ function ScenarioSection() {
           {scenarios.map((scenario, index) => (
             <article
               key={scenario.title}
-              className={`group rounded-md border border-[#ded8cc] bg-[#fbfaf7] p-6 transition duration-300 hover:-translate-y-2 hover:bg-white hover:shadow-[0_22px_50px_rgba(17,24,39,0.12)] ${
+              className={`group rounded-md border border-[#d8e1ea] bg-[#f8fafc] p-6 transition duration-300 hover:-translate-y-2 hover:bg-white hover:shadow-[0_22px_50px_rgba(17,24,39,0.12)] ${
                 index === 1 ? "lg:mt-8" : ""
               }`}
             >
               <div className="flex items-start justify-between gap-4">
-                <Quote className="h-7 w-7 text-[#c7a66b]" aria-hidden="true" />
+                <Quote className="h-7 w-7 text-[#2563eb]" aria-hidden="true" />
                 <div className="text-right">
                   <p className="text-3xl font-black text-[#111827]">{scenario.metric}</p>
-                  <p className="text-xs font-black uppercase tracking-[0.14em] text-[#8a6d30]">
+                  <p className="text-xs font-black uppercase tracking-[0.14em] text-[#1d4ed8]">
                     {scenario.label}
                   </p>
                 </div>
@@ -3433,24 +3431,24 @@ function ExecutionRoadmap() {
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#1d4ed8]">
             Execution roadmap
           </p>
           <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
             Alur eksekusi terlihat jelas sebelum deal.
           </h2>
         </div>
-        <TimerReset className="hidden h-11 w-11 text-[#8a6d30] lg:block" />
+        <TimerReset className="hidden h-11 w-11 text-[#1d4ed8] lg:block" />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-4">
         {roadmap.map((item, index) => (
           <article
             key={item.title}
-            className="group relative rounded-md border border-[#ded8cc] bg-white p-5 transition duration-300 hover:-translate-y-2 hover:shadow-[0_22px_50px_rgba(17,24,39,0.12)]"
+            className="group relative rounded-md border border-[#d8e1ea] bg-white p-5 transition duration-300 hover:-translate-y-2 hover:shadow-[0_22px_50px_rgba(17,24,39,0.12)]"
           >
             <div className="mb-6 flex items-center justify-between">
-              <span className="rounded-full bg-[#f7f4ee] px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-[#8a6d30]">
+              <span className="rounded-full bg-[#f6f8fb] px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-[#1d4ed8]">
                 {item.week}
               </span>
               <span className="text-4xl font-black text-[#e5ddcf]">
@@ -3475,27 +3473,27 @@ function ProcessSection() {
   ];
 
   return (
-    <section id="process" className="border-y border-[#ded8cc] bg-[#111827] text-white">
+    <section id="process" className="border-y border-[#d8e1ea] bg-[#111827] text-white">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#2563eb]">
               Proses kerja
             </p>
             <h2 className="mt-2 max-w-3xl text-3xl font-black tracking-[-0.02em] sm:text-5xl">
               Terstruktur dari ide sampai siap dipakai.
             </h2>
           </div>
-          <ClipboardCheck className="hidden h-12 w-12 text-[#c7a66b] lg:block" aria-hidden="true" />
+          <ClipboardCheck className="hidden h-12 w-12 text-[#2563eb] lg:block" aria-hidden="true" />
         </div>
 
         <div className="grid gap-4 lg:grid-cols-4">
           {steps.map(([title, description], index) => (
-            <article key={title} className="group border-l border-white/15 pl-5 transition duration-300 hover:border-[#c7a66b]">
-              <span className="text-sm font-black text-[#c7a66b]">
+            <article key={title} className="group border-l border-white/15 pl-5 transition duration-300 hover:border-[#2563eb]">
+              <span className="text-sm font-black text-[#2563eb]">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-4 text-xl font-black transition duration-300 group-hover:text-[#c7a66b]">{title}</h3>
+              <h3 className="mt-4 text-xl font-black transition duration-300 group-hover:text-[#2563eb]">{title}</h3>
               <p className="mt-3 text-sm leading-6 text-slate-300">{description}</p>
             </article>
           ))}
@@ -3514,7 +3512,7 @@ function StackComposer({ proposal, onOpenProposal }) {
       icon: Globe2,
       image: visualAssets.website,
       result: "Landing page premium, CTA jelas, dan katalog layanan siap dibaca.",
-      accent: "from-[#0f766e] to-[#22c55e]",
+      accent: "from-[#2563eb] to-[#22c55e]",
     },
     {
       id: "chatbot",
@@ -3523,7 +3521,7 @@ function StackComposer({ proposal, onOpenProposal }) {
       icon: MessageCircle,
       image: visualAssets.assistant,
       result: "Jawaban otomatis untuk FAQ, paket, alur konsultasi, dan follow up calon klien.",
-      accent: "from-[#c7a66b] to-[#f5d89b]",
+      accent: "from-[#2563eb] to-[#dbeafe]",
     },
     {
       id: "assistant",
@@ -3568,7 +3566,7 @@ function StackComposer({ proposal, onOpenProposal }) {
   }
 
   return (
-    <section className="overflow-hidden border-b border-[#ded8cc] bg-[#f7f4ee]">
+    <section className="overflow-hidden border-b border-[#d8e1ea] bg-[#f6f8fb]">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-8 grid gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <div>
@@ -3598,7 +3596,7 @@ function StackComposer({ proposal, onOpenProposal }) {
                   className={`group grid gap-4 rounded-md border p-4 text-left transition duration-300 sm:grid-cols-[auto_1fr_auto] sm:items-center ${
                     active
                       ? "border-[#111827] bg-white shadow-[0_18px_44px_rgba(17,24,39,0.10)]"
-                      : "border-[#ded8cc] bg-white/60 hover:-translate-y-1 hover:bg-white"
+                      : "border-[#d8e1ea] bg-white/60 hover:-translate-y-1 hover:bg-white"
                   }`}
                 >
                   <span className={`grid h-12 w-12 place-items-center rounded-md bg-gradient-to-br ${layer.accent} text-white shadow-[0_16px_34px_rgba(17,24,39,0.18)]`}>
@@ -3609,8 +3607,8 @@ function StackComposer({ proposal, onOpenProposal }) {
                     <span className="mt-1 block text-sm leading-6 text-[#4b5563]">{layer.result}</span>
                   </span>
                   <span className="flex items-center justify-between gap-3 sm:block sm:text-right">
-                    <span className="block text-sm font-black text-[#8a6d30]">{formatRupiah(layer.price)}</span>
-                    <span className={`mt-2 inline-flex h-6 w-11 items-center rounded-full p-1 transition ${active ? "bg-[#0f766e]" : "bg-[#d8d1c6]"}`}>
+                    <span className="block text-sm font-black text-[#1d4ed8]">{formatRupiah(layer.price)}</span>
+                    <span className={`mt-2 inline-flex h-6 w-11 items-center rounded-full p-1 transition ${active ? "bg-[#2563eb]" : "bg-[#cbd5e1]"}`}>
                       <span className={`h-4 w-4 rounded-full bg-white transition ${active ? "translate-x-5" : ""}`} />
                     </span>
                   </span>
@@ -3619,7 +3617,7 @@ function StackComposer({ proposal, onOpenProposal }) {
             })}
           </div>
 
-          <div className="premium-frame overflow-hidden rounded-md border border-[#c7a66b]/30 bg-[#080b12] text-white shadow-[0_32px_90px_rgba(17,24,39,0.22)]">
+          <div className="premium-frame overflow-hidden rounded-md border border-[#2563eb]/30 bg-[#080b12] text-white shadow-[0_32px_90px_rgba(17,24,39,0.22)]">
             <div className="relative min-h-[260px] overflow-hidden">
               <img
                 src={selectedLayers[0]?.image || visualAssets.workspace}
@@ -3629,7 +3627,7 @@ function StackComposer({ proposal, onOpenProposal }) {
               <div className="absolute inset-0 bg-gradient-to-br from-[#080b12] via-[#080b12]/80 to-transparent" />
               <div className="relative p-5 sm:p-7">
                 <div className="flex flex-wrap items-center gap-3">
-                  <span className="rounded-full border border-[#c7a66b]/40 bg-[#c7a66b]/15 px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-[#f5d89b]">
+                  <span className="rounded-full border border-[#2563eb]/40 bg-[#2563eb]/15 px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-[#dbeafe]">
                     Komposisi aktif
                   </span>
                   <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-bold text-slate-200">
@@ -3640,7 +3638,7 @@ function StackComposer({ proposal, onOpenProposal }) {
                   {proposal.service.name} dengan paket pendukung yang siap dijual.
                 </h3>
                 <p className="mt-3 max-w-xl text-sm leading-7 text-slate-300">
-                  Estimasi stack: <span className="font-black text-[#f5d89b]">{formatRupiah(total)}</span>.
+                  Estimasi stack: <span className="font-black text-[#dbeafe]">{formatRupiah(total)}</span>.
                   Bisa dibuat bertahap agar tetap murah, tetapi tampilan dan flow
                   tetap terasa premium.
                 </p>
@@ -3650,21 +3648,21 @@ function StackComposer({ proposal, onOpenProposal }) {
             <div className="grid gap-4 border-t border-white/10 p-5 sm:p-7 lg:grid-cols-[0.8fr_1.2fr]">
               <div>
                 <div className="flex items-end justify-between gap-3">
-                  <p className="text-sm font-black uppercase tracking-[0.14em] text-[#c7a66b]">
+                  <p className="text-sm font-black uppercase tracking-[0.14em] text-[#2563eb]">
                     Launch readiness
                   </p>
-                  <p className="text-2xl font-black text-[#f5d89b]">{readiness}%</p>
+                  <p className="text-2xl font-black text-[#dbeafe]">{readiness}%</p>
                 </div>
                 <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-[#c7a66b] via-[#f5d89b] to-[#0f766e] transition-all duration-700"
+                    className="h-full rounded-full bg-gradient-to-r from-[#2563eb] via-[#dbeafe] to-[#2563eb] transition-all duration-700"
                     style={{ width: `${readiness}%` }}
                   />
                 </div>
                 <button
                   type="button"
                   onClick={onOpenProposal}
-                  className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-5 text-sm font-black text-[#080b12] transition duration-300 hover:-translate-y-0.5 hover:bg-[#f5d89b]"
+                  className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-[#2563eb] px-5 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#1d4ed8]"
                 >
                   Jadikan proposal
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -3710,10 +3708,10 @@ function LaunchKitChecklist({ proposal }) {
 
   return (
     <section className="relative overflow-hidden bg-[#080b12] text-white">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#c7a66b] to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#2563eb] to-transparent" />
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#2563eb]">
             Launch kit
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -3724,8 +3722,8 @@ function LaunchKitChecklist({ proposal }) {
             sampai bawah: narasi, visual, CTA, paket, FAQ, dan handover tetap
             nyambung.
           </p>
-          <div className="mt-6 rounded-md border border-[#c7a66b]/30 bg-[#c7a66b]/10 p-4">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#f5d89b]">
+          <div className="mt-6 rounded-md border border-[#2563eb]/30 bg-[#2563eb]/10 p-4">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#dbeafe]">
               Fokus paket aktif
             </p>
             <p className="mt-2 text-lg font-black">{proposal.service.name}</p>
@@ -3737,13 +3735,13 @@ function LaunchKitChecklist({ proposal }) {
           {kit.map(([title, description], index) => (
             <article
               key={title}
-              className="group rounded-md border border-white/10 bg-white/[0.055] p-5 transition duration-300 hover:-translate-y-2 hover:border-[#c7a66b]/50 hover:bg-white/[0.08]"
+              className="group rounded-md border border-white/10 bg-white/[0.055] p-5 transition duration-300 hover:-translate-y-2 hover:border-[#2563eb]/50 hover:bg-white/[0.08]"
             >
               <div className="flex items-start justify-between gap-4">
                 <span className="grid h-10 w-10 place-items-center rounded-md bg-white text-sm font-black text-[#111827] shadow-[0_14px_34px_rgba(0,0,0,0.22)]">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <CheckCircle2 className="h-5 w-5 text-[#c7a66b]" aria-hidden="true" />
+                <CheckCircle2 className="h-5 w-5 text-[#2563eb]" aria-hidden="true" />
               </div>
               <h3 className="mt-5 text-lg font-black text-white">{title}</h3>
               <p className="mt-2 text-sm leading-6 text-slate-300">{description}</p>
@@ -3779,7 +3777,7 @@ function MaintenancePlans() {
   ];
 
   return (
-    <section className="border-y border-[#ded8cc] bg-[#f7f4ee]">
+    <section className="border-y border-[#d8e1ea] bg-[#f6f8fb]">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="mb-8 grid gap-4 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
           <div>
@@ -3806,7 +3804,7 @@ function MaintenancePlans() {
               }`}
             >
               {plan.featured && (
-                <span className="mb-5 inline-flex rounded-full bg-[#c7a66b] px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-[#080b12]">
+                <span className="mb-5 inline-flex rounded-full bg-[#2563eb] px-3 py-1 text-xs font-black text-white">
                   Paling fleksibel
                 </span>
               )}
@@ -3814,13 +3812,13 @@ function MaintenancePlans() {
               <p className={`mt-2 text-sm leading-6 ${plan.featured ? "text-slate-300" : "text-[#4b5563]"}`}>
                 {plan.description}
               </p>
-              <p className={`mt-6 text-3xl font-black ${plan.featured ? "text-[#f5d89b]" : "text-[#8a6d30]"}`}>
+              <p className={`mt-6 text-3xl font-black ${plan.featured ? "text-[#dbeafe]" : "text-[#1d4ed8]"}`}>
                 {plan.price}
               </p>
               <div className="mt-6 space-y-3">
                 {plan.includes.map((item) => (
                   <div key={item} className="flex gap-3 text-sm font-bold">
-                    <CheckCircle2 className={`mt-0.5 h-4 w-4 flex-none ${plan.featured ? "text-[#c7a66b]" : "text-[#0f766e]"}`} />
+                    <CheckCircle2 className={`mt-0.5 h-4 w-4 flex-none ${plan.featured ? "text-[#2563eb]" : "text-[#2563eb]"}`} />
                     {item}
                   </div>
                 ))}
@@ -3877,7 +3875,7 @@ function FAQSection() {
     <section id="faq" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#1d4ed8]">
             FAQ
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -3888,12 +3886,12 @@ function FAQSection() {
           {faqs.map(([question, answer]) => (
             <details
               key={question}
-              className="group rounded-md border border-[#ded8cc] bg-white p-5 transition duration-300 open:shadow-[0_18px_44px_rgba(17,24,39,0.10)]"
+              className="group rounded-md border border-[#d8e1ea] bg-white p-5 transition duration-300 open:shadow-[0_18px_44px_rgba(17,24,39,0.10)]"
             >
               <summary className="cursor-pointer list-none text-base font-black text-[#111827]">
                 <span className="inline-flex w-full items-center justify-between gap-4">
                   {question}
-                  <ChevronDown className="h-5 w-5 flex-none text-[#8a6d30] transition duration-300 group-open:rotate-180" />
+                  <ChevronDown className="h-5 w-5 flex-none text-[#1d4ed8] transition duration-300 group-open:rotate-180" />
                 </span>
               </summary>
               <p className="mt-4 text-sm leading-7 text-[#4b5563]">{answer}</p>
@@ -3932,10 +3930,10 @@ Bisa dibantu cek paket yang paling cocok?`;
   }
 
   return (
-    <section className="border-y border-[#ded8cc] bg-[#080b12] text-white">
+    <section className="border-y border-[#d8e1ea] bg-[#080b12] text-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#2563eb]">
             Minta estimasi
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -3946,7 +3944,7 @@ Bisa dibantu cek paket yang paling cocok?`;
             harus menyusun brief panjang. Pesannya otomatis rapi untuk WhatsApp.
           </p>
           <div className="mt-6 rounded-md border border-white/10 bg-white/[0.05] p-4">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]">
               Preview pesan
             </p>
             <p className="mt-3 whitespace-pre-line text-sm leading-7 text-slate-200">
@@ -3956,7 +3954,7 @@ Bisa dibantu cek paket yang paling cocok?`;
         </div>
 
         <form
-          className="premium-frame rounded-md border border-[#c7a66b]/30 bg-[#f7f4ee] p-5 text-[#111827] shadow-[0_28px_90px_rgba(0,0,0,0.24)] sm:p-6"
+          className="premium-frame rounded-md border border-[#2563eb]/30 bg-[#f6f8fb] p-5 text-[#111827] shadow-[0_28px_90px_rgba(0,0,0,0.24)] sm:p-6"
           onSubmit={(event) => event.preventDefault()}
         >
           <div className="grid gap-4 sm:grid-cols-2">
@@ -3972,7 +3970,7 @@ Bisa dibantu cek paket yang paling cocok?`;
                   value={lead[field]}
                   onChange={(event) => updateLead(field, event.target.value)}
                   placeholder={placeholder}
-                  className="mt-2 h-12 w-full rounded-md border border-[#cfc5b8] bg-white px-4 text-sm font-bold text-[#111827]"
+                  className="mt-2 h-12 w-full rounded-md border border-[#cbd8e6] bg-white px-4 text-sm font-bold text-[#111827]"
                 />
               </label>
             ))}
@@ -3982,7 +3980,7 @@ Bisa dibantu cek paket yang paling cocok?`;
             <select
               value={lead.need}
               onChange={(event) => updateLead("need", event.target.value)}
-              className="mt-2 h-12 w-full rounded-md border border-[#cfc5b8] bg-white px-4 text-sm font-bold text-[#111827]"
+              className="mt-2 h-12 w-full rounded-md border border-[#cbd8e6] bg-white px-4 text-sm font-bold text-[#111827]"
             >
               {serviceCatalog.map((service) => (
                 <option key={service.id} value={service.label}>
@@ -4000,7 +3998,7 @@ Bisa dibantu cek paket yang paling cocok?`;
               href={href}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#25D366] px-5 text-sm font-black text-[#062d17] transition hover:-translate-y-0.5 hover:brightness-105"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#22c55e] px-5 text-sm font-black text-[#062d17] transition hover:-translate-y-0.5 hover:brightness-105"
             >
               Kirim ke WhatsApp
               <MessageCircle className="h-4 w-4" />
@@ -4044,13 +4042,13 @@ Bisa bantu rekomendasikan paket yang paling pas dan tetap hemat?`;
   return (
     <section className="relative overflow-hidden bg-[#111827] text-white">
       <div className="absolute inset-0 opacity-40">
-        <div className="absolute left-[-12%] top-[-30%] h-[460px] w-[460px] rounded-full border border-[#c7a66b]/25" />
-        <div className="absolute right-[-8%] bottom-[-28%] h-[520px] w-[520px] rounded-full border border-[#0f766e]/25" />
+        <div className="absolute left-[-12%] top-[-30%] h-[460px] w-[460px] rounded-full border border-[#2563eb]/25" />
+        <div className="absolute right-[-8%] bottom-[-28%] h-[520px] w-[520px] rounded-full border border-[#2563eb]/25" />
       </div>
 
       <div className="relative mx-auto grid max-w-7xl gap-6 px-4 py-14 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#2563eb]">
             Contact concierge
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -4067,7 +4065,7 @@ Bisa bantu rekomendasikan paket yang paling pas dan tetap hemat?`;
               href={createWhatsAppLink(message)}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#25D366] px-5 text-sm font-black text-[#062d17] transition duration-300 hover:-translate-y-0.5 hover:brightness-105"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#22c55e] px-5 text-sm font-black text-[#062d17] transition duration-300 hover:-translate-y-0.5 hover:brightness-105"
             >
               Chat +62 816-388-384
               <MessageCircle className="h-4 w-4" aria-hidden="true" />
@@ -4075,7 +4073,7 @@ Bisa bantu rekomendasikan paket yang paling pas dan tetap hemat?`;
             <button
               type="button"
               onClick={onOpenProposal}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/15 px-5 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:border-[#c7a66b]"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/15 px-5 text-sm font-black text-white transition duration-300 hover:-translate-y-0.5 hover:border-[#2563eb]"
             >
               Lihat proposal dulu
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -4083,7 +4081,7 @@ Bisa bantu rekomendasikan paket yang paling pas dan tetap hemat?`;
           </div>
         </div>
 
-        <div className="premium-frame overflow-hidden rounded-md border border-[#c7a66b]/30 bg-[#080b12] shadow-[0_32px_90px_rgba(0,0,0,0.28)]">
+        <div className="premium-frame overflow-hidden rounded-md border border-[#2563eb]/30 bg-[#080b12] shadow-[0_32px_90px_rgba(0,0,0,0.28)]">
           <div className="grid gap-0 lg:grid-cols-[0.82fr_1fr]">
             <div className="relative min-h-[280px] overflow-hidden">
               <img
@@ -4093,7 +4091,7 @@ Bisa bantu rekomendasikan paket yang paling pas dan tetap hemat?`;
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#080b12] via-[#080b12]/45 to-transparent" />
               <div className="absolute bottom-4 left-4 right-4 rounded-md border border-white/15 bg-[#080b12]/70 p-4 backdrop-blur">
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#f5d89b]">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#dbeafe]">
                   Tujuan chat
                 </p>
                 <p className="mt-2 text-xl font-black">+62 816-388-384</p>
@@ -4105,7 +4103,7 @@ Bisa bantu rekomendasikan paket yang paling pas dan tetap hemat?`;
 
             <div className="p-5 sm:p-6">
               <div className="rounded-md border border-white/10 bg-white/[0.06] p-4">
-                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]">
                   Pesan otomatis
                 </p>
                 <p className="mt-3 whitespace-pre-line text-sm leading-7 text-slate-200">
@@ -4119,7 +4117,7 @@ Bisa bantu rekomendasikan paket yang paling pas dan tetap hemat?`;
 
                   return (
                     <div key={option.title} className="flex gap-3 rounded-md border border-white/10 bg-white/[0.045] p-3">
-                      <span className="grid h-10 w-10 flex-none place-items-center rounded-md bg-[#c7a66b] text-[#080b12]">
+                      <span className="grid h-10 w-10 flex-none place-items-center rounded-md bg-[#2563eb] text-white">
                         <Icon className="h-4 w-4" aria-hidden="true" />
                       </span>
                       <div>
@@ -4141,10 +4139,10 @@ Bisa bantu rekomendasikan paket yang paling pas dan tetap hemat?`;
 function FinalCTA({ onOpenProposal }) {
   return (
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-      <div className="shimmer-surface rounded-md border border-[#ded8cc] bg-white p-6 sm:p-10">
+      <div className="shimmer-surface rounded-md border border-[#d8e1ea] bg-white p-6 sm:p-10">
         <div className="grid gap-8 lg:grid-cols-[1fr_0.6fr] lg:items-center">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#1d4ed8]">
               Siap dibuat serius
             </p>
             <h2 className="mt-3 text-3xl font-black tracking-[-0.02em] sm:text-5xl">
@@ -4164,8 +4162,8 @@ function FinalCTA({ onOpenProposal }) {
               Buat proposal
               <Zap className="h-4 w-4" aria-hidden="true" />
             </button>
-            <div className="flex items-center justify-center gap-2 rounded-md bg-[#f7f4ee] px-4 py-3 text-sm font-bold text-[#374151]">
-              <MonitorSmartphone className="h-4 w-4 text-[#0f766e]" aria-hidden="true" />
+            <div className="flex items-center justify-center gap-2 rounded-md bg-[#f6f8fb] px-4 py-3 text-sm font-bold text-[#374151]">
+              <MonitorSmartphone className="h-4 w-4 text-[#2563eb]" aria-hidden="true" />
               Responsif untuk desktop dan mobile
             </div>
           </div>
@@ -4181,7 +4179,7 @@ function GuaranteeStrip() {
       <div className="mx-auto grid max-w-7xl gap-4 px-4 py-8 sm:px-6 lg:grid-cols-4 lg:px-8">
         {guaranteeSignals.map((signal) => (
           <div key={signal.title} className="border-l border-white/10 pl-4">
-            <p className="font-black text-[#f5d89b]">{signal.title}</p>
+            <p className="font-black text-[#dbeafe]">{signal.title}</p>
             <p className="mt-2 text-sm leading-6 text-slate-400">{signal.description}</p>
           </div>
         ))}
@@ -4192,20 +4190,20 @@ function GuaranteeStrip() {
 
 function StickyQuoteBar({ proposal, onOpenProposal }) {
   return (
-    <div className="fixed bottom-3 left-3 right-3 z-40 max-w-[calc(100vw-1.5rem)] rounded-md border border-[#c7a66b]/30 bg-[#080b12]/95 p-3 text-white shadow-[0_22px_60px_rgba(0,0,0,0.32)] backdrop-blur lg:hidden">
+    <div className="fixed bottom-3 left-3 right-3 z-40 max-w-[calc(100vw-1.5rem)] rounded-md border border-[#2563eb]/30 bg-[#080b12]/95 p-3 text-white shadow-[0_22px_60px_rgba(0,0,0,0.32)] backdrop-blur lg:hidden">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
         <div className="min-w-0">
           <p className="truncate text-xs font-bold text-slate-300">
             {proposal.service.label} · {proposal.theme.label}
           </p>
-          <p className="text-lg font-black text-[#f5d89b]">
+          <p className="text-lg font-black text-[#dbeafe]">
             {formatRupiah(proposal.quote)}
           </p>
         </div>
         <button
           type="button"
           onClick={onOpenProposal}
-          className="grid h-10 w-10 place-items-center rounded-md bg-[#c7a66b] text-[#080b12]"
+          className="grid h-10 w-10 place-items-center rounded-md bg-[#2563eb] text-white"
           aria-label="Buka proposal"
         >
           <ArrowRight className="h-4 w-4" />
@@ -4224,10 +4222,10 @@ function DesktopWhatsAppBar({ proposal }) {
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="fixed bottom-5 right-5 z-40 hidden w-[320px] rounded-md border border-[#c7a66b]/35 bg-[#080b12]/95 p-4 text-white shadow-[0_24px_70px_rgba(0,0,0,0.34)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-[#c7a66b] lg:block"
+      className="fixed bottom-5 right-5 z-40 hidden w-[320px] rounded-md border border-[#2563eb]/35 bg-[#080b12]/95 p-4 text-white shadow-[0_24px_70px_rgba(0,0,0,0.34)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-[#2563eb] lg:block"
     >
       <div className="flex items-start gap-3">
-        <span className="grid h-11 w-11 flex-none place-items-center rounded-md bg-[#25D366] text-[#062d17]">
+        <span className="grid h-11 w-11 flex-none place-items-center rounded-md bg-[#22c55e] text-[#062d17]">
           <MessageCircle className="h-5 w-5" aria-hidden="true" />
         </span>
         <span className="min-w-0">
@@ -4237,7 +4235,7 @@ function DesktopWhatsAppBar({ proposal }) {
           </span>
         </span>
       </div>
-      <span className="mt-3 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.14em] text-[#f5d89b]">
+      <span className="mt-3 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.14em] text-[#dbeafe]">
         Buka chat
         <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
       </span>
@@ -4247,7 +4245,7 @@ function DesktopWhatsAppBar({ proposal }) {
 
 function PremiumFooter({ onOpenProposal }) {
   return (
-    <footer className="border-t border-[#ded8cc] bg-[#080b12] text-white">
+    <footer className="border-t border-[#d8e1ea] bg-[#080b12] text-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1fr_auto] lg:px-8">
         <div>
           <div className="flex items-center gap-3">
@@ -4255,7 +4253,7 @@ function PremiumFooter({ onOpenProposal }) {
               <Code2 className="h-5 w-5" />
             </span>
             <div>
-              <p className="text-sm font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+              <p className="text-sm font-black uppercase tracking-[0.18em] text-[#2563eb]">
                 Digital Craft
               </p>
               <p className="text-sm font-semibold text-slate-300">
@@ -4272,7 +4270,7 @@ function PremiumFooter({ onOpenProposal }) {
           <button
             type="button"
             onClick={onOpenProposal}
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-5 text-sm font-black text-[#080b12] transition hover:bg-[#f5d89b]"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-[#2563eb] px-5 text-sm font-black text-white transition hover:bg-[#1d4ed8]"
           >
             Buat proposal
             <ArrowRight className="h-4 w-4" />
@@ -4280,7 +4278,7 @@ function PremiumFooter({ onOpenProposal }) {
           <button
             type="button"
             onClick={() => scrollToSection("configurator")}
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/15 px-5 text-sm font-black text-white transition hover:border-[#c7a66b]"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/15 px-5 text-sm font-black text-white transition hover:border-[#2563eb]"
           >
             Edit paket
           </button>
@@ -4304,10 +4302,10 @@ function ProposalModal({ proposal, onClose, onOpenIntake }) {
 
   return (
     <div className="fixed inset-0 z-50 bg-[#080b12]/80 px-4 py-5 backdrop-blur">
-      <div className="mx-auto flex max-h-full max-w-5xl flex-col overflow-hidden rounded-md border border-[#c7a66b]/30 bg-[#f7f4ee] shadow-[0_30px_100px_rgba(0,0,0,0.45)]">
-        <header className="flex items-start justify-between gap-4 border-b border-[#ded8cc] p-5">
+      <div className="mx-auto flex max-h-full max-w-5xl flex-col overflow-hidden rounded-md border border-[#2563eb]/30 bg-[#f6f8fb] shadow-[0_30px_100px_rgba(0,0,0,0.45)]">
+        <header className="flex items-start justify-between gap-4 border-b border-[#d8e1ea] p-5">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#1d4ed8]">
               Generated proposal
             </p>
             <h2 className="mt-2 text-2xl font-black text-[#111827]">
@@ -4326,12 +4324,12 @@ function ProposalModal({ proposal, onClose, onOpenIntake }) {
 
         <div className="grid min-h-0 flex-1 overflow-auto lg:grid-cols-[1fr_0.7fr]">
           <section className="p-5">
-            <pre className="min-h-[520px] whitespace-pre-wrap rounded-md border border-[#ded8cc] bg-white p-5 text-sm leading-7 text-[#374151]">
+            <pre className="min-h-[520px] whitespace-pre-wrap rounded-md border border-[#d8e1ea] bg-white p-5 text-sm leading-7 text-[#374151]">
               {proposalText}
             </pre>
           </section>
-          <aside className="border-t border-[#ded8cc] bg-[#111827] p-5 text-white lg:border-l lg:border-t-0">
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+          <aside className="border-t border-[#d8e1ea] bg-[#111827] p-5 text-white lg:border-l lg:border-t-0">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563eb]">
               Ringkasan
             </p>
             <div className="mt-5 space-y-4">
@@ -4354,7 +4352,7 @@ function ProposalModal({ proposal, onClose, onOpenIntake }) {
             <button
               type="button"
               onClick={copyProposal}
-              className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-4 text-sm font-black text-[#080b12] transition hover:bg-[#f5d89b]"
+              className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#2563eb] px-4 text-sm font-black text-white transition hover:bg-[#1d4ed8]"
             >
               <Copy className="h-4 w-4" />
               Copy proposal
@@ -4362,13 +4360,13 @@ function ProposalModal({ proposal, onClose, onOpenIntake }) {
             <button
               type="button"
               onClick={onOpenIntake}
-              className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md border border-white/15 px-4 text-sm font-black text-white transition hover:border-[#c7a66b]"
+              className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md border border-white/15 px-4 text-sm font-black text-white transition hover:border-[#2563eb]"
             >
               Isi project brief
               <ArrowRight className="h-4 w-4" />
             </button>
             <div className="mt-5 rounded-md border border-white/10 bg-white/[0.06] p-4">
-              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#c7a66b]">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-[#2563eb]">
                 WhatsApp opener
               </p>
               <p className="mt-3 text-sm leading-6 text-slate-200">
@@ -4409,10 +4407,10 @@ function IntakeModal({ proposal, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 bg-[#080b12]/80 px-4 py-5 backdrop-blur">
-      <div className="mx-auto flex max-h-full max-w-5xl flex-col overflow-hidden rounded-md border border-[#c7a66b]/30 bg-[#f7f4ee] shadow-[0_30px_100px_rgba(0,0,0,0.45)]">
-        <header className="flex items-start justify-between gap-4 border-b border-[#ded8cc] p-5">
+      <div className="mx-auto flex max-h-full max-w-5xl flex-col overflow-hidden rounded-md border border-[#2563eb]/30 bg-[#f6f8fb] shadow-[0_30px_100px_rgba(0,0,0,0.45)]">
+        <header className="flex items-start justify-between gap-4 border-b border-[#d8e1ea] p-5">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#8a6d30]">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#1d4ed8]">
               Project intake
             </p>
             <h2 className="mt-2 text-2xl font-black text-[#111827]">
@@ -4444,7 +4442,7 @@ function IntakeModal({ proposal, onClose }) {
                   value={form[field]}
                   onChange={(event) => updateField(field, event.target.value)}
                   placeholder={placeholder}
-                  className="mt-2 h-11 w-full rounded-md border border-[#cfc5b8] bg-white px-3 text-sm font-bold"
+                  className="mt-2 h-11 w-full rounded-md border border-[#cbd8e6] bg-white px-3 text-sm font-bold"
                 />
               </label>
             ))}
@@ -4456,13 +4454,13 @@ function IntakeModal({ proposal, onClose }) {
                 onChange={(event) => updateField("notes", event.target.value)}
                 rows="5"
                 placeholder="Tulis kendala utama, referensi, fitur wajib, atau target audience."
-                className="mt-2 w-full resize-y rounded-md border border-[#cfc5b8] bg-white px-3 py-3 text-sm"
+                className="mt-2 w-full resize-y rounded-md border border-[#cbd8e6] bg-white px-3 py-3 text-sm"
               />
             </label>
           </form>
 
-          <aside className="border-t border-[#ded8cc] bg-[#111827] p-5 text-white lg:border-l lg:border-t-0">
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#c7a66b]">
+          <aside className="border-t border-[#d8e1ea] bg-[#111827] p-5 text-white lg:border-l lg:border-t-0">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563eb]">
               Generated brief
             </p>
             <pre className="mt-4 max-h-[520px] overflow-auto whitespace-pre-wrap rounded-md border border-white/10 bg-white/[0.06] p-4 text-sm leading-7 text-slate-200">
@@ -4471,7 +4469,7 @@ function IntakeModal({ proposal, onClose }) {
             <button
               type="button"
               onClick={copyBrief}
-              className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#c7a66b] px-4 text-sm font-black text-[#080b12] transition hover:bg-[#f5d89b]"
+              className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md bg-[#2563eb] px-4 text-sm font-black text-white transition hover:bg-[#1d4ed8]"
             >
               <Copy className="h-4 w-4" />
               Copy brief
@@ -4485,7 +4483,7 @@ function IntakeModal({ proposal, onClose }) {
                   // Clipboard can fail in restricted browser contexts.
                 }
               }}
-              className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md border border-white/15 px-4 text-sm font-black text-white transition hover:border-[#c7a66b]"
+              className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md border border-white/15 px-4 text-sm font-black text-white transition hover:border-[#2563eb]"
             >
               <MessageCircle className="h-4 w-4" />
               Copy WhatsApp text
